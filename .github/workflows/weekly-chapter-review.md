@@ -14,13 +14,28 @@ engine: copilot
 strict: true
 timeout-minutes: 45
 
-network: defaults
+network:
+  allowed:
+    - defaults
+    - node
+    - "*.tavily.com"
 
 tools:
   bash:
+    - "cat:*"
+    - "git diff:*"
+    - "git status:*"
+    - "ls:*"
   edit:
   web-fetch:
-  web-search:
+
+mcp-servers:
+  tavily:
+    command: npx
+    args: ["-y", "tavily-mcp@0.2.21"]
+    env:
+      TAVILY_API_KEY: "${{ secrets.TAVILY_API_KEY }}"
+    allowed: ["tavily-search", "tavily-extract"]
 
 pre-agent-steps:
   - name: Select a random chapter
