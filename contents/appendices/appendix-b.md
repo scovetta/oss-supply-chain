@@ -152,6 +152,9 @@ GitHub-integrated tool that automatically creates pull requests to update vulner
 **Trivy**[^trivy]
 Comprehensive scanner for vulnerabilities, misconfigurations, secrets, and SBOM generation in containers, filesystems, and repositories.
 
+**Xygeni**[^xygeni]
+Identify questionable dependencies and malicious code that may compromise software projects, with Remediation Risk analysis for safer, smarter fixes.
+
 #### SBOM Generation and Management
 
 **Syft**[^syft]
@@ -211,6 +214,9 @@ Platform for continuous code quality and security inspection. Community edition 
 **Bandit**[^bandit]
 Python-focused security linter that finds common security issues in Python code.
 
+**Xygeni**[^xygeni-sast]
+Advanced SAST powered by malware detection and AI AutoFix for private remediation, enabling developers to detect vulnerabilities and deliver secure code.
+
 #### Fuzzing
 
 **OSS-Fuzz**[^oss-fuzz]
@@ -232,6 +238,9 @@ Scans repositories for high-entropy strings and known credential patterns.
 
 **detect-secrets**[^detect-secrets]
 Yelp's audited tool for preventing secrets from entering codebases.
+
+**Xygeni**[^xygeni-secrets]
+Identify secrets throughout the entire SDLC and prevent new leaks during coding, building, and delivery actions with automated prevention rules.
 
 ---
 
