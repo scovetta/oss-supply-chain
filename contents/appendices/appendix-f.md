@@ -782,6 +782,29 @@ Limited but high-impact for affected projects
 
 ---
 
+#### Nx "s1ngularity" Compromise (AI CLI Weaponization)
+
+**Date:** August 26, 2025 (malicious releases); August 28–31, 2025 (follow-on repository exposure)
+
+**Summary:** Attackers exploited a shell injection in a `pull_request_target` workflow that echoed pull request titles in the Nx repository. They used it to obtain a GitHub token with write access, ran the project's publish workflow against an attacker-controlled branch, and exfiltrated its npm token. With that token they published eight malicious `nx` versions and several `@nx/*` packages, which were live for about four hours. The postinstall payload ran any locally installed Claude Code, Gemini CLI, or Amazon Q CLI with its permission prompts disabled (`--dangerously-skip-permissions`, `--yolo`, `--trust-all-tools`) and asked it to list files likely to hold wallets and secrets. It then uploaded those files, along with GitHub and npm tokens, SSH keys, and environment variables, to public `s1ngularity-repository` repositories in victims' own GitHub accounts, and appended `sudo shutdown -h 0` to shell startup files. In a second phase, attackers used the leaked GitHub tokens to make victims' private repositories public.
+
+**Impact Scope:** About 6 million weekly installs of Nx; per Wiz, 2,180 GitHub accounts and 7,200 repositories exposed across three phases, with more than 2,000 unique secrets leaked in the first phase
+
+**Key Lessons:**
+
+- One of the first documented cases of supply chain malware using AI coding agents already installed on the victim's machine
+- `pull_request_target` workflows that interpolate pull request metadata into shell commands remain a direct path to publishing credentials
+- Provenance did not stop installation; as Nx put it, "Provenance doesn't block unsigned packages from being installed, which is what happened."
+- Nx moved to npm trusted publishing (OIDC) and manual 2FA approval for CI publishes
+
+**Sources:**
+
+- Nx, "S1ngularity: What Happened, How We Responded, What We Learned," September 5, 2025[^nx-postmortem-2025]
+- Snyk, "Weaponizing AI Coding Agents for Malware in the Nx Malicious Package Security Incident," August 27, 2025[^snyk-nx-agents-2025]
+- BleepingComputer, "AI-powered malware hit 2,180 GitHub accounts in 's1ngularity' attack," September 6, 2025[^bleeping-s1ngularity-2025]
+
+---
+
 #### Shai-Hulud npm Worm
 
 **Date:** September 2025 (initial); November 2025 (Shai-Hulud 2.0)
@@ -1052,7 +1075,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" (the attackers called it
 
 #### OpenClaw Ecosystem Attacks (ClawHavoc / CVE-2026-25253 / Moltbook)
 
-**Date:** January–February 2026
+**Date:** January–February 2026 (follow-on issues through May 2026)
 
 **Summary:** A cluster of supply chain attacks targeted **OpenClaw** (formerly Clawdbot, then Moltbot), an open-source autonomous AI personal assistant that gained over 100,000 GitHub stars within two months of its November 2025 release. The incidents demonstrated that AI agent ecosystems reproduce the full spectrum of package-registry attack patterns at accelerated timescales. Between January 27 and February 2, 2026, the ecosystem experienced four overlapping attack waves:
 
@@ -1060,6 +1083,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" (the attackers called it
 - **CVE-2026-25253** (CVSS 8.8): A cross-site WebSocket hijacking vulnerability allowed one-click remote code execution. A developer visiting a malicious web page would have their authentication token exfiltrated, granting the attacker full gateway control and command execution. Patched in version 2026.1.29.
 - **Fake VS Code extension**: A trojan branded "ClawdBot Agent" appeared on the VS Code Marketplace before the legitimate project published an official extension, installing ScreenConnect RAT on victim machines.
 - **Moltbook database exposure**: Moltbook, an AI-agent social network, suffered a backend misconfiguration exposing emails, private messages, and large volumes of authentication tokens, enabling agent impersonation.
+- **Follow-on issues**: ClawHub began scanning every skill with VirusTotal on February 7, but Unit 42 found malicious skills still passing its checks from February through May, including one that padded its README to 22 MB to evade scanners. In May, Cyera disclosed four chained "Claw Chain" sandbox-escape and privilege-escalation flaws (the most severe, CVE-2026-44112, rated 9.6), fixed in version 2026.4.22. The unauthorized Cline 2.3.0 release (see the next entry) used OpenClaw as its payload.
 
 **Impact Scope:** OpenClaw users globally; developers running OpenClaw with system-level permissions; ClawHub skill ecosystem; Moltbook platform users and connected agents
 
@@ -1078,6 +1102,30 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" (the attackers called it
 - The Hacker News, "OpenClaw Bug Enables One-Click Remote Code Execution via Malicious Link," February 2026[^hackernews-openclaw-2026]
 - Aikido Security, "Fake Clawdbot VS Code Extension Installs ScreenConnect RAT," January 2026[^aikido-clawdbot-2026]
 - Reuters, "'Moltbook' social media site for AI agents had big security hole, cyber firm Wiz says," February 2, 2026[^reuters-moltbook-2026]
+- Palo Alto Networks Unit 42, "OpenClaw's Skill Marketplace and the Emerging AI Supply Chain Threat," June 23, 2026[^unit42-openclaw-2026]
+- The Hacker News, "Four OpenClaw Flaws Enable Data Theft, Privilege Escalation, and Persistence," May 15, 2026[^thn-claw-chain-2026]
+
+---
+
+#### Cline CLI Unauthorized Publish ("Clinejection")
+
+**Date:** December 21, 2025 (vulnerable workflow added); January 1, 2026 (reported); February 9, 2026 (public disclosure); February 17, 2026 (unauthorized publish)
+
+**Summary:** Cline added an AI issue-triage workflow using `claude-code-action` that any GitHub user could trigger, placed issue titles directly in the prompt, and gave the agent Bash, Write, and Edit tools. Researcher Adnan Khan showed that a crafted issue title could make the agent run attacker code, and that because the triage workflow shared a cache scope with the nightly release workflow, an attacker could evict legitimate cache entries and plant a poisoned `node_modules` cache that exposed the release job's VS Code Marketplace, Open VSX, and npm publishing tokens. After public disclosure, Cline removed the workflow and rotated credentials but deleted the wrong npm token. On February 17, an unknown party used the still-active token to publish `cline@2.3.0`, whose only change was a postinstall script running `npm install -g openclaw@latest`. It was live for about eight hours before 2.4.0 replaced it.
+
+**Impact Scope:** Developers who installed or updated the Cline CLI from npm during the eight-hour window, who received a global OpenClaw install without consent; Cline found no unauthorized VS Code Marketplace or Open VSX releases
+
+**Key Lessons:**
+
+- AI agents in CI that read public issue or pull request text are an injection surface, the agent equivalent of interpolating that text into a shell command
+- Low-privilege workflows that share a cache with release workflows can poison release builds
+- Credential rotation must be verified against the credential itself, not only a management dashboard
+- Cline moved npm publishing exclusively to OIDC trusted publishing with provenance afterward
+
+**Sources:**
+
+- Cline, "Post-mortem: Unauthorized Cline CLI npm publish on February 17, 2026," February 24, 2026[^cline-postmortem-2026]
+- Snyk, "How 'Clinejection' Turned an AI Bot into a Supply Chain Attack," February 19, 2026[^snyk-clinejection-2026]
 
 ---
 
@@ -1228,6 +1276,28 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" (the attackers called it
 **Sources:**
 
 - StepSecurity, "Shai-Hulud: Here We Go Again," May 2026[^stepsecurity-antv-shai-hulud-2026]
+
+---
+
+#### Microsoft durabletask Compromise and Agent-Configuration Commit
+
+**Date:** May 19, 2026 (PyPI releases); June 5, 2026 (repository commit)
+
+**Summary:** On May 19, 2026, an attacker used a GitHub account compromised in an earlier TeamPCP operation, which still had access to Microsoft's `durabletask-python` repository, to extract a PyPI publishing token and publish three malicious versions (1.4.1, 1.4.2, and 1.4.3) of `durabletask`, Microsoft's official Python SDK for Azure Durable Functions, within 35 minutes. None had a matching tag, release, or CI run. On June 5, the same contributor account pushed a commit to the `Azure/durabletask` repository with a decoy message ("Switched DataConverter to OrchestrationContext [skip ci]"). It added `.claude/settings.json` and `.gemini/settings.json` hooks that run on agent session start, an auto-applied Cursor rule (`.cursor/rules/setup.mdc`) telling the agent to run a setup script, a `.vscode/tasks.json` task that runs on folder open, and the 4.6 MB obfuscated payload at `.github/setup.js` that all four launched. GitHub disabled the repository the same day, along with other Azure repositories.
+
+**Impact Scope:** Users who installed `durabletask` 1.4.1–1.4.3 (the package averages more than 400,000 monthly downloads); anyone who cloned or opened `Azure/durabletask` in Claude Code, Gemini CLI, Cursor, or VS Code after the June 5 commit; cloud, Kubernetes, password-manager, and developer-tool credentials
+
+**Key Lessons:**
+
+- Agent configuration directories are an execution surface; changes to `.claude/`, `.gemini/`, `.cursor/`, and `.vscode/` deserve the same review as CI workflow changes
+- A single commit can target several agents and editors at once, so developers are exposed whichever tool they use to open the repository
+- Contributor accounts compromised in one campaign keep their repository access until it is explicitly revoked
+- Releases with no matching tag or CI run are a strong signal of a stolen publishing token
+
+**Sources:**
+
+- StepSecurity, "Microsoft's durabletask PyPI Package Compromised in Supply Chain Attack," May 19, 2026 (updated June 5, 2026)[^stepsecurity-durabletask-2026]
+- VentureBeat, "GitHub confirms 3,800 internal repos stolen through poisoned VS Code extension as supply chain worm hits Microsoft's Python SDK," May 20, 2026[^venturebeat-durabletask-2026]
 
 ---
 
@@ -1607,6 +1677,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" (the attackers called it
 | Erlang/OTP SSH | 2025 | Code vulnerability | Low (unintentional) |
 | Notepad++ Update Hijacking | 2025 | Distribution infrastructure compromise / selective targeting | High |
 | PhantomRaven | 2025 | Malicious npm packages | Medium |
+| Nx s1ngularity | 2025 | CI/CD workflow exploitation + AI CLI weaponization | High |
 | Shai-Hulud npm Worm (1.0 & 2.0) | 2025 | Self-replicating malware + phishing | Very High |
 | Josh Junon (Qix) | 2025 | Account takeover | High |
 | BoltDB | 2025 | Typosquatting | Medium |
@@ -1620,9 +1691,11 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" (the attackers called it
 | Metro4Shell (KEV) | 2026 | Developer tooling exploitation | Critical |
 | dYdX | 2026 | Multi-registry publishing credential compromise | High |
 | OpenClaw Ecosystem | 2026 | Multi-vector (malicious skills, RCE, impersonation) | High |
+| Cline CLI (Clinejection) | 2026 | Prompt injection in AI CI workflow + unrevoked token | High |
 | Claude Mythos / Project Glasswing | 2026 | AI-discovered vulnerabilities and exploits | Very High |
 | Mini Shai-Hulud Resurgence | 2026 | Trusted publishing/OIDC abuse + self-replicating malware | Very High |
 | Shai-Hulud AntV / Alibaba Wave | 2026 | Account compromise + self-replicating malware | Very High |
+| Microsoft durabletask | 2026 | Stolen contributor account + agent-configuration hooks | High |
 | Miasma / Leo Platform | 2026 | Malicious npm install hooks / CI secret theft | High |
 | Atomic Arch | 2026 | Orphaned-package adoption / malicious dependencies | High |
 | Cordyceps | 2026 | Privileged workflow abuse | High |
@@ -1942,3 +2015,21 @@ These incidents collectively demonstrate that software supply chain security req
 [^securityweek-trustwallet-2025]: SecurityWeek, "Shai-Hulud Supply Chain Attack Led to $8.5 Million Trust Wallet Heist," December 31, 2025, https://www.securityweek.com/shai-hulud-supply-chain-attack-led-to-8-5-million-trust-wallet-heist/
 
 [^darkreading-trellix-2026]: Dark Reading, "Trellix Source Code Breach Highlights Growing Supply Chain Threats," May 2026, https://www.darkreading.com/cyberattacks-data-breaches/trellix-source-code-breach-supply-chain-threats
+
+[^nx-postmortem-2025]: Juri Strumpflohner, "S1ngularity: What Happened, How We Responded, What We Learned," Nx Blog, September 5, 2025, https://nx.dev/blog/s1ngularity-postmortem
+
+[^snyk-nx-agents-2025]: Liran Tal, "Weaponizing AI Coding Agents for Malware in the Nx Malicious Package Security Incident," Snyk, August 27, 2025, https://snyk.io/blog/weaponizing-ai-coding-agents-for-malware-in-the-nx-malicious-package
+
+[^bleeping-s1ngularity-2025]: Bill Toulas, "AI-powered malware hit 2,180 GitHub accounts in 's1ngularity' attack," BleepingComputer, September 6, 2025, https://www.bleepingcomputer.com/news/security/ai-powered-malware-hit-2-180-github-accounts-in-s1ngularity-attack/
+
+[^cline-postmortem-2026]: Cline, "Post-mortem: Unauthorized Cline CLI npm publish on February 17, 2026," February 24, 2026, https://cline.bot/blog/post-mortem-unauthorized-cline-cli-npm
+
+[^snyk-clinejection-2026]: Stephen Thoemmes, "How 'Clinejection' Turned an AI Bot into a Supply Chain Attack," Snyk, February 19, 2026, https://snyk.io/blog/cline-supply-chain-attack-prompt-injection-github-actions/
+
+[^stepsecurity-durabletask-2026]: Ashish Kurmi, "Microsoft's durabletask PyPI Package Compromised in Supply Chain Attack," StepSecurity, May 19, 2026 (updated June 5, 2026), https://www.stepsecurity.io/blog/microsofts-durabletask-pypi-package-compromised-in-supply-chain-attack
+
+[^venturebeat-durabletask-2026]: Louis Columbus, "GitHub confirms 3,800 internal repos stolen through poisoned VS Code extension as supply chain worm hits Microsoft's Python SDK," VentureBeat, May 20, 2026, https://venturebeat.com/security/github-confirms-3800-repos-stolen-poisoned-vs-code-extension-supply-chain-worm-microsoft-python-sdk
+
+[^unit42-openclaw-2026]: Shresta Bellary Seetharam, Nabeel Mohamed, Billy Melicher, and Oleksii Starov, "OpenClaw's Skill Marketplace and the Emerging AI Supply Chain Threat," Palo Alto Networks Unit 42, June 23, 2026, https://unit42.paloaltonetworks.com/openclaw-ai-supply-chain-risk/
+
+[^thn-claw-chain-2026]: Ravie Lakshmanan, "Four OpenClaw Flaws Enable Data Theft, Privilege Escalation, and Persistence," The Hacker News, May 15, 2026, https://thehackernews.com/2026/05/four-openclaw-flaws-enable-data-theft.html
