@@ -14,13 +14,6 @@ The story begins in 1983, when Richard Stallman, a programmer at MIT's Artificia
 
 Stallman's response was radical: he would create an entire operating system that would be permanently free—not free as in price, but free as in freedom. The GNU Project (a recursive acronym for "GNU's Not Unix") aimed to develop a complete Unix-compatible system that anyone could use, study, modify, and redistribute. In 1985, Stallman formalized these principles by founding the Free Software Foundation (FSF) and articulating the "four freedoms" that define free software:
 
-!!! info "The Four Freedoms of Free Software"
-
-    1. The freedom to **run** the program for any purpose
-    2. The freedom to **study** how the program works and modify it
-    3. The freedom to **redistribute** copies
-    4. The freedom to **distribute modified versions**
-
 1. The freedom to run the program for any purpose
 2. The freedom to study how the program works and modify it
 3. The freedom to redistribute copies

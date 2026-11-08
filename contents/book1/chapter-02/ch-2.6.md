@@ -10,10 +10,6 @@ The previous sections have documented a paradox: open source software creates tr
 
 ## The Free-Rider Problem and Public Goods
 
-!!! info "Open Source as a Public Good"
-
-    Open source is **non-excludable** (anyone can use it) and **non-rivalrous** (your use doesn't diminish mine). This makes it a *public good*—like national defense or clean air—systematically underproduced by markets due to the **free-rider problem**: when people can benefit without paying, rational actors choose not to pay.
-
 Economists classify goods along two dimensions: whether they are **excludable** (can people be prevented from using them?) and whether they are **rivalrous** (does one person's use diminish what's available to others?). Open source software is both non-excludable—anyone can download and use it—and non-rivalrous—your use of a library doesn't prevent my use of it. This makes open source software a **public good**, the same economic category as national defense, clean air, or public parks.
 
 Public goods are systematically underproduced by markets because of the **free-rider problem**. When people can benefit from a resource without paying for it, rational economic actors choose not to pay. If your company can use an open source library without contributing money or code, why would you contribute? Your competitors who don't contribute get the same software at lower cost, gaining an advantage.
@@ -68,25 +64,11 @@ A variety of mechanisms have emerged to channel funding to maintainers, with var
 
 Despite these mechanisms, the overall picture remains one of chronic underfunding.
 
-!!! quote "Filippo Valsorda, Cryptographer and Maintainer"
-
-    "Open Source software runs the Internet, and by extension the economy. This is an undisputed fact about reality... And yet, the role of Open Source maintainer has failed to mature from a hobby into a proper profession."
-
 As Filippo Valsorda, a cryptographer and open source maintainer, [wrote in his influential essay "Professional Maintainers"][valsorda-essay]:
 
 > "Open Source software runs the Internet, and by extension the economy. This is an undisputed fact about reality... And yet, the role of Open Source maintainer has failed to mature from a hobby into a proper profession."
 
 ## Why Security Is Particularly Hard to Fund
-
-!!! warning "Why Security Goes Unfunded"
-
-    Security work faces unique funding barriers:
-    
-    - **Invisible when it works**: No obvious benefit vs. neglected packages
-    - **Competes with features**: Features attract users; security rarely does
-    - **Requires specialized skills**: Scarce, expensive, poorly matched to volunteer economics
-    - **Creates liability concerns**: Disclosure may expose maintainers to criticism/risk
-    - **Communal benefits, individual costs**: The free-rider problem is especially acute
 
 Security work faces additional funding challenges beyond general maintenance. Several dynamics make security the least likely aspect of open source to receive investment.
 

@@ -12,10 +12,6 @@ Maintainer accounts are among the highest-value credentials in the software ecos
 
 ## The Value of Maintainer Accounts
 
-!!! danger "Extraordinary Leverage"
-
-    An attacker who compromises the maintainer of a package like `lodash` or `requests`—each with tens of millions of weekly downloads—gains code execution on a substantial fraction of the world's development infrastructure.
-
 A maintainer account provides direct publishing access to packages that may be installed millions of times daily. Consider the asymmetry:
 
 - A single compromised npm account can push malicious updates to packages with millions of weekly downloads
@@ -79,10 +75,6 @@ The 3CX attack (Section 7.3) began with such malware, installed through a compro
 
 Several high-profile incidents illustrate how account compromise enables supply chain attacks:
 
-!!! example "eslint-scope (July 2018)"
-
-    Attackers compromised an ESLint maintainer through credential reuse, published a malicious version that stole npm tokens. The maintainer had reused their npm password and did not have 2FA enabled.
-
 **eslint-scope (July 2018):**
 
 On July 12, 2018, attackers compromised the npm account of an ESLint maintainer through credential reuse. The attacker published a malicious version of `eslint-scope`, a package with millions of weekly downloads as a dependency of the ESLint JavaScript linter.
@@ -128,10 +120,6 @@ Megalodon illustrates two shifts in the account-compromise landscape. First, cre
 ## Two-Factor Authentication: Progress and Gaps
 
 The eslint-scope, rest-client, and ua-parser-js attacks share a common factor: none of the compromised accounts had robust two-factor authentication enabled. Registries have responded by encouraging or mandating stronger authentication.
-
-!!! tip "2FA Adoption Progress"
-
-    npm has phased in mandatory 2FA for high-impact packages. PyPI began mandating 2FA for critical projects in 2022, then required all project maintainers to enable 2FA by the end of 2023.
 
 **npm:**
 

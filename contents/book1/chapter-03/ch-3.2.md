@@ -10,15 +10,6 @@ Understanding who attacks software supply chains (Section 3.1) is only half the 
 
 ## A Framework for Attack Surfaces
 
-!!! info "The SLSA Framework"
-
-    **Supply-chain Levels for Software Artifacts (SLSA)** identifies threats at each transition from source to deployment:
-    
-    1. **Source** → Threats to code as authored
-    2. **Build** → Threats during transformation to artifact
-    3. **Dependencies** → Threats from external components
-    4. **Deployment** → Threats during distribution and installation
-
 The **[Supply-chain Levels for Software Artifacts (SLSA)][slsa]** framework, developed by Google and now stewarded by the Open Source Security Foundation, provides a useful model for understanding supply chain attack surfaces. SLSA identifies the path from source code to deployed artifact and enumerates threats at each transition:
 
 1. **Source** → Threats to code as authored
@@ -43,15 +34,6 @@ Source code repositories—GitHub, GitLab, Bitbucket, self-hosted instances—se
 **Webhook and integration abuse** exploits the automation connected to repositories. CI/CD pipelines triggered by repository events inherit the permissions of those integrations. Attackers who can trigger builds—sometimes merely by opening a pull request—may be able to exfiltrate secrets or execute code in privileged environments.
 
 ## Developer Environments
-
-!!! danger "Developer Machines as Targets"
-
-    Developer environments are distributed, heterogeneous, and often poorly secured:
-    
-    - **IDE extensions** execute with developer privileges and access code
-    - **Local tools** (package managers, linters) run frequently with broad access
-    - **Credentials** (SSH keys, API tokens, cloud creds) become targets
-    - **Network position** (coffee shops, conferences) creates interception opportunities
 
 The machines where developers write code represent a distributed, heterogeneous, and often poorly secured attack surface. Compromising a developer's environment provides access to their credentials, their code, and potentially the systems they interact with.
 

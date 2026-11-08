@@ -12,10 +12,6 @@ The previous section documented why supply chain security has become urgent now,
 
 The intellectual foundation for understanding supply chain security was laid in 1984, when Ken Thompson delivered his Turing Award lecture, "Reflections on Trusting Trust."[^thompson-1984b] Thompson, co-creator of Unix and creator of the B language that influenced C, presented a thought experiment that remains the clearest articulation of why software supply chains are inherently vulnerable.
 
-!!! example "Thompson's Self-Replicating Compiler Backdoor"
-
-    Thompson modified the C compiler to: (1) recognize when compiling `login` and insert a backdoor accepting a secret password, then (2) recognize when compiling *itself* and insert the backdoor-inserting code. After building this second-stage compiler, he removed all malicious code from the source. The binary perpetually reproduced both backdoors—invisible in source, propagating through every build.
-
 [^thompson-1984b]: Ken Thompson, "Reflections on Trusting Trust" (Turing Award lecture, 1984). <https://www.cs.cmu.edu/~rdriley/487/papers/Thompson_1984_ReflectionsonTrustingTrust.pdf>
 
 Thompson described how he had modified the C compiler to recognize when it was compiling the Unix `login` program and insert a backdoor that would accept a secret password. This alone was concerning but detectable—anyone reading the compiler source code would see the malicious modification. Thompson then took the attack one step further: he modified the compiler to recognize when it was compiling *itself* and to insert the backdoor-inserting code into the new compiler binary. After this second-stage compiler was built, Thompson removed all traces of the malicious code from the source files.
@@ -29,10 +25,6 @@ Thompson's attack was a demonstration, not an actual exploitation, but its impli
 Decades later, Thompson's insight remains the theoretical foundation for supply chain security. Modern attacks are more sophisticated and operate at different points in the supply chain, but they exploit the same fundamental principle: we cannot verify everything we trust, and that gap between trust and verification is where attacks succeed.
 
 ## Early Viruses and the Physical Distribution Era
-
-!!! example inline end "The Brain Virus (1986)"
-
-    Often cited as the first IBM PC virus "in the wild," Brain spread through infected floppy disks. Created by two brothers in Pakistan, it demonstrated how physical distribution channels could propagate malicious code from user to user.
 
 Before the internet made software distribution instantaneous and global, software traveled on physical media: magnetic tapes, floppy disks, and later CD-ROMs. This physical distribution created its own supply chain vulnerabilities, which early malware authors learned to exploit.
 
@@ -59,14 +51,6 @@ Cloud-based development infrastructure added another dimension. Build systems mo
 ## Lessons History Teaches
 
 Several lessons emerge from this historical trajectory that inform how we should approach supply chain security today.
-
-!!! tip "Five Lessons from Supply Chain History"
-
-    1. **Trust has always been the core challenge**—from Thompson's compiler to npm packages
-    2. **Distribution channel security matters as much as code security**—compromises often target delivery, not source
-    3. **Scale amplifies impact**—network distribution removes the natural limits of physical media
-    4. **Velocity outpaces verification**—modern distribution is nearly instantaneous
-    5. **The attack surface accumulates**—each evolution added new surfaces without retiring old ones
 
 **Trust has always been the core challenge.** From Thompson's compiler to Brain-infected floppies to compromised npm packages, supply chain attacks succeed by exploiting trust relationships. The specific mechanisms change, but the fundamental vulnerability—that we cannot verify everything we trust—remains constant.
 

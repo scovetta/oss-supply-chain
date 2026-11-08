@@ -8,10 +8,6 @@ icon: "lucide/gem"
 
 Threat modeling produces long lists of potential threats. With hundreds or thousands of dependencies, each subject to multiple threat categories, the output can be overwhelming. Practical security requires prioritization—focusing limited resources on the dependencies whose compromise would cause the greatest harm. This section provides frameworks for identifying which dependencies matter most, enabling risk-based investment rather than attempting to apply equal scrutiny everywhere.
 
-!!! info inline end "Crown Jewels"
-
-    An organization's most valuable assets—systems, data, and capabilities that must be protected above all else.
-
 The term **crown jewels** in security typically refers to an organization's most valuable assets: the systems, data, and capabilities that must be protected above all else. In supply chain contexts, we extend this concept to dependencies: which external components, if compromised, would cause the greatest damage to your organization? Identifying these critical dependencies enables targeted security investment where it matters most.
 
 ## Criticality Assessment Criteria

@@ -10,13 +10,6 @@ The component-based development model described in the previous section has a de
 
 ## The Scale of Open Source Adoption
 
-!!! note "Open Source by the Numbers"
-
-    - **96%** of commercial codebases contain open source components (Synopsys OSSRA 2024)
-    - **70-90%** of any modern software solution consists of open source (Linux Foundation Census II)
-    - **6.6 trillion** open source downloads in 2024 alone (Sonatype)
-    - **300+ million** contributions to open source projects in a single year (GitHub)
-
 Open source software has moved from the margins to the mainstream with remarkable speed. What began as an ideological movement in the 1990s has become the dominant mode of software development and distribution worldwide. The statistics are unambiguous: open source is not merely a significant part of modern software—it is the foundation upon which nearly all software is built.
 
 According to [Synopsys's 2024 Open Source Security and Risk Analysis report][ossra-2024], 96% of commercial codebases contain open source components. The [Linux Foundation and Harvard's Census II study][census-ii] found that 70-90% of any given modern software solution consists of open source software. [GitHub's 2023 Octoverse report][octoverse-2023] documented over 300 million contributions to open source projects in a single year, with more than 98 million developers participating in the platform's open source ecosystem.
@@ -38,13 +31,6 @@ The [Harvard study][harvard-oss-value] highlighted a troubling asymmetry in this
 ## Categories of Open Source Usage
 
 Organizations consume open source software in multiple ways, each with distinct security implications. Understanding these categories is essential for developing comprehensive security strategies.
-
-!!! tip "Four Categories of OSS Consumption"
-
-    1. **Direct dependencies**: Packages explicitly chosen (evaluated, if informally)
-    2. **Transitive dependencies**: Inherited through other packages (often 10× more than direct)
-    3. **Development tooling**: Compilers, build systems, linters (don't ship but can inject code)
-    4. **Infrastructure software**: OS kernels, databases, runtimes (deepest layer, least scrutinized)
 
 **Direct dependencies** are packages that developers explicitly choose to include in their applications. When a team decides to use React for their frontend or Django for their backend, they are selecting direct dependencies. These choices typically receive some level of evaluation, even if informal—developers consider functionality, documentation, community support, and sometimes security posture.
 
@@ -70,13 +56,6 @@ While open source adoption is universal, patterns of usage vary significantly ac
 
 ## Strategic Imperatives Driving Adoption
 
-!!! info inline end "Why Organizations Adopt OSS"
-
-    - **Speed**: Hours to integrate vs. months to build
-    - **Cost efficiency**: Invest in differentiation, not commodity infrastructure
-    - **Innovation access**: Cutting-edge capabilities appear first in OSS
-    - **Talent**: Developers prefer and evaluate employers by OSS practices
-
 Organizations do not adopt open source merely because it is available—they do so because it provides strategic advantages that proprietary alternatives cannot match.
 
 **Speed** is perhaps the most compelling factor. Integrating an existing open source library takes hours; building equivalent functionality internally might take months. In competitive markets where time-to-market determines success, this acceleration is decisive.
@@ -90,10 +69,6 @@ Organizations do not adopt open source merely because it is available—they do 
 These strategic advantages explain why open source adoption continues to accelerate despite growing awareness of supply chain risks. The question is not whether to use open source—that choice has been made, irrevocably, by competitive necessity. The question is how to use it securely.
 
 ## The Inescapable Conclusion
-
-!!! warning "Open Source Security IS Software Security"
-
-    Any strategy that treats open source as a peripheral concern fundamentally misunderstands modern software development. The code organizations write themselves represents a small minority of their running software. The overwhelming majority comes from projects they did not create, maintained by people they do not employ.
 
 The data leads to an inescapable conclusion: open source security *is* software security. Any strategy that treats open source as a peripheral concern—a special case requiring separate consideration—fundamentally misunderstands modern software development. The code that organizations write themselves represents a small minority of their actual running software. The overwhelming majority comes from open source projects they did not create, maintained by people they do not employ, following practices they have not verified.
 

@@ -10,10 +10,6 @@ Having established that modern software is assembled from components (Section 1.
 
 ## A Working Definition
 
-!!! info "Definition: Software Supply Chain"
-
-    The **software supply chain** encompasses all people, processes, tools, code, and infrastructure involved in creating, building, distributing, and deploying software—from the earliest conception of a component through its eventual execution in production environments.
-
 The **software supply chain** encompasses all people, processes, tools, code, and infrastructure involved in creating, building, distributing, and deploying software—from the earliest conception of a component through its eventual execution in production environments. This definition, aligned with guidance from NIST Special Publication 800-161 Rev. 1 (Cybersecurity Supply Chain Risk Management Practices for Systems and Organizations)[^nist-800-161r1] and CISA software supply chain risk management resources[^cisa-scrm], recognizes that software does not appear fully formed but rather travels through a complex journey involving numerous actors and transformations.
 
 Unlike physical supply chains, where goods move linearly from raw materials to finished products, software supply chains form intricate webs of dependencies. A single application might incorporate code from thousands of sources, each with its own development history, build process, and distribution channel. These dependencies can extend many layers deep, creating relationships that even the developers assembling the final product may not fully understand.
@@ -23,10 +19,6 @@ The supply chain perspective is valuable because it shifts focus from isolated c
 ## Key Actors in the Software Supply Chain
 
 The software supply chain involves diverse actors, each with distinct roles, responsibilities, and potential vulnerabilities. Understanding these actors is essential for analyzing where security controls should be applied.
-
-!!! info inline end "Who Are Maintainers?"
-
-    Individuals or teams with primary responsibility for a software project. They review contributions, make release decisions, and manage infrastructure. A single maintainer's compromise could impact millions of systems.
 
 **Maintainers** are individuals or teams who hold primary responsibility for a software project. They review contributions, make release decisions, manage project infrastructure, and set technical direction. Maintainers occupy positions of extraordinary trust: their decisions directly affect every downstream consumer of their software. For widely-used projects, a single maintainer's compromised credentials or malicious intent could impact millions of systems. The Linux Foundation's Census II study found that many of the most critical open source projects rely on remarkably few maintainers—sometimes just one or two individuals.
 
@@ -96,10 +88,6 @@ This graph can be extraordinarily deep. A vulnerability or compromise at any nod
 Trust in this graph is largely implicit and unexamined. Developers run `npm install` or `pip install` without consciously choosing to trust the maintainers of each transitive dependency. Organizations deploy container images without auditing every package in the base image. This implicit trust is necessary for productivity—explicit verification of every element would be paralyzing—but it creates security exposures that require systematic management.
 
 ## Non-Human Actors: Automation and AI
-
-!!! note "Non-Human Supply Chain Actors"
-
-    Modern supply chains include automated actors that make security-affecting decisions: **CI/CD systems** that build and deploy code, **bots** like Dependabot that commit changes, and **AI coding assistants** that suggest dependencies. These actors complicate traditional security models based on human identity and accountability.
 
 Modern supply chains increasingly involve non-human actors that make decisions and take actions affecting security. Recognizing these actors is essential for comprehensive supply chain security.
 

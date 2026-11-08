@@ -10,15 +10,6 @@ The previous sections have focused on software dependencies—the packages, libr
 
 ## DNS: The Foundation Beneath the Foundation
 
-!!! danger "DNS: The Hidden Foundation"
-
-    Every `npm install` or `pip install` depends on DNS resolution. DNS compromise enables:
-    
-    - **DNS hijacking**: Redirect traffic to attacker-controlled servers
-    - **Cache poisoning**: Insert malicious records affecting all resolver users
-    - **Registrar compromise**: Control authoritative DNS records via social engineering
-    - **Availability attacks**: DDoS against DNS prevents all package installations
-
 The **Domain Name System (DNS)** translates human-readable domain names into IP addresses that computers use to communicate. Every time a developer runs `npm install` or `pip install`, DNS resolution determines which servers receive those requests. This makes DNS a critical, largely invisible supply chain dependency.
 
 DNS compromise enables powerful attacks:
@@ -221,13 +212,6 @@ Modern software depends on a complex web of infrastructure services that develop
 Each infrastructure component represents a supply chain dependency. Comprehensive supply chain security requires considering these infrastructure dependencies alongside the more visible software dependencies.
 
 ## Implications for Security Strategy
-
-!!! tip "Securing Infrastructure Dependencies"
-
-    1. **Identify infrastructure dependencies**: Map DNS, cloud platforms, CDNs, CAs
-    2. **Reduce unnecessary dependencies**: Self-host where practical; bundle assets
-    3. **Implement integrity verification**: Use Subresource Integrity; verify signatures
-    4. **Plan for failure**: Caching, fallback mechanisms, incident response plans
 
 Infrastructure dependencies create supply chain risks that traditional software composition analysis does not address. Effective security strategy must consider:
 

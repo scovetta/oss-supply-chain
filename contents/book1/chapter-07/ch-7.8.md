@@ -12,10 +12,6 @@ Distribution infrastructure often receives less security attention than build sy
 
 ## The Trust Model of Distribution
 
-!!! danger "The Invisible Trust Chain"
-
-    When you install a package, you implicitly trust: the origin server, mirrors, CDNs, DNS infrastructure, TLS certificates, and package managers. Compromise of any component can result in receiving malicious software.
-
 When you install a package or download software, you implicitly trust multiple components:
 
 - **The origin server**: The primary source hosting the canonical version

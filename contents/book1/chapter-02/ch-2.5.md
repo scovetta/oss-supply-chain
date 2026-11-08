@@ -14,14 +14,6 @@ Every major Linux distribution maintains its own package repository, managed by 
 
 This intermediary role provides security benefits that language-specific package managers typically lack:
 
-!!! tip "Why Distribution Packages Are More Secure"
-
-    - **Source verification**: Maintainers verify integrity from official upstream
-    - **Security patching**: Dedicated teams backport fixes to stable versions
-    - **Build control**: Packages built in auditable, controlled environments
-    - **Cryptographic signing**: All packages signed against trusted keys
-    - **Dependency coherence**: Tested together as a system
-
 **Source verification**: Distribution maintainers fetch source code from official upstream locations and verify its integrity. They examine build systems, review patches, and ensure that what enters the distribution matches what upstream projects intended to release.
 
 **Security patching**: When vulnerabilities are discovered, distribution security teams assess impact, backport fixes to stable versions, and coordinate disclosure. Major distributions maintain dedicated security teams (Debian Security Team, Red Hat Product Security, Ubuntu Security Team) with established processes for tracking and addressing vulnerabilities.
@@ -47,10 +39,6 @@ The security model of distribution packaging rests on trusting the distribution 
 - The mirrors and CDNs that distribute packages to maintain integrity
 
 For major distributions with decades of history, robust governance, and professional security teams, this trust is generally well-placed. Distributions have experienced security incidents—Debian's 2008 OpenSSL weak key generation bug (CVE-2008-0166) is a notable example[^debian-openssl]—but their track record compares favorably to less curated software sources.
-
-!!! warning "Third-Party Repository Risks"
-
-    Smaller distributions and third-party repositories (Ubuntu PPAs, Fedora COPR, Arch User Repository) operate **outside** the main distribution's security model, often providing packages with minimal vetting. Using them reintroduces the risks that distribution packaging is designed to mitigate.
 
 Smaller or newer distributions may lack the resources for thorough security processes. Third-party repositories (Ubuntu PPAs, Fedora COPR, Arch User Repository) operate outside the main distribution's security model, often providing packages with minimal vetting. Using third-party repositories reintroduces many of the risks that distribution packaging is designed to mitigate.
 
@@ -132,15 +120,6 @@ The choice between package managers has significant supply chain implications.
 **Update velocity**: Language packages update frequently, requiring continuous attention to dependency updates. System packages from stable distributions update less often, with security fixes backported rather than new versions released. This difference affects both security (more updates means more chances to introduce issues) and operations (more updates means more testing).
 
 ## Practical Recommendations
-
-!!! tip "Package Manager Best Practices"
-
-    1. Use **distribution packages for system-level software** wherever possible
-    2. **Containerize application workloads** to isolate language-package dependencies
-    3. **Avoid third-party repositories** unless necessary; treat them with scrutiny
-    4. **Maintain lockfiles** for all language packages and commit to version control
-    5. **Mirror or cache packages** for production deployments
-    6. **Apply defense in depth**: distribution base + language packages + vulnerability scanning
 
 For organizations seeking to manage supply chain risk across package types, we recommend:
 

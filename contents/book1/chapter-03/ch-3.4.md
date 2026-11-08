@@ -20,17 +20,6 @@ The npm ecosystem illustrates this density of connections. According to research
 
 ## Defining Blast Radius
 
-!!! info "Understanding Blast Radius"
-
-    Blast radius has multiple dimensions:
-    
-    - **Package-level**: How many other packages depend on it (ecosystem propagation)
-    - **Project-level**: How many applications incorporate it (organizational exposure)
-    - **User-level**: How many end users run affected systems (human impact)
-    - **Organizational**: How many distinct organizations are exposed
-    
-    A package might have low package-level radius but high project-level radius within one organization.
-
 **Blast radius** describes the scope of impact from a security incident. In supply chain contexts, blast radius has several dimensions:
 
 **Package-level blast radius** measures how many other packages depend on a compromised package, directly or transitively. This indicates ecosystem-wide propagation potential.
@@ -47,13 +36,6 @@ Effective risk assessment requires considering multiple blast radius dimensions.
 
 ## Network Effects in Vulnerability Propagation
 
-!!! note "Network Effects Amplify Risk"
-
-    - **Hub concentration**: Just 391 npm packages (0.01%) are dependencies of over half of all other packages
-    - **Short path lengths**: "Small world" properties mean compromises propagate quickly
-    - **Clustering**: Packages cluster by domain; compromise affects entire functional areas
-    - **Preferential attachment**: New packages depend on popular packages, reinforcing concentration
-
 Software ecosystems exhibit **network effects** that amplify vulnerability propagation. The value of participating in an ecosystem increases with ecosystem size—more packages mean more functionality available for reuse—but this same interconnection increases aggregate risk.
 
 Several network properties shape how vulnerabilities spread:
@@ -69,10 +51,6 @@ Several network properties shape how vulnerabilities spread:
 These network effects mean that supply chain risk cannot be understood by examining packages in isolation. The package's position in the ecosystem network matters as much as its intrinsic properties.
 
 ## Case Study: Log4Shell's Cascade
-
-!!! example "Case Study: Log4Shell's Cascade"
-
-    Google estimated that more than 35,000 Maven Central packages were affected when counting both direct and transitive dependencies to the vulnerable Log4j components. The vulnerability affected products from Apple, Amazon, Google, Microsoft, IBM, Oracle, Cisco, VMware—essentially every major tech company. CISA Director Jen Easterly described it as among the most serious vulnerabilities she had seen in her career. Remediation required a global response across software vendors, governments, and critical infrastructure operators.
 
 The Log4Shell vulnerability (CVE-2021-44228), disclosed in December 2021, provides a detailed illustration of cascading supply chain impact.
 

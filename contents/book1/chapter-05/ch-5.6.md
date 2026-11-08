@@ -10,10 +10,6 @@ Throughout the previous sections, we have examined vulnerabilities as individual
 
 ## The Prevalence of Memory Safety Vulnerabilities
 
-!!! note "The 70% Problem"
-
-    Microsoft, Google Chrome, and Android all report that approximately 70% of their high-severity security vulnerabilities are memory safety issues. This convergence reflects the fundamental nature of C and C++—these languages permit errors that safer languages prevent by design.
-
 The data on memory safety vulnerabilities is remarkably consistent across major software projects:
 
 **Microsoft** reported in 2019 that approximately 70% of all security vulnerabilities addressed in Microsoft products over the previous 12 years were memory safety issues.[^msrc-memory-safety] This figure has remained stable over time, despite decades of investment in secure coding practices, static analysis, and code review.
@@ -49,10 +45,6 @@ For supply chain security, the implication is significant: dependencies written 
 ## Government Guidance on Memory Safety
 
 The prevalence and severity of memory safety vulnerabilities has prompted government agencies to issue formal guidance recommending transition to memory-safe languages.
-
-!!! info "Government Recommendation"
-
-    NSA, CISA, FBI, and international partners recommend organizations use memory-safe languages (Rust, Go, C#, Java, Swift) when possible. CISA calls on software manufacturers to develop plans for transitioning, particularly for security-critical components.
 
 The **[NSA][nsa-memory-safety]** published "Software Memory Safety" in November 2022, explicitly recommending that organizations shift development to memory-safe languages. The guidance stated:
 
@@ -119,14 +111,6 @@ These challenges argue against expecting rapid transformation. Memory-safe trans
 ## Balanced Recommendations
 
 Given both the security imperative and practical constraints, we recommend a balanced approach:
-
-!!! tip "Memory-Safe Transition Strategy"
-
-    - Favor memory-safe dependencies for new development
-    - Track memory-safe evolution in critical dependencies
-    - Support ecosystem transition through funding or contribution
-    - Apply defense in depth (modern compilers, fuzzing, static analysis) to remaining C/C++ code
-    - Set realistic expectations—this is a generational improvement, not a quick fix
 
 **1. Favor memory-safe dependencies for new development.** When selecting new dependencies, prefer memory-safe implementations where quality options exist. A Rust TLS library may be preferable to another OpenSSL binding.
 

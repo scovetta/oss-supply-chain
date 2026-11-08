@@ -8,10 +8,6 @@ icon: "lucide/cloud"
 
 Serverless architectures abstract away infrastructure management, allowing developers to focus on code rather than servers. AWS Lambda, Azure Functions, Google Cloud Functions, and similar platforms manage the underlying compute, scaling, and runtime environments. This abstraction provides operational benefits—but it also creates unique supply chain considerations. Dependencies exist not only in your code but in shared layers, managed runtimes, and platform-provided components that you don't directly control.
 
-!!! info "Hidden Dependencies"
-
-    Serverless supply chains include dependencies you didn't explicitly add: managed runtimes, system libraries, pre-installed SDKs, and shared layers. All execute with your function's IAM permissions.
-
 Understanding serverless supply chains requires examining both the traditional dependencies you bundle with your code and the platform-provided components that execute invisibly.
 
 ## Lambda Layers and Shared Code Risks
@@ -66,10 +62,6 @@ Serverless functions experience **cold starts**—initialization periods when th
 - Import statements that trigger module initialization
 - Global variable assignment
 - Connection establishment
-
-!!! danger "Cold Start Vulnerability"
-
-    A malicious dependency that runs code on import executes during cold starts—before your handler runs. Environment variables (including secrets) are accessible. Cold starts happen infrequently, making detection through handler monitoring difficult.
 
 A malicious dependency that runs code on import can execute during cold starts, potentially:
 

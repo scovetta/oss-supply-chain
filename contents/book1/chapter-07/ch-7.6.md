@@ -14,19 +14,6 @@ This section provides a taxonomy of CI/CD security weaknesses, drawing on the **
 
 Modern CI/CD systems automate software building, testing, and deployment. This automation provides enormous productivity benefits but concentrates risk: pipelines have access to source code, secrets, build infrastructure, and production systems. A compromised pipeline can affect every release it produces.
 
-!!! info "OWASP CI/CD Security Top 10"
-
-    1. Insufficient Flow Control Mechanisms
-    2. Inadequate Identity and Access Management
-    3. Dependency Chain Abuse
-    4. Poisoned Pipeline Execution (PPE)
-    5. Insufficient PBAC
-    6. Insufficient Credential Hygiene
-    7. Insecure System Configuration
-    8. Ungoverned Third-Party Services
-    9. Improper Artifact Integrity Validation
-    10. Insufficient Logging and Visibility
-
 The OWASP CI/CD Security Top 10 identifies the most critical pipeline vulnerabilities:
 
 1. **Insufficient Flow Control Mechanisms**: Lack of approval gates and controls
@@ -109,14 +96,6 @@ Organizations often share credentials across pipelines:
 When any one pipeline is compromised, all systems accessible through shared credentials are at risk.
 
 **Example**: [CVE-2022-24348][cve-2022-24348] in Argo CD allowed attackers to steal secrets, passwords, and API keys from other applications by exploiting a path traversal vulnerability in Helm chart processing, demonstrating how CI/CD access control failures can lead to broader compromise.
-
-!!! tip "Access Control Hardening"
-
-    1. Implement least-privilege for all pipeline credentials
-    2. Use scoped tokens specific to each repository or workflow
-    3. Implement just-in-time credential provisioning
-    4. Regularly audit and rotate credentials
-    5. Use OIDC federation instead of long-lived tokens where supported
 
 **Hardening Recommendations:**
 

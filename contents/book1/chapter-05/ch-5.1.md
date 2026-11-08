@@ -8,10 +8,6 @@ icon: "lucide/activity"
 
 Every security vulnerability has a story. It begins when flawed code is written, continues through an often lengthy period of dormancy, and eventually reaches resolution when patches propagate to affected systems—or, in less fortunate cases, when attackers exploit it first. Understanding this lifecycle is essential for managing supply chain security, because vulnerabilities in dependencies follow the same trajectory as vulnerabilities in your own code, but with reduced visibility and control at each stage.
 
-!!! info "Vulnerability Lifecycle Stages"
-
-    **Introduction** → **Dormancy** → **Discovery** → **Disclosure** → **Patching** → **Propagation** → **Remediation**
-
 Each stage presents distinct challenges and opportunities for defenders. The time spent in each stage varies dramatically—from hours to decades—and these timing dynamics fundamentally shape supply chain risk.
 
 ## Introduction: How Vulnerabilities Enter Code

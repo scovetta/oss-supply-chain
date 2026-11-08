@@ -12,10 +12,6 @@ This attack represents a fundamental shift in supply chain threats. Traditional 
 
 ## Definition and Origin
 
-!!! info "Slopsquatting Defined"
-
-    "Slopsquatting—when an LLM hallucinates a non-existent package name, and a bad actor registers it maliciously. The AI brother of typosquatting." — Andrew Nesbitt
-
 The term **slopsquatting** combines "slop"—internet slang for low-quality AI-generated content—with "squatting," the practice of claiming valuable names for malicious purposes. The term emerged from a conversation between Seth Larson, the Python Software Foundation's Security Developer-in-Residence, and Andrew Nesbitt, creator of Ecosyste.ms. [Nesbitt popularized the term on Mastodon in April 2025][nesbitt-slopsquatting], defining it as:
 
 > "Slopsquatting—when an LLM hallucinates a non-existent package name, and a bad actor registers it maliciously. The AI brother of typosquatting."

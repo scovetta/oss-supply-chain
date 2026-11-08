@@ -53,10 +53,6 @@ Each step represents an opportunity for malicious modification. An attacker who 
 - May be difficult to discover through binary analysis
 - Appears legitimate because it carries official signatures
 
-!!! warning "Phantom Dependencies"
-
-    Dependencies introduced during the build process that do not appear in declared dependency manifests. A malicious build script might install packages that execute code during the build but never appear in `package.json` or lockfiles that developers review.
-
 **Phantom dependencies** exemplify this risk. These are dependencies introduced during the build process that do not appear in declared dependency manifests. A malicious build script might:
 
 ```shell

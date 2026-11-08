@@ -10,10 +10,6 @@ Supply chain security is structurally difficult. This is not merely a matter of 
 
 ## The Weakest Link Dynamic
 
-!!! danger "The Weakest Link Problem"
-
-    If your application depends on 500 packages, an attacker need only compromise **one**. The 499 well-secured packages provide no protection. With 500 dependencies at 99.9% security each, you face a **39% probability** that at least one is compromised. With 1,000 dependencies: **63%**.
-
 Traditional security thinking emphasizes **defense in depth**: layering multiple controls so that failure of any single control does not result in compromise. This approach assumes that attackers must penetrate multiple barriers, making attack progressively harder as defenses accumulate.
 
 Supply chain security inverts this logic. Rather than requiring attackers to bypass multiple defenses in sequence, supply chain attacks exploit the **weakest link** in a parallel array of components. If your application depends on 500 packages, an attacker need only compromise one. The 499 well-secured packages provide no protection against the one that is vulnerable.
@@ -23,13 +19,6 @@ This weakest-link dynamic means that security is determined not by your stronges
 Consider the mathematics. If each package has a 99.9% chance of being secure in any given year—an optimistic assumption—an application with 500 dependencies faces a probability of approximately 39% that at least one dependency will be compromised: 1 - (0.999)^500 = ~0.39. With 1,000 dependencies, common in JavaScript applications, the probability approaches 63%. Defense in depth cannot help when any single failure is sufficient for attack success.
 
 ## The Economics of Attack Versus Defense
-
-!!! warning "Economics Favor Attackers"
-
-    - **Investment asymmetry**: Defenders must secure every component; attackers can focus on the single most vulnerable
-    - **Marginal cost**: Once compromised, cost to reach additional victims approaches zero
-    - **Opportunity cost**: Security competes with other priorities; attackers have no such trade-offs
-    - **Time investment**: Attackers can spend years developing access; defenders must respond immediately
 
 Supply chain attacks offer attackers extraordinary leverage. A single successful compromise can provide access to thousands or millions of downstream systems. The SolarWinds attack (§7.2) reached 18,000 organizations through one compromised build system.[^solarwinds-victims] The ua-parser-js compromise reached millions of downloads within hours. This leverage makes supply chain attacks economically attractive compared to attacking targets individually.
 
@@ -60,14 +49,6 @@ Transitive dependencies compound the challenge. Developers choose direct depende
 The scale challenge is asymmetric because attackers can use automation to scan the entire ecosystem for vulnerabilities while defenders must secure their specific subset of that ecosystem. Attackers benefit from the law of large numbers; defenders suffer from it.
 
 ## Time Asymmetry
-
-!!! note "The Vulnerability Twilight Zone"
-
-    The window between attacker discovery and public disclosure can extend for years:
-    
-    - **Heartbleed** existed 2+ years in 17% of secure web servers—exploitable with defenders unaware
-    - **Log4Shell** remained undiscovered for 8+ years after introduction
-    - **XZ Utils** backdoor was developed over 2+ years of patient contribution
 
 Vulnerabilities can exist for years before discovery, giving attackers extended windows of opportunity while defenders remain unaware of their exposure.
 
@@ -108,16 +89,6 @@ The long tail is particularly attractive because these packages often serve as d
 This dynamic creates a paradox for defenders: the packages most likely to be attacked are precisely those with the least security investment. Resources flow to visible packages; attacks flow to invisible ones.
 
 ## Strategic Implications
-
-!!! tip "Living with Asymmetry"
-
-    The asymmetries are structural, not incidental. Effective strategy must:
-    
-    1. **Accept imperfect defense**: Focus on reducing risk to acceptable levels
-    2. **Prioritize based on criticality**: Concentrate resources on highest-impact components
-    3. **Limit blast radius**: Design for containment when prevention fails
-    4. **Invest in detection**: If prevention can't be complete, detection becomes essential
-    5. **Participate in collective defense**: Support ecosystem-wide security improvements
 
 The asymmetries described here are structural, not incidental. They cannot be eliminated through better tools or larger budgets, though both help. Effective supply chain security strategy must acknowledge these constraints:
 

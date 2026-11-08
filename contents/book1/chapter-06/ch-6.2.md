@@ -8,10 +8,6 @@ icon: "lucide/shuffle"
 
 In February 2021, security researcher Alex Birsan published research that would reshape enterprise understanding of software supply chain risk. By exploiting a simple logic flaw in how package managers resolve dependencies, Birsan gained code execution on internal systems at Apple, Microsoft, PayPal, Shopify, Netflix, Tesla, Uber, and dozens of other major companies. His attacks required no authentication, no exploitation of traditional vulnerabilities, and in most cases, no insider knowledge beyond publicly leaked internal package names. The technique, which Birsan called **dependency confusion**, revealed that the boundary between public and private package ecosystems was far more porous than most organizations realized.
 
-!!! danger "$130,000+ in Bug Bounties"
-
-    By exploiting dependency confusion, researcher Alex Birsan gained code execution on internal systems at Apple, Microsoft, PayPal, Netflix, Tesla, Uber, and dozens more—requiring no authentication, no traditional vulnerabilities, and in most cases, no insider knowledge beyond publicly leaked internal package names.
-
 ## The Public/Private Package Conflict
 
 Modern enterprises use packages from two sources: **public registries** (npm, PyPI, Maven Central) containing open source software, and **private registries** containing proprietary internal packages. This dual-source model is nearly universal—organizations download public dependencies while also maintaining internal libraries shared across teams.
@@ -138,10 +134,6 @@ Once attackers know an internal package name exists, they can attempt the attack
 ## Remediation Strategies
 
 Organizations can protect against dependency confusion through several complementary approaches:
-
-!!! tip "Primary Defense: Use Scoped Packages"
-
-    npm scopes (`@company/package-name`), Python namespace packages, and similar mechanisms bind package names to verified organizational identities. Attackers cannot register packages under your scope/namespace. This is the most robust protection.
 
 **Use scoped or namespaced packages**: npm scopes (`@company/package-name`), Python namespace packages, and similar mechanisms bind package names to verified organizational identities. Attackers cannot register packages under your scope/namespace. This is the most robust protection.
 

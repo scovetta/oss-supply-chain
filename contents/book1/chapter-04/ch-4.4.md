@@ -80,12 +80,6 @@ GOAL: Execute malicious code in target's production environment
     Cost: High | Likelihood: Low | Detection: Medium
 ```
 
-!!! tip "Key Insights from Attack Tree Analysis"
-
-    - **Lowest-cost paths**: Credential compromise (phishing, credential stuffing) and secrets leakage from build systems—attractive to resource-constrained attackers
-    - **Highest-likelihood paths**: Transitive dependencies receive less scrutiny and their maintainers may be more susceptible to social engineering
-    - **XZ Utils pattern**: Expensive in time but high success and very low detection probability—viable for nation-state actors
-
 **Analysis of this tree** reveals several insights:
 
 The lowest-cost paths involve credential compromise (phishing, credential stuffing) and secrets leakage from build systems. These paths require minimal investment and have reasonable success probability, making them attractive to resource-constrained attackers.

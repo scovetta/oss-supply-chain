@@ -10,10 +10,6 @@ Security discussions often focus on zero-day vulnerabilities—the unknown flaws
 
 ## Defining Zero-Days
 
-!!! info inline end "Zero-Day"
-
-    A security flaw unknown to those responsible for patching it—defenders have had "zero days" to address it.
-
 A **zero-day vulnerability** is a security flaw unknown to those responsible for patching it. The term derives from the idea that defenders have had "zero days" to address the issue since becoming aware of it. More precisely, a zero-day is a vulnerability for which no patch exists at the time of exploitation.
 
 Zero-days represent the period between vulnerability discovery by an attacker (or researcher) and patch availability—the asymmetric window during which attackers can exploit a flaw while defenders cannot remediate it. Once a vendor releases a patch, the vulnerability is no longer a zero-day, even if most systems remain unpatched.

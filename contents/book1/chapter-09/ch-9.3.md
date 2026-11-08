@@ -8,19 +8,11 @@ icon: "lucide/layout-dashboard"
 
 Content Management Systems power a substantial portion of the web, with WordPress alone running over 40% of all websites. These platforms depend on plugin and theme ecosystems that mirror the dependency patterns of npm or PyPI—but with a critical difference: CMS plugins run on publicly-accessible web servers, directly exposed to the internet. A supply chain compromise in a WordPress plugin doesn't just affect developers; it immediately creates millions of vulnerable websites that attackers can discover and exploit at scale.
 
-!!! danger "Internet-Facing by Default"
-
-    Unlike npm packages that affect developers, CMS plugins run on publicly-accessible web servers. A compromised WordPress plugin with 100,000 installations immediately creates 100,000 exploitable websites.
-
 The combination of massive deployment, often-inexperienced administrators, and direct internet exposure makes CMS ecosystems among the highest-impact supply chain targets.
 
 ## The Scale of WordPress
 
 WordPress dominates the CMS landscape with extraordinary reach:
-
-!!! note inline end "WordPress Scale"
-
-    **41.5%** of all websites use WordPress according to W3Techs' current survey. Tens of thousands of plugins are available. A single compromised popular plugin can affect millions of websites within days.
 
 - **Approximately 41.5% of all websites** use WordPress [according to W3Techs data][w3techs-wordpress]
 - WordPress runs on tens of millions of websites globally
@@ -110,10 +102,6 @@ WordPress.org's manual initial review provides somewhat better baseline than npm
 **AccessPress Themes/Plugins Backdoor (2021-2022):**
 
 In late 2021, [security researchers discovered][jetpack-accesspress] that **over 90 themes and plugins** (40 themes and 53 plugins) from AccessPress, a popular Nepali development company, contained backdoors. The compromise affected:
-
-!!! example "AccessPress Backdoor (2021-2022)"
-
-    Over **90 themes and plugins** were backdoored on the vendor's own website. AccessPress products had **360,000+ active installations**, but Jetpack found the WordPress.org copies were clean.
 
 - Over **360,000 active installations** across AccessPress products
 - Backdoored copies distributed from the AccessPress website; Jetpack reported that WordPress.org copies were clean

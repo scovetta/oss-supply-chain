@@ -8,10 +8,6 @@ icon: "lucide/file-code"
 
 Infrastructure-as-Code (IaC) has transformed how organizations provision and manage infrastructure. Terraform, Ansible, Helm, and similar tools enable version-controlled, repeatable infrastructure deployments. But these tools operate through modules, providers, roles, and charts—dependencies that carry supply chain risk just like application packages. The difference is stakes: a compromised npm package might steal credentials; a compromised Terraform module can provision backdoored infrastructure, create unauthorized access, or exfiltrate secrets from the provisioning process itself.
 
-!!! danger "Elevated Stakes"
-
-    A compromised npm package might steal credentials. A compromised Terraform module can provision backdoored infrastructure, create unauthorized access across your cloud, or exfiltrate secrets from the provisioning process itself.
-
 IaC supply chains deserve the same scrutiny as application dependencies, yet often receive less attention because infrastructure teams may not think of modules as "software dependencies" in the traditional sense.
 
 ## Terraform Modules and Providers
@@ -116,10 +112,6 @@ Ansible Galaxy has historically offered [minimal security assurances][galaxy-sec
 **Role Execution Context:**
 
 Ansible roles execute on target systems, typically with elevated privileges:
-
-!!! danger "Root-Level Access"
-
-    Ansible roles typically run with SSH access, often as root or with sudo. A malicious role can install backdoors, exfiltrate secrets from inventory, and establish persistence across all managed systems.
 
 - SSH access to target machines
 - Often running as root or with sudo
@@ -256,10 +248,6 @@ Kyverno policies are Kubernetes resources that can be packaged and distributed. 
 **The Repository as Attack Vector:**
 
 In GitOps:
-
-!!! info "GitOps Trust Model"
-
-    Push access to a GitOps repository equals infrastructure access. Repository compromise equals infrastructure compromise. This concentrates risk in the repository.
 
 - Repository content directly determines infrastructure state
 - Push access to the repository equals infrastructure access

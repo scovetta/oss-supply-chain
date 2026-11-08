@@ -259,10 +259,6 @@ Recent improvements including malware scanning, Trusted Publishers, and enhanced
 
 ## dYdX: Maintainer Compromise Across Two Registries (2026)
 
-!!! danger "Multi-Registry Trust Inheritance"
-
-    The dYdX compromise demonstrated that attackers can flip legitimate, trusted packages to malicious across multiple registries simultaneously. Dual npm + PyPI maintainer account takeover doubled the victim surface, and established download histories meant malicious updates were pulled automatically by CI/CD pipelines.
-
 The **dYdX package compromise** in February 2026 demonstrated a multi-registry maintainer account takeover that used trust in a legitimate project's name to distribute credential-stealing malware across both npm and PyPI simultaneously.[^dydx-compromise]
 
 [^dydx-compromise]: Socket Security research and public reporting on dYdX package compromise, https://socket.dev/blog/malicious-dydx-packages-published-to-npm-and-pypi, February 6, 2026.

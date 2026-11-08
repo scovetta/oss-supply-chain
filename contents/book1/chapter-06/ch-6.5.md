@@ -12,10 +12,6 @@ These techniques often combine multiple deceptive elements, exploit trust signal
 
 ## Star-Jacking: Manufacturing Credibility
 
-!!! info inline end "Star-Jacking"
-
-    Associating a malicious package with a legitimate repository's star count by setting an arbitrary repository URL in package metadata.
-
 When developers evaluate packages, they often check GitHub star counts as a rough indicator of popularity and community trust. A package with 10,000 stars appears more credible than one with 10 stars. **Star-jacking** exploits this heuristic by associating a malicious package with a legitimate repository's star count.
 
 The technique works because package registries often allow publishers to specify an arbitrary repository URL in package metadata. The registry may then display that repository's star count alongside the package—even if the package has no actual relationship to that repository.
@@ -118,10 +114,6 @@ The attack is particularly effective because:
 - Lockfile diffs can be thousands of lines long
 - Legitimate dependency updates also modify lockfiles extensively
 - Subtle changes (single character in a hash) are easy to miss
-
-!!! tip "Lockfile Security"
-
-    Treat lockfile changes with the same scrutiny as code changes. Use tooling that validates lockfile integrity against expected sources. Consider policies requiring lockfile regeneration rather than manual editing.
 
 **Defense:** Treat lockfile changes with the same scrutiny as code changes. Use tooling that validates lockfile integrity against expected sources. Consider policies requiring lockfile regeneration rather than manual editing.
 

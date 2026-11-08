@@ -12,10 +12,6 @@ The XZ Utils backdoor (Section 7.5) demonstrated this approach at its most sophi
 
 ## The Challenge: Detecting Malice in Code
 
-!!! warning "Code Review Was Not Designed as a Security Control"
-
-    Intent is invisible. Context is limited. Time is finite. Expertise varies. Trust accumulates and can be exploited. A subtle bug and a deliberately planted vulnerability may look identical.
-
 Code review is designed to catch bugs, improve quality, and maintain consistency. It was not designed as a security control, and treating it as one reveals significant limitations.
 
 A reviewer examining a pull request faces fundamental challenges:

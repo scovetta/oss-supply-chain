@@ -8,10 +8,6 @@ icon: "lucide/phone"
 
 In March 2023, customers of 3CX, a popular business communications platform, discovered that the official desktop application had been trojanized. The incident would have been concerning enough as a standalone supply chain attack—but investigation revealed something more troubling. 3CX was not the attackers' first supply chain foothold. Attackers had first compromised Trading Technologies, a financial software vendor, and used that access to infect a 3CX employee's machine, which then led to compromise of 3CX's build environment.
 
-!!! warning "Cascading Supply Chain Attack"
-
-    The 3CX intrusion began with a prior compromise of Trading Technologies. Attackers infected a 3CX employee who downloaded their software, then pivoted to 3CX's build environment. Your security depends not only on your direct vendors but on your vendors' vendors.
-
 This **cascading supply chain attack** demonstrated a new dimension of supply chain risk: your security depends not only on your direct vendors but on your vendors' vendors, creating chains of trust that extend far beyond what organizations typically assess.
 
 ## Background: 3CX and Business Communications
@@ -118,10 +114,6 @@ Mandiant was retained to investigate. CISA issued an [advisory][cisa-3cx] on the
 The gap between initial detection (March 22) and official confirmation (March 29) represented a week during which organizations dismissed legitimate security alerts and continued running compromised software.
 
 ## The False Positive Problem
-
-!!! danger "When Security Alerts Are Dismissed"
-
-    Security tools correctly identified malicious behavior. Customers reported to the vendor. The vendor, unaware of their own compromise, dismissed alerts as false positives. Customers suppressed warnings. The compromise continued for a week.
 
 The initial dismissal of security alerts deserves particular attention. This pattern—vendor assures customers that security detections are false positives—has occurred repeatedly:
 

@@ -10,13 +10,6 @@ The open source ecosystem is not a single entity but a collection of distinct co
 
 ## JavaScript/Node.js: npm
 
-!!! note "npm: The Largest Ecosystem"
-
-    - **2.5+ million** packages hosted
-    - **200+ billion** downloads per month
-    - Acquired by GitHub/Microsoft in 2020
-    - JavaScript's ubiquity makes npm critical infrastructure for web, server, mobile, and desktop development
-
 The **npm registry** is the largest package ecosystem in the world by a substantial margin, hosting over 2.5 million packages with more than 200 billion downloads per month.[^npm-downloads] This scale reflects JavaScript's ubiquity: it runs in every web browser, powers countless server applications through Node.js, and has expanded into mobile development, desktop applications, and even embedded systems.
 
 npm, Inc. was founded in 2014 to provide commercial stewardship of the registry created by Isaac Schlueter in 2010. GitHub acquired npm in 2020, integrating it into Microsoft's developer platform portfolio. The registry operates as a centralized service; there is no federated alternative for the npm ecosystem comparable to what exists in some other language communities.
@@ -24,14 +17,6 @@ npm, Inc. was founded in 2014 to provide commercial stewardship of the registry 
 The npm ecosystem's security posture has evolved significantly following high-profile incidents. The **event-stream compromise** of 2018 demonstrated how social engineering could transfer control of popular packages to malicious actors. The **ua-parser-js**, **coa**, and **rc** hijackings in 2021 showed that even widely-used packages remained vulnerable to account takeover.
 
 In response, npm has implemented substantial security improvements:
-
-!!! tip "npm Security Features"
-
-    - **Mandatory 2FA** for high-impact package maintainers
-    - **npm provenance** using Sigstore for cryptographic build attestation
-    - **Trusted publishing** via OpenID Connect (no long-lived tokens)
-    - **Automated malware detection** on publication
-    - **Security advisories** integrated with GitHub's database
 
 - **Mandatory two-factor authentication** for maintainers of high-impact packages (top 100 by dependents) since 2022, extended to top 500 packages subsequently
 - **npm provenance** using Sigstore, allowing packages built in CI/CD environments to include cryptographic attestation of their build origin
@@ -96,10 +81,6 @@ The Ruby ecosystem experienced one of the earliest high-profile supply chain inc
 The Ruby community's relatively close-knit nature has some security benefits: maintainers often know each other, and unusual activity may be noticed. However, many critical gems are maintained by small teams or individuals, creating bus factor risks.
 
 ## Rust: crates.io
-
-!!! tip inline end "Rust's Security-First Design"
-
-    crates.io was designed after major supply chain incidents raised awareness. **Immutable versions** (once published, cannot be modified), archived source packages, and ecosystem audit tooling (`cargo-audit`, `cargo-vet`) reflect lessons learned.
 
 **crates.io** hosts over 140,000 crates for the Rust programming language. Operated by the Rust Foundation, crates.io was designed with explicit attention to lessons learned from earlier ecosystems.
 

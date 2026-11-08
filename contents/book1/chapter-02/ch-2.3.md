@@ -10,15 +10,6 @@ Behind every open source package is a human being. Sometimes it is a team of hum
 
 ## Who Maintains Open Source Software?
 
-!!! note "Who Maintains Your Dependencies?"
-
-    - **60%** of maintainers describe themselves as unpaid hobbyists
-    - Only **26%** are paid for some or all of their maintenance work
-    - **65%** have more than 16 years of programming experience
-    - **91%** of open source contributors identify as male
-    
-    Source: Tidelift 2023 & GitHub surveys
-
 The popular image of open source development—vibrant communities collaborating to build software—obscures a more precarious reality. According to [Tidelift's 2023 State of the Open Source Maintainer report][tidelift-2023], 60% of maintainers describe themselves as unpaid hobbyists. Only 26% are paid for some or all of their maintenance work. The majority maintain projects in their spare time, alongside full-time employment in unrelated roles.
 
 The demographics skew heavily: GitHub's 2023 survey found that 91% of open source contributors identify as male, and participation is concentrated in North America and Europe. Maintainers tend to be experienced developers—the same Tidelift survey found that 65% have more than 16 years of programming experience—who built tools to solve their own problems and shared them publicly.
@@ -34,10 +25,6 @@ The gap between what maintainers provide and what they receive has reached crisi
 The [2024 Tidelift survey][tidelift-2024] found that 60% of maintainers have quit or considered quitting their maintainer role. The primary reasons cited were lack of financial compensation (44%), lack of time (42%), and burnout or stress (36%). These factors compound: maintainers who aren't paid must fit maintenance into limited free time, creating stress that leads to burnout.
 
 Nadia Eghbal, in her influential book *Working in Public: The Making and Maintenance of Open Source Software*, documented how the nature of maintenance has changed. Early open source projects often had active contributor communities who shared maintenance burden. Today's popular packages more often have passive user bases: millions of downloads, but contributions come from a tiny fraction of users. The maintainer becomes less a community organizer and more a service provider—expected to respond to issues, fix bugs, and support users, but without the distributed effort that early open source advocates imagined.
-
-!!! quote "Henry Zhu, Babel Maintainer"
-
-    "Being a core maintainer is interesting: people tend to look to you for help even though you usually feel like you don't know what's going on. There are plenty of technical challenges but because it's important to think more long term, a lot of it is around the sustainability of not really the project but the people behind it (regarding overwork, funding, burnout)."
 
 > "Being a core maintainer is interesting: people tend to look to you for help even though you usually feel like you don't know what's going on. There are plenty of technical challenges but because it's important to think more long term, a lot of it is around the sustainability of not really the project but the people behind it (regarding overwork, funding, burnout)."
 > — [Henry Zhu][henry-zhu], Babel maintainer
@@ -68,10 +55,6 @@ The joint statement represents a watershed moment: the organizations responsible
 [^alpha-omega-statement]: Alpha-Omega, "Alpha-Omega Endorses the Joint Statement on Sustainable Stewardship" (September 2025). https://alpha-omega.dev/blog/alpha-omega-endorses-the-joint-statement-on-sustainable-stewardship/
 
 ## The Bus Factor
-
-!!! danger "The Bus Factor Problem"
-
-    The **bus factor** measures how many team members would need to be incapacitated before a project could no longer be maintained. Census II found that among the most critical packages, many had only **one or two developers** responsible for 90%+ of commits—packages with hundreds of millions of downstream dependents.
 
 The **bus factor** (sometimes called the "truck factor" or, more positively, the "lottery factor") measures how many team members would need to be incapacitated before a project could no longer be maintained. A bus factor of one means a single person's departure would leave the project unmaintained.
 

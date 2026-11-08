@@ -29,10 +29,6 @@ This timeline matters because it illustrates how quickly we have moved from a wo
 
 Contemporary applications are not so much written as composed. When a developer creates a new project, they immediately inherit a complex tree of **dependencies**—external packages that their code relies upon, plus the packages those packages rely upon, and so on. This phenomenon of nested requirements creates what we call **transitive dependencies**: components that exist in your application not because you chose them, but because something you chose depends on them.
 
-!!! note "The Scale of Modern Dependencies"
-
-    According to the 2024 OSSRA report, the average commercial application contains **526 open source components**. Java applications average 148 dependencies, while JavaScript applications routinely exceed 1,000. These numbers grow consistently year over year.
-
 The scale of this dependency accumulation is staggering. According to [Synopsys's 2024 Open Source Security and Risk Analysis (OSSRA) report][ossra-2024] (page 8, "Open Source Risk Summary"), the average commercial application contains 526 open source components. The [Sonatype 2024 State of the Software Supply Chain report][sonatype-2024] (Chapter 2, "Open Source Supply Grows") found that the average Java application downloads 148 dependencies, while JavaScript applications routinely exceed 1,000. These numbers have grown consistently year over year, with no signs of slowing. (Section 2.4 provides a detailed comparison of dependency scale across major ecosystems.)
 
 !!! example "The Dependency Explosion in Action"
@@ -76,10 +72,6 @@ This is not an argument against AI-assisted development—these tools offer genu
 ## The Bargain We Have Made
 
 Modern software development practices have enabled remarkable innovation. Applications that would have taken years to build can now be assembled in months. Small teams can create products that compete with those from large enterprises. The collective intelligence of the open source community has raised the quality floor for all software.
-
-!!! warning "The Implicit Bargain"
-
-    We depend on code we did not write, maintained by people we do not know, with security practices we have not verified. Most organizations have no comprehensive inventory of their open source components, no process for evaluating new dependencies, and no clear plan for responding to critical vulnerabilities in their transitive dependencies.
 
 But this transformation has come with an implicit bargain: we depend on code we did not write, maintained by people we do not know, with security practices we have not verified. The average organization has no comprehensive inventory of the open source components in their applications, no process for evaluating the security of new dependencies, and no clear plan for responding when a critical vulnerability is discovered in one of their thousands of transitive dependencies.
 

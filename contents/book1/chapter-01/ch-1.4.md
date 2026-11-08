@@ -32,10 +32,6 @@ When a developer adds a dependency to their project, they are making a trust dec
 
 For a well-known package like Lodash, most developers make this trust decision instantly, without conscious evaluation. The package has millions of weekly downloads, a long history, and a strong reputation. This heuristic—trusting what others trust—is rational and necessary. Without it, modern software development would be impossible. But it is still a trust decision, and it can be wrong.
 
-!!! example "Case Study: event-stream (2018)"
-
-    The event-stream package had ~2 million weekly downloads. Its original maintainer transferred ownership to a helpful new contributor who then added a malicious dependency called `flatmap-stream`. This dependency contained code to steal cryptocurrency from Copay Bitcoin wallet users. The attack succeeded because users trusted event-stream's reputation without evaluating its new dependency.
-
 The event-stream incident of 2018 demonstrated exactly this failure mode.[^event-stream] Event-stream was a popular npm package with approximately two million weekly downloads. Its original maintainer, Dominic Tarr, had lost interest in the project and transferred maintenance to a new contributor who had been helpful and responsive. That new maintainer then added a dependency on a malicious package called `flatmap-stream`, which contained code designed to steal cryptocurrency from applications using the Copay Bitcoin wallet. The attack succeeded precisely because the implicit trust in a popular package was exploited: users trusted event-stream, so they trusted its new dependency, which they had never evaluated.
 
 [^event-stream]: npm, "Details about the event-stream incident," npm Blog, November 27, 2018, <https://blog.npmjs.org/post/180565383195/details-about-the-event-stream-incident>
@@ -53,16 +49,6 @@ This transitive trust creates mathematical challenges. If each maintainer accoun
 ## Trust Anchors: Identity, Infrastructure, and Process
 
 Trust in the software supply chain attaches to different types of anchors, each with distinct characteristics and vulnerabilities.
-
-!!! tip "The Three Trust Anchors"
-
-    Effective supply chain security layers multiple trust anchors:
-    
-    1. **Identity-based trust**: Confidence in specific individuals or organizations (vulnerable to account compromise, insider threats)
-    2. **Infrastructure-based trust**: Confidence in platforms and registries (efficient but concentrates risk)
-    3. **Process-based trust**: Confidence in methodologies like reproducible builds and audits (most robust, creates verifiable evidence)
-    
-    Each layer compensates for potential failures in the others.
 
 **Identity-based trust** places confidence in specific individuals or organizations. When you trust a package because it's maintained by Google or the Apache Software Foundation, you're anchoring trust to organizational identity. When you verify a signed commit came from a known maintainer's GPG key, you're anchoring trust to individual cryptographic identity. Identity-based trust can be powerful but is vulnerable to account compromise, insider threats, and social engineering. The XZ Utils attack of 2024 exploited identity-based trust: the attacker spent years building a trusted identity within the project before exploiting that position.
 

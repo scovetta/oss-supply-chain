@@ -10,17 +10,6 @@ Effective defense requires understanding who is attacking and why. The software 
 
 ## Nation-State Actors
 
-!!! danger "Nation-State Threat Actors"
-
-    Nation-states represent the most sophisticated supply chain adversaries with:
-    
-    - **Espionage**: Accessing government, defense, and critical infrastructure
-    - **Pre-positioning**: Establishing backdoors for future crises
-    - **Sabotage**: Capability to disrupt critical systems
-    - **IP theft**: Acquiring trade secrets and proprietary technology
-    
-    They operate with substantial resources, long time horizons, and strategic objectives.
-
 Nation-state threat actors represent the most sophisticated and persistent adversaries targeting software supply chains. These groups operate with substantial resources, long time horizons, and strategic objectives that extend far beyond immediate financial gain. Their motivations typically include:
 
 **Espionage**: Gaining access to sensitive information in government, defense, technology, and critical infrastructure organizations. Supply chain compromise provides efficient access to many targets through a single operation.
@@ -45,10 +34,6 @@ Defense against these actors requires assuming that sufficiently motivated adver
 
 ## Cybercriminal Organizations
 
-!!! danger "Financially Motivated Attackers"
-
-    Criminal groups seek direct monetization through ransomware, cryptomining, or data theft. The **Kaseya VSA attack** (2021) demonstrated criminal supply chain thinking: rather than targeting individual businesses, REvil targeted the MSP infrastructure that 800-1,500 businesses depended on, reportedly demanding $70M for a universal decryptor.
-
 Financially motivated criminal groups have increasingly recognized supply chain attacks as efficient vectors for their objectives. Unlike nation-states, criminals seek direct monetization, typically through ransomware, cryptomining, or data theft for sale or extortion.
 
 The **Kaseya VSA attack** (July 2021) demonstrated criminal supply chain operations at scale. The REvil ransomware group exploited vulnerabilities in Kaseya's remote management software, used by managed service providers (MSPs) to administer client systems. By compromising Kaseya, attackers gained access to the MSPs' customers—an estimated 800 to 1,500 businesses worldwide. REvil reportedly demanded $70 million for a universal decryptor. The attack showed criminals applying supply chain thinking: rather than targeting individual businesses, they targeted the infrastructure businesses depended on.
@@ -60,10 +45,6 @@ Criminal organizations vary in sophistication. Some operate as professional ente
 Financial motivation shapes attack patterns. Criminals prefer targets that will pay ransoms or generate cryptocurrency mining revenue. They favor speed over stealth—extracting value quickly before detection. They often operate opportunistically, exploiting whatever access they can achieve rather than pursuing specific strategic targets. These patterns suggest different defensive priorities than nation-state threats: detection and response speed matter more than preventing initial access against adversaries who prioritize quick monetization over long-term persistence.
 
 ## Hacktivists
-
-!!! warning "Hacktivism and Protestware"
-
-    Hacktivists use cyber attacks to promote political/ideological agendas. The **node-ipc incident** (2022) saw a maintainer modify code to target Russian/Belarusian systems in protest of the Ukraine invasion. **colors.js/faker.js** were deliberately corrupted by a frustrated maintainer protesting corporate exploitation of unpaid work.
 
 **Hacktivists** are individuals or groups who use cyber attacks to promote political or ideological agendas. Their motivations center on disruption, embarrassment of targets, and attention for their causes rather than financial gain or intelligence collection.
 
@@ -124,13 +105,6 @@ The **left-pad removal** (March 2016), while not vandalism per se, demonstrated 
 Thrill-seeker attacks typically lack sophistication and persistence. Attackers in this category rarely have the patience for long-term campaigns or the expertise for advanced tradecraft. However, they contribute to the overall attack volume that defenders must handle, and their unpredictability makes them difficult to model.
 
 ## Implications for Defenders
-
-!!! tip "Know Your Adversary"
-
-    - **Threat model for multiple actor types**: Defenses against nation-states differ from those against criminals
-    - **Motivation predicts patterns**: States favor stealth; criminals favor speed; hacktivists favor visibility
-    - **Capability differences affect prioritization**: Assume sophisticated actors will eventually succeed—focus on limiting impact
-    - **Attribution affects response**: Criminal attacks may warrant law enforcement; nation-state attacks may trigger government coordination
 
 Understanding adversary motivations has practical implications for defense strategy.
 

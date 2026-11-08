@@ -314,10 +314,6 @@ The GlassWASM campaign demonstrated this risk concretely. In June 2026, Socket r
 
 **For Enterprises:**
 
-!!! tip "Most Effective Control"
-
-    Extension allowlisting—permitting only reviewed and approved extensions—is the single most effective control for enterprise browser security.
-
 1. **Implement extension allowlisting.** Permit only reviewed and approved extensions. This is the single most effective control.
 
 2. **Block by permission.** If full allowlisting isn't feasible, block extensions requesting dangerous permission combinations.

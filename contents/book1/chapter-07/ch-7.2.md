@@ -8,10 +8,6 @@ icon: "lucide/sun"
 
 In December 2020, the cybersecurity industry confronted an attack that would fundamentally reshape understanding of supply chain risk. The compromise of SolarWinds' Orion platform—subsequently named **SUNBURST** by FireEye/Mandiant (and **Solorigate** by Microsoft), with **SUNSPOT** used by CrowdStrike for the implant that modified the build—demonstrated that nation-state adversaries could infiltrate trusted software distribution channels with extraordinary sophistication. The attack [reached approximately 18,000 organizations][solarwinds-sec], including critical U.S. government agencies and Fortune 500 companies, through software updates that customers had every reason to trust.
 
-!!! danger "SUNBURST Impact"
-
-    The compromise reached approximately 18,000 organizations, including critical U.S. government agencies (Treasury, Commerce, DHS, State, Energy) and Fortune 500 companies, through software updates that customers had every reason to trust.
-
 SUNBURST became the watershed moment for software supply chain security, triggering government policy changes, industry investment, and a fundamental reassessment of how organizations evaluate trust in their software dependencies.
 
 ## Background: SolarWinds and the Orion Platform

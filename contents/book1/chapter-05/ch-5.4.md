@@ -12,10 +12,6 @@ Understanding why the patching gap exists is the first step toward closing it. F
 
 ## The Scale of the Problem
 
-!!! note "The Attacker Advantage"
-
-    Qualys TruRisk Research found attackers weaponize vulnerabilities in an average of 19.5 days, while organizations patch in 30.6 days—an 11-day gap of continuous exposure.
-
 Research consistently shows that patching takes longer than security teams would like and policy often demands:
 
 The **[Kenna Security/Cyentia Institute Prioritization to Prediction research][kenna-p2p]** on vulnerability remediation found that organizations typically remediate only about 10% of their vulnerabilities in any given month. Their analysis of 3.6 billion vulnerability observations across hundreds of organizations showed that this ratio remains remarkably constant regardless of organization size—every tenfold increase in open vulnerabilities is met with a roughly tenfold increase in closed vulnerabilities. High-severity vulnerabilities receive faster attention, but even critical CVEs have a median remediation time measured in weeks, not days.

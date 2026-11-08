@@ -118,10 +118,6 @@ The use of Ed448 (rather than the more common Ed25519) was notable—security re
 - Typical users building from source code would not be affected
 - The code modified function pointers at runtime rather than containing suspicious string patterns
 
-!!! quote "Filippo Valsorda, Security Researcher"
-
-    "This might be the best executed supply chain attack we've seen described in the open, and it's a nightmare scenario: malicious, competent, authorized upstream in a widely used library."
-
 As [security researcher Filippo Valsorda noted][valsorda-analysis]: "This might be the best executed supply chain attack we've seen described in the open, and it's a nightmare scenario: malicious, competent, authorized upstream in a widely used library."
 
 ## Discovery: A 500ms Delay

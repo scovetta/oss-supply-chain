@@ -12,31 +12,15 @@ Software supply chain security is not a new concept. Security researchers have w
 
 Three incidents, more than any others, forced supply chain security into mainstream consciousness. Each demonstrated a different dimension of supply chain risk, and together they made the abstract threat concrete for audiences far beyond the security community.
 
-!!! danger "Landmark Incident: SolarWinds (December 2020)"
-
-    Attackers—attributed to Russia's SVR—infiltrated SolarWinds' development environment and inserted malicious code into the Orion network management platform. The compromised software was distributed through legitimate updates to ~18,000 customers. Victims included U.S. government agencies and major corporations.
-
 **SolarWinds (December 2020)** revealed what a sophisticated, well-resourced adversary could achieve through supply chain compromise. Attackers—attributed by U.S. government agencies and other investigators to Russia's Foreign Intelligence Service (SVR)[^solarwinds-cisa]—infiltrated SolarWinds' development environment and inserted malicious code into the Orion network management platform. The compromised software was distributed through SolarWinds' legitimate update mechanism to approximately 18,000 customers (downloaded the trojanized update), with a smaller number of organizations receiving follow-on exploitation.[^solarwinds-cisa]
 
-!!! danger "Landmark Incident: Log4Shell (December 2021)"
-
-    A critical remote code execution vulnerability (CVE-2021-44228) in Apache Log4j was embedded so deeply in so many systems—often as a transitive dependency—that organizations struggled to determine if they were affected. CISA Director Jen Easterly called it "the most serious vulnerability I have seen in my decades-long career."
-
 **Log4Shell (December 2021)** demonstrated a different threat model: a critical vulnerability in a ubiquitous component rather than a deliberate compromise. CVE-2021-44228, a remote code execution vulnerability in the Apache Log4j logging library, was embedded so deeply in so many systems—often as a transitive dependency—that organizations struggled to determine whether they were affected. Attacks began quickly after public disclosure.[^log4shell-apache] CISA director Jen Easterly called it "the most serious vulnerability I have seen in my decades-long career."[^easterly-quote]
-
-!!! danger "Landmark Incident: XZ Utils (March 2024)"
-
-    An attacker operating as "Jia Tan" spent over two years contributing to the XZ compression library, gradually building trust until granted maintainer access. They then inserted a sophisticated backdoor. The attack was only discovered by accident when a Microsoft engineer noticed unusual SSH latency.
 
 **XZ Utils (March 2024)** exposed the vulnerability of open source maintenance itself. An attacker operating under the pseudonym "Jia Tan" spent over two years contributing to the XZ compression library, gradually building trust until granted maintainer access. The attacker then inserted a sophisticated backdoor affecting certain downstream uses of xz/liblzma. The issue was publicly reported after unusual SSH latency was detected during performance investigation by Microsoft engineer Andres Freund.[^xz-oss-security]
 
 These incidents shared a common lesson: the software supply chain had become a single point of failure for digital security. Attackers who successfully compromised supply chains could bypass perimeter defenses, endpoint protection, and network monitoring. The traditional security model—protecting individual systems and networks—was insufficient when threats arrived through trusted software channels.
 
 ## The Surge in Supply Chain Attacks
-
-!!! note "The Attack Volume Explosion"
-
-    Sonatype's 2026 report documented **454,600 malicious packages** discovered in 2025 alone, bringing the cumulative total past **1.23 million** since 2019—up from roughly 704,000 in late 2024. Attacks show increasing sophistication: long-term social engineering, build infrastructure exploitation, and conditional activation to evade detection.
 
 The prominent incidents captured headlines, but they represented only the visible peak of a rapidly growing threat. Sonatype's 2024 State of the Software Supply Chain report documented over 512,000 malicious packages discovered in a single year—a 156% year-over-year increase—and its 2026 report counted another 454,600 discovered in 2025, bringing the cumulative total to more than 1.23 million malicious packages identified across npm, PyPI, Maven Central, NuGet, and Hugging Face since 2019.[^sonatype-2024][^sonatype-2026] The European Union Agency for Cybersecurity (ENISA) identified supply chain attacks as one of the top threats in its annual threat landscape, noting increasing sophistication and frequency.
 

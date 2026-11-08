@@ -8,10 +8,6 @@ icon: "lucide/pen-tool"
 
 Throughout the preceding case studies, a pattern recurs: malicious software arrived signed by trusted entities. SolarWinds' backdoored updates bore valid SolarWinds signatures. The 3CX trojanized installer (see Section 7.3) carried authentic 3CX certificates. These attacks succeeded not despite code signing but alongside it—the signatures were genuine, produced by compromised build systems using legitimate keys.
 
-!!! warning "The Signing Paradox"
-
-    SolarWinds' backdoored updates bore valid SolarWinds signatures. The 3CX trojanized installer carried authentic 3CX certificates. These attacks succeeded not despite code signing but alongside it—the signatures were genuine, produced by compromised build systems using legitimate keys.
-
 This pattern reveals a critical truth about code signing: it is necessary but not sufficient for supply chain security. Understanding what signing does and does not guarantee is essential for building effective defenses.
 
 ## How Code Signing Works
@@ -89,16 +85,6 @@ As a result, much open source software was distributed unsigned, or signed with 
 **[Rekor][rekor]** is a transparency log that records all signing events. Once a signature is recorded in Rekor, it cannot be deleted or altered. This provides an immutable audit trail of what was signed, when, and by whom.
 
 **[Cosign][cosign]** is a tool for signing and verifying container images and other artifacts using the Sigstore infrastructure.
-
-!!! info "Sigstore vs Traditional PKI"
-
-    | Traditional PKI | Sigstore |
-    |-----------------|----------|
-    | 1-3 year certificates | 10 minute certificates |
-    | Manual identity verification | Automated OIDC-based |
-    | $100s-$1000s/year | Free |
-    | Long-term key management | Ephemeral, "keyless" |
-    | Limited audit trail | Transparency log (Rekor) |
 
 The Sigstore model differs fundamentally from traditional PKI:
 

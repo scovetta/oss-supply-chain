@@ -34,13 +34,6 @@ The flaw was that OpenSSL trusted the client's claim about how much data it sent
 
 This is a classic **buffer over-read**: the program reads beyond the boundaries of the data it was given, exposing adjacent memory contents.
 
-!!! danger "Heartbleed's Unprecedented Scale"
-
-    - ~17% of all TLS-enabled web servers vulnerable (~500,000 servers)
-    - Vulnerability existed for over two years before discovery
-    - Exploitation left no traces in server logs
-    - Exposed private keys enabled impersonation and, for sessions without forward secrecy, retrospective decryption of recorded traffic
-
 **The scale was unprecedented:**
 
 - At disclosure, an estimated 17% of all TLS-enabled web servers were vulnerable—approximately 500,000 servers.

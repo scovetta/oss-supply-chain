@@ -78,10 +78,6 @@ Android's more open ecosystem creates additional attack surfaces:
 
 Both platforms share a critical supply chain element: **Software Development Kits (SDKs)** that provide ready-made functionality. Research consistently shows that mobile apps integrate numerous SDKs:[^appfigures-sdks]
 
-!!! note inline end "SDK Scale"
-
-    Average iOS apps include **26 SDKs**, Android apps approximately **18 SDKs**, and popular apps often exceed **40 integrated SDKs**.
-
 - A 2023 study by Appfigures found the average iOS app includes **26 SDKs**
 - Average Android apps include approximately **18 SDKs**
 - Popular apps from major publishers often exceed **40 integrated SDKs**

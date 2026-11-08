@@ -10,10 +10,6 @@ Security researchers play a vital role in open source security, identifying vuln
 
 This attack vector weaponizes the urgency and authority that legitimate security reports carry. Maintainers, already stretched thin, face pressure to act quickly on potential vulnerabilities. That pressure creates opportunity for manipulation.
 
-!!! danger "Weaponizing Security Reports"
-
-    Attackers pose as security researchers to pressure maintainers into merging malicious "fixes" that introduce vulnerabilities rather than remediate them. The urgency and authority of legitimate security reports create opportunity for manipulation.
-
 ## The Rise of Fake Vulnerability Reports
 
 Security teams have documented attackers building [fake security researcher personas and malicious proof-of-concept repositories][fake-researchers]. Maintainers face a related pattern: fake vulnerability reports and "fixes" that use the authority of security research to manipulate project decisions. These campaigns share common characteristics:
