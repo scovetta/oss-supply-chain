@@ -2332,7 +2332,7 @@ This table maps each Appendix D section to the equivalent configuration location
 - Sigstore: https://docs.sigstore.dev/[^sigstore-xplat]
 - SLSA Framework: https://slsa.dev/[^slsa-xplat]
 - OpenSSF Scorecard: https://securityscorecards.dev/[^scorecard-xplat]
-- Renovate Bot: https://docs.renovatebot.com/[^renovate]
+- Renovate Bot: https://docs.renovatebot.com/[^renovate-appj]
 
 [^gh-signing-commits]: GitHub, "Signing commits," https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits
 
@@ -2360,4 +2360,4 @@ This table maps each Appendix D section to the equivalent configuration location
 
 [^scorecard-xplat]: Open Source Security Foundation, "Scorecard," https://securityscorecards.dev/
 
-[^renovate]: Mend, "Renovate Documentation," https://docs.renovatebot.com/
+[^renovate-appj]: Mend, "Renovate Documentation," https://docs.renovatebot.com/

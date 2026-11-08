@@ -356,7 +356,7 @@ After scoring, prioritize improvements using this matrix:
 ### Additional Resources
 
 - **OpenSSF Best Practices Badge**: https://www.bestpractices.dev/[^openssf-badge-resource]
-- **OpenSSF Scorecard**: https://securityscorecards.dev/[^openssf-scorecard]
+- **OpenSSF Scorecard**: https://securityscorecards.dev/[^openssf-scorecard-appd]
 - **CISA Secure Software Development Attestation**: https://www.cisa.gov/secure-software-attestation-form[^cisa-attestation]
 - **GitHub Security Hardening Guide**: https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions[^github-hardening]
 - **AllStar (Automated Security Policy Enforcement)**: https://github.com/ossf/allstar[^allstar]
@@ -382,7 +382,7 @@ After scoring, prioritize improvements using this matrix:
 
 [^openssf-badge-resource]: Open Source Security Foundation, "Best Practices Badge," https://www.bestpractices.dev/
 
-[^openssf-scorecard]: Open Source Security Foundation, "Scorecard," https://securityscorecards.dev/
+[^openssf-scorecard-appd]: Open Source Security Foundation, "Scorecard," https://securityscorecards.dev/
 
 [^cisa-attestation]: CISA, "Secure Software Development Attestation Form," https://www.cisa.gov/secure-software-attestation-form
 

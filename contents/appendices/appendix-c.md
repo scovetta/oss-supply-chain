@@ -592,7 +592,7 @@ Use this checklist when implementing SBOM processes:
 - **SPDX Specification**[^spdx-spec]
 - **CycloneDX Specification**[^cyclonedx-spec]
 - **CycloneDX Guides**[^cyclonedx-guides]
-- **NTIA SBOM Minimum Elements**[^ntia-sbom]
+- **NTIA SBOM Minimum Elements**[^ntia-sbom-appc]
 - **CISA SBOM Resources**[^cisa-sbom]
 - **SPDX License List**[^spdx-licenses]
 - **Package URL Specification**[^purl-spec]
@@ -604,7 +604,7 @@ Use this checklist when implementing SBOM processes:
 
 [^cyclonedx-guides]: OWASP, "CycloneDX Guides," https://cyclonedx.org/guides/
 
-[^ntia-sbom]: NTIA, "Software Bill of Materials," https://www.ntia.gov/sbom
+[^ntia-sbom-appc]: NTIA, "Software Bill of Materials," https://www.ntia.gov/sbom
 
 [^cisa-sbom]: CISA, "Software Bill of Materials," https://www.cisa.gov/sbom
 

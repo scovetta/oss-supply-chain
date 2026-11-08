@@ -110,7 +110,7 @@ npm token create --cidr=192.168.1.0/24
 - [ ] Dependencies reviewed before updating lockfile
 - [ ] `postinstall` scripts audited in dependencies
 
-**Documentation**: npm Security Best Practices[^npm-security]
+**Documentation**: npm Security Best Practices[^npm-security-appg]
 
 ---
 
@@ -889,7 +889,7 @@ Use these condensed checklists for rapid security assessment across ecosystems.
 6. **Automate updates**: Use Dependabot, Renovate, or equivalent
 7. **Monitor advisories**: Subscribe to security notifications for critical dependencies
 
-[^npm-security]: npm, "Securing your code," https://docs.npmjs.com/packages-and-modules/securing-your-code
+[^npm-security-appg]: npm, "Securing your code," https://docs.npmjs.com/packages-and-modules/securing-your-code
 
 [^uv-docs]: Astral, "uv Documentation," https://docs.astral.sh/uv/
 
