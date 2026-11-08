@@ -24,9 +24,9 @@ The **SolarWinds attack** (discovered December 2020) exemplifies nation-state su
 
 The **3CX compromise** (March 2023) followed a similar pattern. Attackers, attributed by multiple security firms to North Korean threat actors, compromised 3CX's build environment and distributed a trojanized version of the company's VoIP application. Follow-on targeting focused on cryptocurrency companies, reflecting North Korea's strategic use of cyber operations to generate revenue under sanctions.
 
-The **XZ Utils backdoor** (discovered March 2024), while not officially attributed at the time of discovery, bore hallmarks of nation-state tradecraft: years of patient social engineering to gain maintainer access, sophisticated code hiding techniques, and targeting of SSH—the protocol used to administer virtually every Linux server on the internet. The operation's scope would have provided access to critical infrastructure globally. It is important to note that public attribution remains unconfirmed, and conclusions about attacker identity drawn from tradecraft analysis alone are inherently uncertain—sophisticated non-state actors can mimic nation-state techniques, and nation-states can deliberately obscure their involvement. The attribution question may never be definitively resolved.
+The **XZ Utils backdoor** (discovered March 2024), while not officially attributed at the time of discovery, bore hallmarks of nation-state tradecraft: years of patient social engineering to gain maintainer access, sophisticated code hiding techniques, and targeting of SSH, the protocol used to administer virtually every Linux server on the internet. The operation's scope would have provided access to critical infrastructure globally. It is important to note that public attribution remains unconfirmed, and conclusions about attacker identity drawn from tradecraft analysis alone are inherently uncertain: sophisticated non-state actors can mimic nation-state techniques, and nation-states can deliberately obscure their involvement. The attribution question may never be definitively resolved.
 
-Nation-state actors are distinguished by their capability for long-term operations, their willingness to invest years in developing access, and their targeting of strategic rather than opportunistic objectives. The European Union Agency for Cybersecurity (ENISA) documents these patterns in its annual Threat Landscape reports[^enisa-etl], noting that state-linked intrusion sets—particularly those associated with Russia, China, Iran, and North Korea—continue to target public institutions and strategic industries through supply chain compromise, with attacks on IT service providers and software repositories cascading across entire ecosystems.
+Nation-state actors are distinguished by their capability for long-term operations, their willingness to invest years in developing access, and their targeting of strategic rather than opportunistic objectives. The European Union Agency for Cybersecurity (ENISA) documents these patterns in its annual Threat Landscape reports[^enisa-etl], noting that state-linked intrusion sets (particularly those associated with Russia, China, Iran, and North Korea) continue to target public institutions and strategic industries through supply chain compromise, with attacks on IT service providers and software repositories cascading across entire ecosystems.
 
 Defense against these actors requires assuming that sufficiently motivated adversaries can eventually succeed and designing systems that limit the impact of compromise.
 
@@ -36,13 +36,13 @@ Defense against these actors requires assuming that sufficiently motivated adver
 
 Financially motivated criminal groups have increasingly recognized supply chain attacks as efficient vectors for their objectives. Unlike nation-states, criminals seek direct monetization, typically through ransomware, cryptomining, or data theft for sale or extortion.
 
-The **Kaseya VSA attack** (July 2021) demonstrated criminal supply chain operations at scale. The REvil ransomware group exploited vulnerabilities in Kaseya's remote management software, used by managed service providers (MSPs) to administer client systems. By compromising Kaseya, attackers gained access to the MSPs' customers—an estimated 800 to 1,500 businesses worldwide. REvil reportedly demanded $70 million for a universal decryptor. The attack showed criminals applying supply chain thinking: rather than targeting individual businesses, they targeted the infrastructure businesses depended on.
+The **Kaseya VSA attack** (July 2021) demonstrated criminal supply chain operations at scale. The REvil ransomware group exploited vulnerabilities in Kaseya's remote management software, used by managed service providers (MSPs) to administer client systems. By compromising Kaseya, attackers gained access to the MSPs' customers, an estimated 800 to 1,500 businesses worldwide. REvil reportedly demanded $70 million for a universal decryptor. The attack showed criminals applying supply chain thinking: rather than targeting individual businesses, they targeted the infrastructure businesses depended on.
 
 Cryptomining malware frequently enters the supply chain through compromised packages. The **ua-parser-js incident** (October 2021) saw attackers compromise the npm account of a popular package maintainer and publish versions containing cryptomining malware and password-stealing code. With millions of weekly downloads, the package provided immediate access to developer machines and CI/CD environments with computational resources to exploit.
 
 Criminal organizations vary in sophistication. Some operate as professional enterprises with human resources functions, customer service for victims, and quality assurance for their malware. Others are loose affiliations of individuals. The ransomware-as-a-service model has lowered barriers to entry, enabling less sophisticated actors to deploy advanced tooling developed by others.
 
-Financial motivation shapes attack patterns. Criminals prefer targets that will pay ransoms or generate cryptocurrency mining revenue. They favor speed over stealth—extracting value quickly before detection. They often operate opportunistically, exploiting whatever access they can achieve rather than pursuing specific strategic targets. These patterns suggest different defensive priorities than nation-state threats: detection and response speed matter more than preventing initial access against adversaries who prioritize quick monetization over long-term persistence.
+Financial motivation shapes attack patterns. Criminals prefer targets that will pay ransoms or generate cryptocurrency mining revenue. They favor speed over stealth, extracting value quickly before detection. They often operate opportunistically, exploiting whatever access they can achieve rather than pursuing specific strategic targets. These patterns suggest different defensive priorities than nation-state threats: detection and response speed matter more than preventing initial access against adversaries who prioritize quick monetization over long-term persistence.
 
 ## Hacktivists
 
@@ -54,7 +54,7 @@ The **colors.js and faker.js incidents** (January 2022) showed a different form 
 
 Hacktivist attacks tend toward visible disruption rather than subtle compromise. Website defacement, data leaks, and denial of service align better with goals of publicity and embarrassment than backdoors that might go unnoticed. However, the supply chain provides hacktivists with amplification: compromising a single package can affect millions of systems, generating impact disproportionate to the attacker's resources.
 
-Hacktivist threats are difficult to predict because they correlate with political events and social movements. Organizations that become targets of ideological opposition—whether for their industry, policies, or perceived associations—face elevated risk. The node-ipc incident showed that even geographic location of end-users could trigger targeting.
+Hacktivist threats are difficult to predict because they correlate with political events and social movements. Organizations that become targets of ideological opposition (whether for their industry, policies, or perceived associations) face elevated risk. The node-ipc incident showed that even geographic location of end-users could trigger targeting.
 
 ## Insider Threats
 
@@ -74,7 +74,7 @@ Insider motivations vary:
 
 The **Ubiquiti insider incident** (2021) demonstrated insider threats in a supply chain-adjacent context. A senior developer at Ubiquiti Networks posed as an anonymous whistleblower while actually being the perpetrator of a security breach, using his insider access to steal data and then attempt to extort the company. While not a traditional supply chain attack, the incident illustrated how insider access and knowledge could be weaponized.
 
-Defending against insider threats requires different approaches than defending against external attackers. Access controls, monitoring, and separation of duties matter more than perimeter security. The principle of least privilege—granting only necessary access—limits what any single insider can compromise.
+Defending against insider threats requires different approaches than defending against external attackers. Access controls, monitoring, and separation of duties matter more than perimeter security. The principle of least privilege, granting only necessary access, limits what any single insider can compromise.
 
 ## Researchers and Hobbyists
 
@@ -90,13 +90,13 @@ Not all supply chain incidents result from malicious intent. Security researcher
 
 Hobbyists and tinkerers present lower-stakes versions of similar risks. Someone experimenting with package publishing might create confusingly named packages. A developer testing CI/CD pipelines might accidentally push sensitive data. These incidents lack malicious motivation but can still create security exposures.
 
-Researcher and hobbyist threats are generally lower severity than adversarial attacks but more common. They are also more amenable to community solutions—responsible disclosure norms, ethical guidelines for research, and clear policies from registries about acceptable testing.
+Researcher and hobbyist threats are generally lower severity than adversarial attacks but more common. They are also more amenable to community solutions: responsible disclosure norms, ethical guidelines for research, and clear policies from registries about acceptable testing.
 
 ## Thrill-Seekers and Vandals
 
 Some supply chain incidents stem from neither strategic objectives nor financial motivation but from the simple desire to cause chaos, gain notoriety, or test capabilities.
 
-**Script kiddies**—a term for inexperienced attackers using tools developed by others—may target package registries because they can, not because they have specific objectives. The low barrier to publishing packages in most ecosystems enables experimentation that occasionally causes harm.
+**Script kiddies** (a term for inexperienced attackers using tools developed by others) may target package registries because they can, not because they have specific objectives. The low barrier to publishing packages in most ecosystems enables experimentation that occasionally causes harm.
 
 **Vandalism** in open source sometimes mirrors physical vandalism: destruction for its own sake. Defacing websites, corrupting packages, or disrupting services provides satisfaction to certain personality types regardless of any tangible benefit.
 

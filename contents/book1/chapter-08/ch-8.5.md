@@ -6,7 +6,7 @@ icon: "lucide/git-branch"
 
 # 8.5 Git-Specific Attack Vectors
 
-Git has become the dominant version control system, underlying virtually all modern software development. Its distributed architecture, powerful features, and integration with platforms like GitHub and GitLab have made it essential infrastructure. But Git's flexibility also creates attack surface. Features designed for legitimate workflows—hooks, submodules, symbolic references—can be weaponized. Understanding Git-specific vulnerabilities helps practitioners harden their environments and recognize suspicious repository configurations.
+Git has become the dominant version control system, underlying virtually all modern software development. Its distributed architecture, powerful features, and integration with platforms like GitHub and GitLab have made it essential infrastructure. But Git's flexibility also creates attack surface. Features designed for legitimate workflows (hooks, submodules, symbolic references) can be weaponized. Understanding Git-specific vulnerabilities helps practitioners harden their environments and recognize suspicious repository configurations.
 
 ## The `.git` Directory as Attack Target
 
@@ -17,7 +17,7 @@ Every Git repository contains a `.git` directory storing configuration, hooks, o
 - **References** point to commit objects and can be manipulated
 - **Object database** stores all content and history
 
-Attackers who can modify the `.git` directory—through direct access, malicious commits, or exploitation of other vulnerabilities—gain significant control over the repository and potentially the systems interacting with it.
+Attackers who can modify the `.git` directory (through direct access, malicious commits, or exploitation of other vulnerabilities) gain significant control over the repository and potentially the systems interacting with it.
 
 Several CVEs have targeted `.git` directory exposure:
 
@@ -38,7 +38,7 @@ Several CVEs have targeted `.git` directory exposure:
 - `post-merge`: Runs after merging
 - `pre-push`: Runs before pushing
 
-Hooks reside in `.git/hooks/` and are not transferred during clone or fetch operations—this is a deliberate security design. However, several attack patterns exploit hooks:
+Hooks reside in `.git/hooks/` and are not transferred during clone or fetch operations: this is a deliberate security design. However, several attack patterns exploit hooks:
 
 **Hook Installation Through Other Means:**
 
@@ -66,7 +66,7 @@ This has implications for shared development environments or CI/CD systems where
 
 **Connection to CI/CD:**
 
-CI/CD systems often run Git operations that trigger hooks. A `post-checkout` hook in a CI environment executes with the CI runner's privileges—potentially accessing secrets, deployment credentials, and other sensitive resources.
+CI/CD systems often run Git operations that trigger hooks. A `post-checkout` hook in a CI environment executes with the CI runner's privileges, potentially accessing secrets, deployment credentials, and other sensitive resources.
 
 **Defense:**
 
@@ -76,7 +76,7 @@ CI/CD systems often run Git operations that trigger hooks. A `post-checkout` hoo
 
 ## Submodule Hijacking and Redirection
 
-**Git submodules** embed one repository within another, specified in `.gitmodules` file and `.git/config`. Submodules reference external repositories by URL—creating dependency on external resources.
+**Git submodules** embed one repository within another, specified in `.gitmodules` file and `.git/config`. Submodules reference external repositories by URL, creating dependency on external resources.
 
 **Submodule URL Redirection:**
 
@@ -121,7 +121,7 @@ A repository contains two files that differ only in case:
 - `Makefile` (legitimate)
 - `MAKEFILE` (malicious)
 
-On Linux (case-sensitive), these are distinct files. On macOS or Windows (case-insensitive), they collide—and which file "wins" during checkout can be exploited.
+On Linux (case-sensitive), these are distinct files. On macOS or Windows (case-insensitive), they collide, and which file "wins" during checkout can be exploited.
 
 **[CVE-2021-21300][cve-2021-21300]** exploited this pattern for arbitrary code execution on macOS and Windows. A malicious repository could include case-colliding files that, when checked out on case-insensitive systems, would overwrite sensitive files or place executables in unexpected locations.
 
@@ -257,7 +257,7 @@ Commits can exist in a repository without being reachable from any branch. These
 - Can contain malicious code not visible in normal browsing
 - May be fetched by systems that request specific hashes
 
-Attackers could push commits, create a reference to a malicious commit hash, then delete the visible reference—leaving the commit accessible but hidden.
+Attackers could push commits, create a reference to a malicious commit hash, then delete the visible reference, leaving the commit accessible but hidden.
 
 **Shallow Clone Limitations:**
 

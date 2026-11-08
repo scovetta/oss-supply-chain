@@ -1,6 +1,6 @@
 # Chapter 25: Vendor and Third-Party Risk Management
 
-Organizations depend on software from vendors and open source communities, making third-party risk management essential to supply chain security. This chapter provides a comprehensive framework for evaluating, contracting with, and monitoring external software suppliers.
+Organizations depend on software from vendors and open source communities, making third-party risk management essential to supply chain security. This chapter lays out a framework for evaluating, contracting with, and monitoring external software suppliers.
 
 Vendor evaluation begins with structured assessments using questionnaires like SIG and CAIQ, supplemented by supply chain-specific questions about SBOMs, build integrity, and dependency management. Maturity frameworks such as SLSA and OpenSSF Scorecard provide objective criteria for assessing vendor security posture. Organizations should tier vendors by criticality, applying rigorous assessment and continuous monitoring to critical suppliers while using lighter-touch approaches for low-risk relationships.
 

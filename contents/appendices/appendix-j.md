@@ -53,11 +53,11 @@ The Branch protection rules page lists all existing rules and provides an **Add 
 
 **Step 2**: Configure each protection setting:
 
-**Enable branch protection on default branch** [D.A.1] — Adding any rule targeting your default branch enables branch protection. The rule itself prevents direct pushes (force pushes and deletions are blocked automatically for protected branches).
+**Enable branch protection on default branch** [D.A.1], Adding any rule targeting your default branch enables branch protection. The rule itself prevents direct pushes (force pushes and deletions are blocked automatically for protected branches).
 
-**Require pull request reviews before merging** [D.A.2] — Check **Require a pull request before merging**. This expands a sub-section where you can set the number of **Required approving reviews** (a dropdown with values from 1 to 6). We recommend at least one approval for most projects, and two for critical security-sensitive repositories. Additional options in this sub-section control stale review dismissal, code owner reviews, and who can dismiss reviews.
+**Require pull request reviews before merging** [D.A.2]: Check **Require a pull request before merging**. This expands a sub-section where you can set the number of **Required approving reviews** (a dropdown with values from 1 to 6). We recommend at least one approval for most projects, and two for critical security-sensitive repositories. Additional options in this sub-section control stale review dismissal, code owner reviews, and who can dismiss reviews.
 
-**Require review from code owners** [D.A.3] — Under the pull request review section, check **Require review from Code Owners**. This requires you to have a `CODEOWNERS` file in your repository (`.github/CODEOWNERS`, `docs/CODEOWNERS`, or at the repository root). Example `CODEOWNERS` file:
+**Require review from code owners** [D.A.3]: Under the pull request review section, check **Require review from Code Owners**. This requires you to have a `CODEOWNERS` file in your repository (`.github/CODEOWNERS`, `docs/CODEOWNERS`, or at the repository root). Example `CODEOWNERS` file:
 
 ```
 # Default owners for everything
@@ -70,21 +70,21 @@ The Branch protection rules page lists all existing rules and provides an **Add 
 /.github/workflows/ @org/platform-team
 ```
 
-**Dismiss stale pull request approvals** [D.A.4] — Check **Dismiss stale pull request approvals when new commits are pushed**. This ensures that if a contributor pushes new commits after receiving approval, the pull request must be re-reviewed. Without this setting, an attacker who gains commit access could add malicious code after approval.
+**Dismiss stale pull request approvals** [D.A.4]: Check **Dismiss stale pull request approvals when new commits are pushed**. This ensures that if a contributor pushes new commits after receiving approval, the pull request must be re-reviewed. Without this setting, an attacker who gains commit access could add malicious code after approval.
 
-**Require status checks to pass before merging** [D.A.5] — Check **Require status checks to pass before merging**. Search for and select the specific status checks that must pass (e.g., your CI build, test suite, linting). Only checks that have run recently on the repository will appear in the search.
+**Require status checks to pass before merging** [D.A.5]: Check **Require status checks to pass before merging**. Search for and select the specific status checks that must pass (e.g., your CI build, test suite, linting). Only checks that have run recently on the repository will appear in the search.
 
-**Require branches to be up to date before merging** [D.A.6] — Under status checks, check **Require branches to be up to date before merging**. This prevents merging a pull request that was approved against an older version of the base branch, which could introduce merge-related issues that were never tested.
+**Require branches to be up to date before merging** [D.A.6]: Under status checks, check **Require branches to be up to date before merging**. This prevents merging a pull request that was approved against an older version of the base branch, which could introduce merge-related issues that were never tested.
 
-**Require signed commits** [D.A.7] — Check **Require signed commits**. This requires all commits pushed to the branch to have a verified signature (GPG, SSH, or S/MIME). Contributors must configure commit signing before they can push to protected branches. See GitHub's documentation on signing commits[^gh-signing-commits] for setup instructions.
+**Require signed commits** [D.A.7]: Check **Require signed commits**. This requires all commits pushed to the branch to have a verified signature (GPG, SSH, or S/MIME). Contributors must configure commit signing before they can push to protected branches. See GitHub's documentation on signing commits[^gh-signing-commits] for setup instructions.
 
 > **Practical consideration**: Requiring signed commits can create friction for new contributors. Consider enabling this for release branches while using a softer approach (displaying verification badges but not blocking) for the default development branch.
 
-**Require linear history** [D.A.8] — Check **Require linear history**. This enforces squash or rebase merges, preventing merge commits. Linear history simplifies `git log` auditing and makes it easier to trace when specific changes were introduced.
+**Require linear history** [D.A.8]: Check **Require linear history**. This enforces squash or rebase merges, preventing merge commits. Linear history simplifies `git log` auditing and makes it easier to trace when specific changes were introduced.
 
-**Restrict who can push to matching branches** [D.A.9] — Check **Restrict who can push to matching branches** and add the specific people, teams, or apps that should have push access. For most projects, this should be limited to the core maintainer team.
+**Restrict who can push to matching branches** [D.A.9]: Check **Restrict who can push to matching branches** and add the specific people, teams, or apps that should have push access. For most projects, this should be limited to the core maintainer team.
 
-**Do not allow bypassing branch protection** [D.A.10] — Near the bottom of the branch protection form, check **Do not allow bypassing the above settings**. Without this, repository administrators can bypass all branch protection rules. Enabling this setting applies the rules universally, including to admins. This is particularly important for preventing compromised admin accounts from pushing directly.
+**Do not allow bypassing branch protection** [D.A.10]: Near the bottom of the branch protection form, check **Do not allow bypassing the above settings**. Without this, repository administrators can bypass all branch protection rules. Enabling this setting applies the rules universally, including to admins. This is particularly important for preventing compromised admin accounts from pushing directly.
 
 **Step 3**: Click **Create** (or **Save changes** if editing an existing rule) at the bottom of the page.
 
@@ -272,9 +272,9 @@ For open source projects, the repository should be **Public**. For sensitive com
 
 Scroll through the **Features** section and uncheck any features your project does not use:
 
-- **Wikis** — Disable if documentation lives in the repository or an external site
-- **Projects** — Disable if you use an external project management tool
-- **Discussions** — Disable if community discussions happen elsewhere
+- **Wikis**: Disable if documentation lives in the repository or an external site
+- **Projects**: Disable if you use an external project management tool
+- **Discussions**: Disable if community discussions happen elsewhere
 
 Disabling unused features reduces the attack surface and prevents confusion about where project information is maintained.
 
@@ -292,11 +292,11 @@ GitHub provides a built-in mechanism for security policies:
 
 If your repository does not yet have a security policy, the Security tab displays a prominent **Start setup** button under the "Security policy" heading. Clicking it creates a `SECURITY.md` file with a template and opens the GitHub file editor. Edit the template to include:
 
-1. **Preferred contact method** — Specify an email address, link to your private vulnerability reporting form (if enabled), or bug bounty platform URL
-2. **Expected response timeline** — State how quickly reporters can expect acknowledgment (e.g., "We will acknowledge receipt within 48 hours")
-3. **Disclosure policy and timeline** — Describe your coordinated disclosure process (e.g., "We aim to release a fix within 90 days of a confirmed report")
-4. **PGP key** (if applicable) — Link to or include your security team's PGP public key for encrypted communications
-5. **Scope** — State which versions are covered by this security policy
+1. **Preferred contact method**: Specify an email address, link to your private vulnerability reporting form (if enabled), or bug bounty platform URL
+2. **Expected response timeline**: State how quickly reporters can expect acknowledgment (e.g., "We will acknowledge receipt within 48 hours")
+3. **Disclosure policy and timeline**: Describe your coordinated disclosure process (e.g., "We aim to release a fix within 90 days of a confirmed report")
+4. **PGP key** (if applicable): Link to or include your security team's PGP public key for encrypted communications
+5. **Scope**: State which versions are covered by this security policy
 
 **Example SECURITY.md**:
 
@@ -362,35 +362,35 @@ GitHub provides a **Community Standards** page that tracks which community healt
 
 This page displays a checklist of community health files with a green checkmark next to each file that exists and a **Proposed** or **Add** link next to missing files. Use it as a quick audit of which documentation your project has and what is still needed:
 
-- **README.md** [D.B.4] — Create at the repository root. Include a project overview, security considerations for users, and a link to `SECURITY.md`.
+- **README.md** [D.B.4]: Create at the repository root. Include a project overview, security considerations for users, and a link to `SECURITY.md`.
 
-- **Installation instructions** [D.B.5] — Include in your README or a dedicated `INSTALL.md`. Document the recommended installation method and any security-relevant configuration steps.
+- **Installation instructions** [D.B.5]: Include in your README or a dedicated `INSTALL.md`. Document the recommended installation method and any security-relevant configuration steps.
 
-- **LICENSE** [D.B.6] — Click **Add** on the Community Standards page or create a `LICENSE` file at the repository root. GitHub provides license templates; select one using a valid SPDX identifier.
+- **LICENSE** [D.B.6]: Click **Add** on the Community Standards page or create a `LICENSE` file at the repository root. GitHub provides license templates; select one using a valid SPDX identifier.
 
-- **CONTRIBUTING.md** [D.B.7] — Create at the repository root or in `.github/`. Include security considerations for contributors (e.g., "Do not commit secrets," "All dependencies must be reviewed before adding," "Security-sensitive changes require review from @security-team").
+- **CONTRIBUTING.md** [D.B.7]: Create at the repository root or in `.github/`. Include security considerations for contributors (e.g., "Do not commit secrets," "All dependencies must be reviewed before adding," "Security-sensitive changes require review from @security-team").
 
-- **CODE_OF_CONDUCT.md** [D.B.8] — Click **Add** on the Community Standards page. GitHub provides templates based on the Contributor Covenant and Citizen Code of Conduct.
+- **CODE_OF_CONDUCT.md** [D.B.8]: Click **Add** on the Community Standards page. GitHub provides templates based on the Contributor Covenant and Citizen Code of Conduct.
 
-- **CHANGELOG.md** [D.B.9] — Create at the repository root, or use GitHub Releases to document changes. Security fixes should be clearly labeled (e.g., **Security**: Fixed XSS vulnerability in input parser).
+- **CHANGELOG.md** [D.B.9]: Create at the repository root, or use GitHub Releases to document changes. Security fixes should be clearly labeled (e.g., **Security**: Fixed XSS vulnerability in input parser).
 
 #### Security-Specific Documentation [D.B.10–16]
 
 **Process Guidance**: The following items describe documentation that your project should maintain. These are not GitHub settings but rather files and processes you create within your repository.
 
-**Threat model** [D.B.10] — Create a `docs/security/THREAT-MODEL.md` or equivalent file. Document your project's key assets, trust boundaries, threat actors, and mitigations. For projects that don't warrant a formal threat model, a "Security Considerations" section in your README explaining what the project does and does not protect against is a good starting point.
+**Threat model** [D.B.10]: Create a `docs/security/THREAT-MODEL.md` or equivalent file. Document your project's key assets, trust boundaries, threat actors, and mitigations. For projects that don't warrant a formal threat model, a "Security Considerations" section in your README explaining what the project does and does not protect against is a good starting point.
 
-**Security architecture overview** [D.B.11] — Document how your project implements security controls in `docs/security/ARCHITECTURE.md`. Include authentication flows, authorization models, data protection mechanisms, and how secrets are handled.
+**Security architecture overview** [D.B.11]: Document how your project implements security controls in `docs/security/ARCHITECTURE.md`. Include authentication flows, authorization models, data protection mechanisms, and how secrets are handled.
 
-**Authentication/authorization model** [D.B.12] — If your project handles user authentication or authorization, document the design in your security architecture or a dedicated file. Explain the authentication methods supported, session management, and permission model.
+**Authentication/authorization model** [D.B.12], If your project handles user authentication or authorization, document the design in your security architecture or a dedicated file. Explain the authentication methods supported, session management, and permission model.
 
-**Cryptography usage** [D.B.13] — Document all cryptographic algorithms used, key management practices, and the rationale for cryptographic choices in `docs/security/CRYPTOGRAPHY.md`. This helps security reviewers quickly assess the cryptographic posture.
+**Cryptography usage** [D.B.13]: Document all cryptographic algorithms used, key management practices, and the rationale for cryptographic choices in `docs/security/CRYPTOGRAPHY.md`. This helps security reviewers quickly assess the cryptographic posture.
 
-**Known limitations** [D.B.14] — Document security boundaries and known limitations in your README or security documentation. Be explicit about what the project is *not* designed to protect against.
+**Known limitations** [D.B.14]: Document security boundaries and known limitations in your README or security documentation. Be explicit about what the project is *not* designed to protect against.
 
-**Hardening guide** [D.B.15] — Provide a `docs/HARDENING.md` with secure deployment and configuration recommendations for users. Cover topics like recommended TLS versions, secure headers, restrictive file permissions, and disabling debug modes in production.
+**Hardening guide** [D.B.15]: Provide a `docs/HARDENING.md` with secure deployment and configuration recommendations for users. Cover topics like recommended TLS versions, secure headers, restrictive file permissions, and disabling debug modes in production.
 
-**Dependency policy** [D.B.16] — Document how your project selects and evaluates dependencies. Consider including criteria such as: minimum maintenance activity, license compatibility, vulnerability history, and the review process for adding new dependencies.
+**Dependency policy** [D.B.16]: Document how your project selects and evaluates dependencies. Consider including criteria such as: minimum maintenance activity, license compatibility, vulnerability history, and the review process for adding new dependencies.
 
 ---
 
@@ -462,7 +462,7 @@ Review your workflow steps and remove unnecessary tools or dependencies:
 
 ##### Ephemeral Build Environments [D.C.4]
 
-GitHub-hosted runners are ephemeral by default — each job runs in a fresh virtual machine that is destroyed after the job completes. If you use self-hosted runners, configure them to:
+GitHub-hosted runners are ephemeral by default: each job runs in a fresh virtual machine that is destroyed after the job completes. If you use self-hosted runners, configure them to:
 
 1. Use a fresh container or VM for each job
 2. Clean the workspace between runs
@@ -669,7 +669,7 @@ For container images:
 2. Upload to public keyservers (`keys.openpgp.org`)
 3. Reference the key fingerprint in your release notes
 
-If using Sigstore (recommended), verification is keyless — the signing certificate is recorded in the Rekor transparency log, so users can verify signatures without managing keys.
+If using Sigstore (recommended), verification is keyless: the signing certificate is recorded in the Rekor transparency log, so users can verify signatures without managing keys.
 
 ##### Sign Git Tags [D.C.17]
 
@@ -964,11 +964,11 @@ GitHub is a CVE Numbering Authority (CNA). Click **Request CVE** on the advisory
 
 **Step 6**: Provide upgrade guidance [D.D.17] — Include clear upgrade instructions in the advisory description and release notes.
 
-**Step 7**: Document workarounds [D.D.18] — If a workaround exists before a patched version is available, describe it in the advisory.
+**Step 7**: Document workarounds [D.D.18], If a workaround exists before a patched version is available, describe it in the advisory.
 
 **Step 8**: Coordinate with downstream projects [D.D.19] — For widely-used libraries, consider privately notifying major downstream consumers before public disclosure. Use the advisory's private discussion thread for coordination.
 
-**Backporting policy** [D.D.12] and **communication plan** [D.D.13] — Document these processes in your `SECURITY.md` or an internal security runbook.
+**Backporting policy** [D.D.12] and **communication plan** [D.D.13]: Document these processes in your `SECURITY.md` or an internal security runbook.
 
 #### Dependency Monitoring [D.D.20–24]
 
@@ -1051,10 +1051,10 @@ When combined with branch protection rules requiring code owner reviews [D.A.3],
 
 Create teams that reflect your governance structure [D.E.2]:
 
-- `maintainers` — Core decision-makers with merge access
-- `security-team` — Security-focused members
-- `release-managers` — Members authorized to create releases
-- `triage` — Community members who can label and manage issues
+- `maintainers`: Core decision-makers with merge access
+- `security-team`: Security-focused members
+- `release-managers`: Members authorized to create releases
+- `triage`: Community members who can label and manage issues
 
 ##### Custom Repository Roles
 
@@ -1314,7 +1314,7 @@ The Protected branches section shows a table of existing protected branches with
 
 **Step 2**: Configure protections:
 
-**Enable branch protection on default branch** [D.A.1] — Select the branch and choose who is **Allowed to merge** and **Allowed to push and merge**. Setting push access to **No one** prevents direct pushes and forces all changes through merge requests.
+**Enable branch protection on default branch** [D.A.1]: Select the branch and choose who is **Allowed to merge** and **Allowed to push and merge**. Setting push access to **No one** prevents direct pushes and forces all changes through merge requests.
 
 **Require pull request reviews before merging** [D.A.2] — Navigate to **Settings** > **Merge requests** > **Merge request approvals**:
 
@@ -1324,7 +1324,7 @@ The Protected branches section shows a table of existing protected branches with
 
 The approval rules section displays a table of rules, each showing the rule name, number of approvals required, and the list of eligible approvers. You can create multiple rules (e.g., one requiring a maintainer and another requiring a security team member).
 
-**Require review from code owners** [D.A.3] — In the **Protected branches** section, check **Require approval from code owners**. Create a `CODEOWNERS` file in your repository root:
+**Require review from code owners** [D.A.3]: In the **Protected branches** section, check **Require approval from code owners**. Create a `CODEOWNERS` file in your repository root:
 
 ```
 # Default owners
@@ -1335,23 +1335,23 @@ The approval rules section displays a table of rules, each showing the rule name
 /.gitlab-ci.yml @group/platform-team
 ```
 
-**Dismiss stale pull request approvals** [D.A.4] — Navigate to **Settings** > **Merge requests** > **Merge request approvals** > **Approval settings**. Check **Remove all approvals when commits are added to the source branch**. This ensures new commits invalidate previous approvals.
+**Dismiss stale pull request approvals** [D.A.4]: Navigate to **Settings** > **Merge requests** > **Merge request approvals** > **Approval settings**. Check **Remove all approvals when commits are added to the source branch**. This ensures new commits invalidate previous approvals.
 
-**Require status checks to pass before merging** [D.A.5] — Navigate to **Settings** > **Merge requests** > **Merge checks**. Check **Pipelines must succeed**. This prevents merging when the CI pipeline fails.
+**Require status checks to pass before merging** [D.A.5]: Navigate to **Settings** > **Merge requests** > **Merge checks**. Check **Pipelines must succeed**. This prevents merging when the CI pipeline fails.
 
-**Require branches to be up to date before merging** [D.A.6] — In the same **Merge checks** section, check **Skipped pipelines are considered successful** (uncheck this to require pipelines to actually run). Also configure **Merge method** to **Merge commit with semi-linear history** or **Fast-forward merge** to prevent merging stale branches.
+**Require branches to be up to date before merging** [D.A.6]: In the same **Merge checks** section, check **Skipped pipelines are considered successful** (uncheck this to require pipelines to actually run). Also configure **Merge method** to **Merge commit with semi-linear history** or **Fast-forward merge** to prevent merging stale branches.
 
-**Require signed commits** [D.A.7] — Navigate to **Settings** > **Repository** > **Push rules** (under "Push rules"). Check **Reject unsigned commits**. This requires all pushed commits to have GPG or SSH signatures.
+**Require signed commits** [D.A.7]: Navigate to **Settings** > **Repository** > **Push rules** (under "Push rules"). Check **Reject unsigned commits**. This requires all pushed commits to have GPG or SSH signatures.
 
 !!! info "Requires Premium tier or higher"
 
     Push rules including signed commit requirements are available on GitLab Premium and Ultimate plans, and on GitLab.com Free for public projects.
 
-**Require linear history** [D.A.8] — Navigate to **Settings** > **Merge requests** > **Merge method**. Select **Fast-forward merge**. This prevents merge commits and enforces linear history.
+**Require linear history** [D.A.8]: Navigate to **Settings** > **Merge requests** > **Merge method**. Select **Fast-forward merge**. This prevents merge commits and enforces linear history.
 
-**Restrict who can push to matching branches** [D.A.9] — In the **Protected branches** section, set **Allowed to push and merge** to **No one** or restrict to specific roles (Maintainers only). For more granular control, set **Allowed to push and merge** to specific users or groups.
+**Restrict who can push to matching branches** [D.A.9]: In the **Protected branches** section, set **Allowed to push and merge** to **No one** or restrict to specific roles (Maintainers only). For more granular control, set **Allowed to push and merge** to specific users or groups.
 
-**Do not allow bypassing branch protection** [D.A.10] — In the **Protected branches** section, ensure **Allowed to push and merge** does not include owners or administrators who should also be subject to the merge request process. Additionally, under **Merge request approvals** > **Approval settings**, check **Prevent approval by author** and **Prevent editing approval rules in merge requests**.
+**Do not allow bypassing branch protection** [D.A.10]: In the **Protected branches** section, ensure **Allowed to push and merge** does not include owners or administrators who should also be subject to the merge request process. Additionally, under **Merge request approvals** > **Approval settings**, check **Prevent approval by author** and **Prevent editing approval rules in merge requests**.
 
 #### Access Control [D.A.11–17]
 
@@ -1562,24 +1562,24 @@ Include a supported versions table in your `SECURITY.md` (same format as the Git
 
 GitLab does not have a "Community Standards" page like GitHub. However, it recognizes standard files:
 
-- **README.md** [D.B.4] — Displayed on the project's main page
-- **Installation instructions** [D.B.5] — Include in README or a dedicated file
-- **LICENSE** [D.B.6] — GitLab provides a license template when creating a new project. For existing projects, create a `LICENSE` file at the repository root. GitLab detects the license type and displays it in the project sidebar.
-- **CONTRIBUTING.md** [D.B.7] — Create at the repository root. GitLab displays a link to this file when someone opens a new merge request.
-- **CODE_OF_CONDUCT.md** [D.B.8] — Create at the repository root
-- **CHANGELOG.md** [D.B.9] — Create at the repository root, or use GitLab Releases to document changes
+- **README.md** [D.B.4]: Displayed on the project's main page
+- **Installation instructions** [D.B.5]: Include in README or a dedicated file
+- **LICENSE** [D.B.6]: GitLab provides a license template when creating a new project. For existing projects, create a `LICENSE` file at the repository root. GitLab detects the license type and displays it in the project sidebar.
+- **CONTRIBUTING.md** [D.B.7]: Create at the repository root. GitLab displays a link to this file when someone opens a new merge request.
+- **CODE_OF_CONDUCT.md** [D.B.8]: Create at the repository root
+- **CHANGELOG.md** [D.B.9]: Create at the repository root, or use GitLab Releases to document changes
 
 #### Security-Specific Documentation [D.B.10–16]
 
 **Process Guidance**: The same recommendations apply as in the GitHub section. Create documentation files for:
 
-- **Threat model** [D.B.10] — `docs/security/THREAT-MODEL.md`
-- **Security architecture** [D.B.11] — `docs/security/ARCHITECTURE.md`
-- **Authentication/authorization model** [D.B.12] — Include in security architecture or standalone
-- **Cryptography usage** [D.B.13] — `docs/security/CRYPTOGRAPHY.md`
-- **Known limitations** [D.B.14] — Include in README or security docs
-- **Hardening guide** [D.B.15] — `docs/HARDENING.md`
-- **Dependency policy** [D.B.16] — `docs/security/DEPENDENCY-POLICY.md`
+- **Threat model** [D.B.10]: `docs/security/THREAT-MODEL.md`
+- **Security architecture** [D.B.11]: `docs/security/ARCHITECTURE.md`
+- **Authentication/authorization model** [D.B.12]: Include in security architecture or standalone
+- **Cryptography usage** [D.B.13]: `docs/security/CRYPTOGRAPHY.md`
+- **Known limitations** [D.B.14]: Include in README or security docs
+- **Hardening guide** [D.B.15]: `docs/HARDENING.md`
+- **Dependency policy** [D.B.16]: `docs/security/DEPENDENCY-POLICY.md`
 
 GitLab's **Wiki** feature can also host these documents if your project prefers wikis over in-repository documentation.
 
@@ -2004,14 +2004,14 @@ The Vulnerability Report displays a filterable table of all findings from your s
 
 GitLab does not have a built-in security advisory publication mechanism equivalent to GitHub Security Advisories. For advisory management:
 
-1. **Request a CVE** [D.D.14] — Submit CVE requests through MITRE's web form or your CNA
-2. **Publish advisories** [D.D.15] — Create a security advisory as a GitLab Release note, a confidential-then-public issue, or a dedicated page in your documentation
-3. **Credit reporters** [D.D.16] — Acknowledge researchers in your advisory text
-4. **Upgrade guidance** [D.D.17] — Include in release notes and advisory
-5. **Workarounds** [D.D.18] — Document in the advisory
-6. **Downstream coordination** [D.D.19] — Use confidential issues for private coordination
+1. **Request a CVE** [D.D.14]: Submit CVE requests through MITRE's web form or your CNA
+2. **Publish advisories** [D.D.15]: Create a security advisory as a GitLab Release note, a confidential-then-public issue, or a dedicated page in your documentation
+3. **Credit reporters** [D.D.16]: Acknowledge researchers in your advisory text
+4. **Upgrade guidance** [D.D.17]: Include in release notes and advisory
+5. **Workarounds** [D.D.18]: Document in the advisory
+6. **Downstream coordination** [D.D.19]: Use confidential issues for private coordination
 
-**Backporting policy** [D.D.12] and **communication plan** [D.D.13] — Document in `SECURITY.md`.
+**Backporting policy** [D.D.12] and **communication plan** [D.D.13]: Document in `SECURITY.md`.
 
 #### Dependency and Container Scanning [D.D.20–24]
 

@@ -6,13 +6,13 @@ icon: "lucide/tablet-smartphone"
 
 # 9.1 Mobile Application Supply Chains
 
-Mobile applications operate in a supply chain environment distinct from server-side or desktop software. The iOS and Android platforms impose unique constraints: sandboxed execution, platform-controlled distribution, mandatory review processes, and proprietary SDKs. These constraints provide some security benefits—app store review catches certain threats—but they also create blind spots. Mobile developers integrate dozens of third-party SDKs for analytics, advertising, authentication, and other functionality, often with limited visibility into what these components actually do.
+Mobile applications operate in a supply chain environment distinct from server-side or desktop software. The iOS and Android platforms impose unique constraints: sandboxed execution, platform-controlled distribution, mandatory review processes, and proprietary SDKs. These constraints provide some security benefits, app store review catches certain threats, but they also create blind spots. Mobile developers integrate dozens of third-party SDKs for analytics, advertising, authentication, and other functionality, often with limited visibility into what these components actually do.
 
 !!! warning "Hidden Dependencies"
 
-    Mobile SDKs often operate as black boxes, with limited visibility into their behavior. A crash reporting SDK might depend on networking libraries, serialization frameworks, and other components—each a potential vulnerability source. Enterprise security teams commonly discover hundreds of transitive dependencies from seemingly simple SDK integrations.
+    Mobile SDKs often operate as black boxes, with limited visibility into their behavior. A crash reporting SDK might depend on networking libraries, serialization frameworks, and other components: each a potential vulnerability source. Enterprise security teams commonly discover hundreds of transitive dependencies from seemingly simple SDK integrations.
 
-Understanding mobile supply chain risks requires examining both the dependency management systems that mirror server-side ecosystems and the mobile-specific elements—SDKs, platform APIs, and distribution channels—that create unique attack surfaces.
+Understanding mobile supply chain risks requires examining both the dependency management systems that mirror server-side ecosystems and the mobile-specific elements (SDKs, platform APIs, and distribution channels) that create unique attack surfaces.
 
 ## iOS Supply Chain Architecture
 
@@ -26,7 +26,7 @@ iOS development relies on several dependency management systems:
 
 **CocoaPods** has historically been the most widely used dependency manager for iOS, with [over 100,000 libraries available][cocoapods]. However, the project is now in **maintenance mode** with no active feature development. Usage is sustained primarily by React Native and Flutter ecosystems that depend on CocoaPods as a hidden abstraction layer. CocoaPods uses a centralized specification repository that defines how to fetch and build dependencies.
 
-CocoaPods pods are typically distributed as source code, built locally during application compilation. This provides some transparency—developers can inspect what they're integrating—but the volume of dependencies often exceeds practical review capacity.
+CocoaPods pods are typically distributed as source code, built locally during application compilation. This provides some transparency, developers can inspect what they're integrating, but the volume of dependencies often exceeds practical review capacity.
 
 Security considerations specific to CocoaPods include:
 
@@ -63,7 +63,7 @@ Android projects use **Gradle** as their build system, fetching dependencies pri
 Key Android-specific considerations:
 
 - **Google Play Services**: Many apps depend on Google's proprietary libraries for location, authentication, and other platform features. These are distributed as binary AARs without source access.
-- **Android Jetpack**: Google's Jetpack libraries provide core functionality and are updated independently of the Android OS—creating a supply chain distinct from the platform itself.
+- **Android Jetpack**: Google's Jetpack libraries provide core functionality and are updated independently of the Android OS, creating a supply chain distinct from the platform itself.
 - **JCenter sunset**: The 2021 shutdown of JCenter, previously a major Android repository, forced ecosystem migration and revealed fragile dependency on infrastructure.
 
 **Android-Specific Dependency Risks:**
@@ -108,7 +108,7 @@ SDKs often operate as black boxes, with limited visibility into their behavior:
 
 **Hidden Dependencies:**
 
-SDKs themselves have dependencies, creating supply chains within supply chains. A crash reporting SDK might depend on networking libraries, serialization frameworks, and other components—each a potential vulnerability source. Enterprise security teams auditing mobile apps commonly discover hundreds of transitive dependencies introduced by seemingly simple SDK integrations.
+SDKs themselves have dependencies, creating supply chains within supply chains. A crash reporting SDK might depend on networking libraries, serialization frameworks, and other components: each a potential vulnerability source. Enterprise security teams auditing mobile apps commonly discover hundreds of transitive dependencies introduced by seemingly simple SDK integrations.
 
 ## Case Study: XcodeGhost (2015)
 
@@ -116,7 +116,7 @@ SDKs themselves have dependencies, creating supply chains within supply chains. 
 
 !!! danger "Toolchain Attacks"
 
-    XcodeGhost infected over 4,000 apps including WeChat—attackers targeted the IDE itself, infecting every app built with it. App Store review did not detect the malicious code.
+    XcodeGhost infected over 4,000 apps including WeChat: attackers targeted the IDE itself, infecting every app built with it. App Store review did not detect the malicious code.
 
 **What Happened:**
 

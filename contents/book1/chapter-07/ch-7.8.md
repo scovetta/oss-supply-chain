@@ -21,7 +21,7 @@ When you install a package or download software, you implicitly trust multiple c
 - **TLS certificates**: Proof that you're connecting to the intended server
 - **Package managers**: Client software that fetches and verifies packages
 
-Compromise of any component in this chain can result in users receiving malicious software instead of—or in addition to—legitimate software.
+Compromise of any component in this chain can result in users receiving malicious software instead of, or in addition to, legitimate software.
 
 ## Compromised Mirrors and CDNs
 
@@ -39,7 +39,7 @@ Mirror compromise can affect all users fetching from that mirror:
 - CDN configuration errors could cache and serve incorrect content
 - CDN credentials could be stolen and used to poison caches
 
-Unlike origin servers, CDN infrastructure is typically operated by third parties. Organizations must trust that CDN providers maintain security—trust that extends to the CDN's employees, systems, and physical infrastructure.
+Unlike origin servers, CDN infrastructure is typically operated by third parties. Organizations must trust that CDN providers maintain security: trust that extends to the CDN's employees, systems, and physical infrastructure.
 
 ## Man-in-the-Middle Attacks on Package Downloads
 
@@ -55,9 +55,9 @@ Package managers have historically been inconsistent about transport security. p
 
 ## Update Mechanism Hijacking
 
-Automatic updates are both security feature and attack vector. They ensure users receive security patches quickly—but they also provide a trusted channel for delivering code that executes with elevated privileges.
+Automatic updates are both security feature and attack vector. They ensure users receive security patches quickly, but they also provide a trusted channel for delivering code that executes with elevated privileges.
 
-**Update server compromise** is the most direct attack. If attackers control the server that distributes updates, they control what code users receive. The SolarWinds attack exploited exactly this vector—updates came from SolarWinds' legitimate infrastructure because attackers controlled the build process feeding that infrastructure.
+**Update server compromise** is the most direct attack. If attackers control the server that distributes updates, they control what code users receive. The SolarWinds attack exploited exactly this vector: updates came from SolarWinds' legitimate infrastructure because attackers controlled the build process feeding that infrastructure.
 
 **Update mechanism vulnerabilities** can allow attackers to trigger false updates:
 
@@ -112,13 +112,13 @@ In late January 2021, the perl.com domain was discovered to have been hijacked[^
 
 !!! example "Polyfill.io: CDN Trust Exploited at Scale"
 
-    Over 100,000 websites included Polyfill.io scripts serving hundreds of millions of users. After domain acquisition by a Chinese CDN company, the service began injecting malicious redirects—demonstrating how CDN trust can be exploited at massive scale.
+    Over 100,000 websites included Polyfill.io scripts serving hundreds of millions of users. After domain acquisition by a Chinese CDN company, the service began injecting malicious redirects, demonstrating how CDN trust can be exploited at massive scale.
 
 The **Polyfill.io attack** in 2024 became one of the most significant distribution channel compromises affecting the web ecosystem, demonstrating how CDN trust can be exploited at massive scale.
 
 **Background:**
 
-Polyfill.io was a service that automatically provided JavaScript polyfills—code that implements modern features in older browsers. Web developers included a script tag referencing Polyfill.io:
+Polyfill.io was a service that automatically provided JavaScript polyfills: code that implements modern features in older browsers. Web developers included a script tag referencing Polyfill.io:
 
 ```html
 <script src="https://cdn.polyfill.io/v3/polyfill.min.js"></script>
@@ -190,7 +190,7 @@ Websites had to audit their code, remove Polyfill.io references, and either self
         crossorigin="anonymous"></script>
 ```
 
-The browser will only execute the script if its content matches the specified hash. If an attacker modifies the script—whether through CDN compromise, domain hijacking, or any other means—the hash won't match and the browser will refuse to execute it.
+The browser will only execute the script if its content matches the specified hash. If an attacker modifies the script (whether through CDN compromise, domain hijacking, or any other means), the hash won't match and the browser will refuse to execute it.
 
 However, Subresource Integrity comes with a few important challenges and limitations:
 
@@ -261,7 +261,7 @@ However, TLS and CT do not protect against:
 
 5. **Consider self-hosting critical resources.** The convenience of CDNs must be weighed against the risk of shared trust.
 
-Distribution attacks exploit the assumption that content from trusted sources remains trustworthy. The Polyfill.io incident demonstrated this assumption's fragility—a legitimate service, trusted by over 100,000 websites, became an attack vector overnight when ownership changed. Defending against distribution attacks requires treating the entire path from publisher to consumer as potential attack surface, implementing verification at every stage, and planning for the possibility that any component in the chain could be compromised.
+Distribution attacks exploit the assumption that content from trusted sources remains trustworthy. The Polyfill.io incident demonstrated this assumption's fragility, a legitimate service, trusted by over 100,000 websites, became an attack vector overnight when ownership changed. Defending against distribution attacks requires treating the entire path from publisher to consumer as potential attack surface, implementing verification at every stage, and planning for the possibility that any component in the chain could be compromised.
 
 [^tuf]: The Update Framework, https://theupdateframework.io/
 [^linux-mint-2016]: https://blog.linuxmint.com/?p=2994

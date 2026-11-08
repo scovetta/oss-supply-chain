@@ -6,7 +6,7 @@ icon: "lucide/cloud"
 
 # 9.5 Serverless and Function-as-a-Service Supply Chains
 
-Serverless architectures abstract away infrastructure management, allowing developers to focus on code rather than servers. AWS Lambda, Azure Functions, Google Cloud Functions, and similar platforms manage the underlying compute, scaling, and runtime environments. This abstraction provides operational benefits—but it also creates unique supply chain considerations. Dependencies exist not only in your code but in shared layers, managed runtimes, and platform-provided components that you don't directly control.
+Serverless architectures abstract away infrastructure management, allowing developers to focus on code rather than servers. AWS Lambda, Azure Functions, Google Cloud Functions, and similar platforms manage the underlying compute, scaling, and runtime environments. This abstraction provides operational benefits, but it also creates unique supply chain considerations. Dependencies exist not only in your code but in shared layers, managed runtimes, and platform-provided components that you don't directly control.
 
 Understanding serverless supply chains requires examining both the traditional dependencies you bundle with your code and the platform-provided components that execute invisibly.
 
@@ -46,7 +46,7 @@ An attacker who can publish or modify layers gains code execution in every funct
 
 ## Cold Start and Initialization Security
 
-Serverless functions experience **cold starts**—initialization periods when the platform provisions execution environments. During cold starts:
+Serverless functions experience **cold starts**: initialization periods when the platform provisions execution environments. During cold starts:
 
 1. Platform provisions compute resources
 2. Runtime initializes (Node.js, Python, etc.)
@@ -71,11 +71,11 @@ A malicious dependency that runs code on import can execute during cold starts, 
 
 **Initialization attacks are stealthy**: Cold starts happen infrequently after the first invocation. Malicious initialization code might execute once per environment lifecycle, making detection through handler monitoring difficult.
 
-**Environment variable exposure**: Serverless functions commonly receive secrets through environment variables. During cold start, all environment variables are accessible—making initialization the ideal time for credential theft.
+**Environment variable exposure**: Serverless functions commonly receive secrets through environment variables. During cold start, all environment variables are accessible, making initialization the ideal time for credential theft.
 
 ## Cloud Provider-Managed Runtimes
 
-Serverless platforms provide managed runtimes—the language interpreters and base environments your code runs on. You select a runtime (Node.js 18.x, Python 3.11, etc.) but don't control its specific implementation.
+Serverless platforms provide managed runtimes: the language interpreters and base environments your code runs on. You select a runtime (Node.js 18.x, Python 3.11, etc.) but don't control its specific implementation.
 
 **Hidden Dependencies:**
 
@@ -121,7 +121,7 @@ Planning for runtime transitions is part of serverless supply chain management.
 
 ## Ephemeral Compute: Forensics Challenges
 
-Serverless execution environments are ephemeral—they exist briefly and are destroyed without persistent storage. This creates significant forensics and incident response challenges.
+Serverless execution environments are ephemeral: they exist briefly and are destroyed without persistent storage. This creates significant forensics and incident response challenges.
 
 **What's Lost:**
 
@@ -134,7 +134,7 @@ When a Lambda execution environment terminates:
 
 !!! warning "Forensics Challenges"
 
-    Serverless environments are ephemeral—no disk forensics, no memory analysis, no process trees to examine post-facto. Logs are your primary evidence. Enable comprehensive logging **before** incidents occur.
+    Serverless environments are ephemeral: no disk forensics, no memory analysis, no process trees to examine post-facto. Logs are your primary evidence. Enable comprehensive logging **before** incidents occur.
 
 If a malicious dependency executed during an invocation, evidence may exist only in CloudWatch Logs (if the function logged relevant information) and external destinations (if the attacker exfiltrated data to visible endpoints).
 
@@ -203,7 +203,7 @@ A compromised dependency executing in a Lambda function operates with that funct
 
 ## Deployment Package Security
 
-Serverless functions are deployed as packages—ZIP files (Lambda, Azure Functions) or container images. These packages contain your code and bundled dependencies.
+Serverless functions are deployed as packages: ZIP files (Lambda, Azure Functions) or container images. These packages contain your code and bundled dependencies.
 
 **What Goes Into the Package:**
 
@@ -330,7 +330,7 @@ Deviations may indicate compromise.
 
 5. **Use infrastructure-as-code.** Define function configurations, including IAM roles, in version-controlled templates for auditability.
 
-Serverless architectures shift some supply chain risks to cloud providers while creating new ones through layers, managed runtimes, and ephemeral execution. The abstraction that makes serverless attractive also reduces visibility into what's actually running. Effective serverless security requires understanding these hidden dependencies, implementing appropriate monitoring, and applying least privilege rigorously—because when dependencies go wrong, the blast radius extends to everything the function can access.
+Serverless architectures shift some supply chain risks to cloud providers while creating new ones through layers, managed runtimes, and ephemeral execution. The abstraction that makes serverless attractive also reduces visibility into what's actually running. Effective serverless security requires understanding these hidden dependencies, implementing appropriate monitoring, and applying least privilege rigorously, because when dependencies go wrong, the blast radius extends to everything the function can access.
 
 [aws-shared-responsibility]: https://aws.amazon.com/compliance/shared-responsibility-model/
 [iam-analyzer]: https://docs.aws.amazon.com/IAM/latest/UserGuide/what-is-access-analyzer.html

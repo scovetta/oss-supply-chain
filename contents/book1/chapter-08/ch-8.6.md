@@ -6,7 +6,7 @@ icon: "lucide/venetian-mask"
 
 # 8.6 Fake Security Researchers and Malicious Fixes
 
-Security researchers play a vital role in open source security, identifying vulnerabilities and helping projects fix them before exploitation. Legitimate researchers follow **responsible disclosure** practices, providing detailed reports and often contributing patches. Attackers have recognized this trusted relationship and begun exploiting it—posing as security researchers to pressure maintainers into merging malicious "fixes" that introduce vulnerabilities rather than remediate them.
+Security researchers play a vital role in open source security, identifying vulnerabilities and helping projects fix them before exploitation. Legitimate researchers follow **responsible disclosure** practices, providing detailed reports and often contributing patches. Attackers have recognized this trusted relationship and begun exploiting it, posing as security researchers to pressure maintainers into merging malicious "fixes" that introduce vulnerabilities rather than remediate them.
 
 This attack vector weaponizes the urgency and authority that legitimate security reports carry. Maintainers, already stretched thin, face pressure to act quickly on potential vulnerabilities. That pressure creates opportunity for manipulation.
 
@@ -40,7 +40,7 @@ The volume of fake reports suggests automation:
 - Reports may target specific project characteristics (certain languages, frameworks)
 - Timing patterns indicate coordinated campaigns
 
-Maintainers of popular packages have documented receiving dozens of fake vulnerability reports in short periods—each from different apparent researchers, each requiring investigation that consumes maintenance time.
+Maintainers of popular packages have documented receiving dozens of fake vulnerability reports in short periods: each from different apparent researchers, each requiring investigation that consumes maintenance time.
 
 ## Malicious Pull Requests Disguised as Security Fixes
 
@@ -109,7 +109,7 @@ Attackers exploit the dynamics of security disclosure to pressure rapid action:
 - Requests for status updates applying pressure
 - Implied criticism of slow response
 
-Legitimate security researchers also apply some pressure—they have genuine concerns about vulnerability timelines. But legitimate researchers generally:
+Legitimate security researchers also apply some pressure: they have genuine concerns about vulnerability timelines. But legitimate researchers generally:
 
 - Provide reasonable disclosure timelines ([typically 90 days][project-zero-policy])
 - Engage in technical dialogue about the vulnerability
@@ -212,7 +212,7 @@ Legitimate researchers encountering skeptical or unresponsive maintainers may:
 
 **Community Trust Erosion:**
 
-The relationship between security researchers and open source maintainers is essential for ecosystem security. Attacks that exploit this relationship damage it for everyone. Maintainers report that dealing with fake security reports makes them slower to respond to legitimate researchers—precisely the outcome attackers may be seeking.
+The relationship between security researchers and open source maintainers is essential for ecosystem security. Attacks that exploit this relationship damage it for everyone. Maintainers report that dealing with fake security reports makes them slower to respond to legitimate researchers, precisely the outcome attackers may be seeking.
 
 ## Recommendations
 

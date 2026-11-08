@@ -93,13 +93,13 @@ The malicious code included two payloads:
 
 2. **A credential stealer**: Harvested cookies and passwords from Windows systems, transmitting them to attacker-controlled servers.
 
-The attack exploited installation hooks—the malicious code executed immediately when `npm install` ran, before any code review could occur.
+The attack exploited installation hooks: the malicious code executed immediately when `npm install` ran, before any code review could occur.
 
 **Impact:**
 
 - Malicious versions were available for approximately 4 hours
 - The package's download velocity meant thousands of installations during this window
-- Organizations running CI/CD pipelines during this period were particularly exposed—automated builds repeatedly installed the malicious version
+- Organizations running CI/CD pipelines during this period were particularly exposed: automated builds repeatedly installed the malicious version
 - [CISA issued an alert][cisa-ua-parser] reporting the incident affected an unknown number of organizations
 
 **Discovery:**
@@ -294,7 +294,7 @@ The dYdX incident illustrates several trends in package attack evolution:
 
 !!! warning "Fileless Execution Evades Detection"
 
-    Malicious PyPI packages masquerading as spellchecker utilities delivered a fileless Python RAT — executing entirely in memory with no files written to disk. The shift from cryptocurrency-only payloads to general-purpose RATs signals that attackers increasingly view developer machines as high-value foothold targets.
+    Malicious PyPI packages masquerading as spellchecker utilities delivered a fileless Python RAT, executing entirely in memory with no files written to disk. The shift from cryptocurrency-only payloads to general-purpose RATs signals that attackers increasingly view developer machines as high-value foothold targets.
 
 In January 2026, Aikido Security reported a cluster of PyPI packages masquerading as spellchecker utilities that delivered a fileless Python remote access trojan (RAT).[^aikido-spellchecker] The incident demonstrates attacker ROI shifting from pure cryptocurrency theft to general-purpose developer foothold acquisition.
 
@@ -302,17 +302,17 @@ In January 2026, Aikido Security reported a cluster of PyPI packages masqueradin
 
 **Technical Details:**
 
-The packages used names designed to appear as legitimate spellchecking libraries — a common pattern targeting developers who search for common functionality and install the first plausible result. The malicious `setup.py` executed during `pip install` and:
+The packages used names designed to appear as legitimate spellchecking libraries, a common pattern targeting developers who search for common functionality and install the first plausible result. The malicious `setup.py` executed during `pip install` and:
 
 1. Spawned a detached child process (not dependent on the parent installer)
-2. Downloaded and executed a Python RAT entirely in memory — no files written to disk
+2. Downloaded and executed a Python RAT entirely in memory: no files written to disk
 3. Established persistence-like behavior through process respawning
 
 The fileless execution model represents an evolution beyond the typical "drop a file and execute" pattern common in earlier malware campaigns. By keeping the payload in memory and spawning detached processes, the malware reduces forensic artifacts and evades file-based detection.
 
 **Impact:**
 
-The shift from cryptocurrency-only payloads to **general-purpose RATs** signals that attackers increasingly view developer workstations as high-value *foothold* targets with follow-on options — not merely as sources of cryptocurrency credentials. A developer machine compromised with a RAT enables:
+The shift from cryptocurrency-only payloads to **general-purpose RATs** signals that attackers increasingly view developer workstations as high-value *foothold* targets with follow-on options, not merely as sources of cryptocurrency credentials. A developer machine compromised with a RAT enables:
 
 - Source code theft and modification
 - CI/CD credential harvesting
@@ -323,7 +323,7 @@ The shift from cryptocurrency-only payloads to **general-purpose RATs** signals 
 
 1. **Verify package identity before installation.** Check the package's PyPI page for download counts, maintainer history, and repository links before running `pip install`.
 2. **Use `--no-deps` and `--dry-run` for unfamiliar packages.** Inspect what will be installed before executing install scripts.
-3. **Monitor for detached processes spawned during package installation** in CI/CD environments — this is anomalous behavior that sandboxed install environments can detect.
+3. **Monitor for detached processes spawned during package installation** in CI/CD environments: this is anomalous behavior that sandboxed install environments can detect.
 
 ## Synthesis: Common Patterns Across Incidents
 

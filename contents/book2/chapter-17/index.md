@@ -6,7 +6,7 @@ icon: "lucide/shield-check"
 
 # Chapter 17: Securing Build and Release Pipelines
 
-CI/CD pipelines represent uniquely high-value targets in the software supply chain. They have privileged access to source code, secrets, signing keys, and deployment credentials, making their security critical to overall software integrity. This chapter provides a comprehensive framework for securing build infrastructure, from foundational principles to specific implementation guidance.
+CI/CD pipelines represent uniquely high-value targets in the software supply chain. They have privileged access to source code, secrets, signing keys, and deployment credentials, making their security critical to overall software integrity. This chapter lays out a framework for securing build infrastructure, from foundational principles to specific implementation guidance.
 
 The chapter begins with core security principles including least privilege, build isolation, ephemeral environments, comprehensive audit logging, and network segmentation. It then explores zero trust architecture for CI/CD, demonstrating how to replace long-lived stored secrets with identity-based authentication using OIDC federation and short-lived credentials.
 

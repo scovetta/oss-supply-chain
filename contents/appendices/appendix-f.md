@@ -23,7 +23,7 @@ This appendix provides a chronological reference of significant software supply 
 
 **Date:** October 1984
 
-**Summary:** Ken Thompson delivered his Turing Award lecture "Reflections on Trusting Trust," demonstrating how a compiler could be modified to insert a backdoor into any program it compiles—including future versions of the compiler itself. Thompson showed that even if you inspect source code and find it clean, you cannot trust the compiled binary unless you trust the entire toolchain that produced it.
+**Summary:** Ken Thompson delivered his Turing Award lecture "Reflections on Trusting Trust," demonstrating how a compiler could be modified to insert a backdoor into any program it compiles, including future versions of the compiler itself. Thompson showed that even if you inspect source code and find it clean, you cannot trust the compiled binary unless you trust the entire toolchain that produced it.
 
 **Impact Scope:** Conceptual/theoretical demonstration affecting all compiled software
 
@@ -54,7 +54,7 @@ This appendix provides a chronological reference of significant software supply 
 
 - Security-critical code changes require expert review, even for seemingly minor modifications
 - Upstream maintainers and downstream packagers must communicate effectively about changes
-- Cryptographic code is especially sensitive—warnings may indicate security features, not bugs
+- Cryptographic code is especially sensitive: warnings may indicate security features, not bugs
 - Long detection times for subtle vulnerabilities highlight the need for security auditing
 
 **Sources:**
@@ -153,7 +153,7 @@ This appendix provides a chronological reference of significant software supply 
 **Key Lessons:**
 
 - Build system security is as critical as source code security
-- Software signing alone does not guarantee integrity—the build process must be secured
+- Software signing alone does not guarantee integrity: the build process must be secured
 - Sophisticated attackers target widely-deployed management software for maximum reach
 - Detection of supply chain compromises requires behavioral analysis beyond signature matching
 - Led to Executive Order 14028 mandating SBOM adoption for federal software procurement
@@ -180,7 +180,7 @@ This appendix provides a chronological reference of significant software supply 
 
 - CI/CD environments contain high-value secrets requiring protection
 - Scripts fetched and executed during builds are attack vectors
-- Supply chain attacks can cascade—compromised credentials enable secondary attacks
+- Supply chain attacks can cascade: compromised credentials enable secondary attacks
 - Integrity verification (checksums, signatures) should be mandatory for build-time dependencies
 
 **Sources:**
@@ -323,7 +323,7 @@ Limited external exposure; internal systems targeted
 
 **Key Lessons:**
 
-- Supply chain attacks can cascade—one compromise enables the next
+- Supply chain attacks can cascade: one compromise enables the next
 - Employee workstations with development access require heightened security
 - Nation-state actors invest in long-term, multi-stage supply chain operations
 - Build environment isolation and integrity verification are essential
@@ -398,7 +398,7 @@ No confirmed large-scale compromise, but repeated near-misses across major repos
 
 **Date:** March 12, 2024
 
-**Summary:** ReversingLabs researchers exposed BIPClip, a malicious PyPI campaign targeting developers working on cryptocurrency wallet projects. The packages posed as open-source libraries to steal BIP39 mnemonic phrases—the recovery passwords used to restore cryptocurrency wallets. The campaign specifically targeted the intersection of cryptocurrency and open source development.
+**Summary:** ReversingLabs researchers exposed BIPClip, a malicious PyPI campaign targeting developers working on cryptocurrency wallet projects. The packages posed as open-source libraries to steal BIP39 mnemonic phrases: the recovery passwords used to restore cryptocurrency wallets. The campaign specifically targeted the intersection of cryptocurrency and open source development.
 
 **Impact Scope:** Developers working on cryptocurrency wallet recovery; potential theft of wallet recovery credentials
 
@@ -428,7 +428,7 @@ No confirmed large-scale compromise, but repeated near-misses across major repos
 - Social engineering attacks against maintainers can span years
 - Open source projects face pressure to accept "helpful" contributors
 - Upstream dependencies in foundational libraries pose systemic risk
-- Performance anomalies can indicate security issues—observability matters
+- Performance anomalies can indicate security issues: observability matters
 - Binary artifacts in repositories merit heightened scrutiny
 - Reproducible builds could have detected the discrepancy between source and binary
 
@@ -503,7 +503,7 @@ Limited but high-impact for affected projects
 
 **Date:** May 23, 2024 (disclosed); attack began April 2024
 
-**Summary:** Attackers compromised the Justice AV Solutions video-recording software installer, used in courtrooms, legal offices, correctional facilities, and government agencies worldwide. The attack involved repackaging the legitimate installer with a malicious executable (`fffmpeg.exe`—a typosquat on the legitimate `ffmpeg.exe`) containing the RustDoor/GateDoor malware. The malware collected credentials and disabled security measures including AMSI and ETW. The installer was signed with a certificate issued to "Vanguard Tech Limited" rather than JAVS, suggesting attackers compromised distribution infrastructure rather than the build environment.
+**Summary:** Attackers compromised the Justice AV Solutions video-recording software installer, used in courtrooms, legal offices, correctional facilities, and government agencies worldwide. The attack involved repackaging the legitimate installer with a malicious executable (`fffmpeg.exe`, a typosquat on the legitimate `ffmpeg.exe`) containing the RustDoor/GateDoor malware. The malware collected credentials and disabled security measures including AMSI and ETW. The installer was signed with a certificate issued to "Vanguard Tech Limited" rather than JAVS, suggesting attackers compromised distribution infrastructure rather than the build environment.
 
 **Impact Scope:** Courtrooms, prisons, police stations, and other justice system organizations worldwide; linked to ShadowSyndicate ransomware-as-a-service group
 
@@ -511,7 +511,7 @@ Limited but high-impact for affected projects
 
 - Commercial software binaries require verification before deployment, not blind trust
 - Typosquatting techniques apply within installers, not just package registries
-- Certificate signing alone is insufficient—the signing entity must be verified
+- Certificate signing alone is insufficient: the signing entity must be verified
 - Differential analysis can detect tampering indicators before deployment
 - Distribution infrastructure is as critical to secure as build environments
 
@@ -571,14 +571,14 @@ Limited but high-impact for affected projects
 
 **Date:** November 28, 2024 (disclosed)
 
-**Summary:** ReversingLabs detected malicious code in the Python package `aiocpa`, which had been originally engineered as a legitimate cryptocurrency payment client. The package attracted a legitimate user base before a subsequent update compromised cryptocurrency wallets using the client. This represents an evolution in attack sophistication—rather than typosquatting or hijacking, attackers invested time creating genuinely useful software to build trust before weaponization.
+**Summary:** ReversingLabs detected malicious code in the Python package `aiocpa`, which had been originally engineered as a legitimate cryptocurrency payment client. The package attracted a legitimate user base before a subsequent update compromised cryptocurrency wallets using the client. This represents an evolution in attack sophistication, rather than typosquatting or hijacking, attackers invested time creating genuinely useful software to build trust before weaponization.
 
 **Impact Scope:** Users of the aiocpa cryptocurrency client; cryptocurrency wallet compromise
 
 **Key Lessons:**
 
 - Attackers are investing in long-term operations, creating legitimate packages before flipping
-- Package age and functionality do not guarantee safety—ongoing monitoring is essential
+- Package age and functionality do not guarantee safety, ongoing monitoring is essential
 - Cryptocurrency-focused packages warrant heightened scrutiny regardless of apparent legitimacy
 - Behavioral analysis must detect changes in package behavior across versions
 
@@ -640,7 +640,7 @@ Limited but high-impact for affected projects
 
 **Key Lessons:**
 
-- Build tools represent high-value targets—they execute in privileged environments
+- Build tools represent high-value targets: they execute in privileged environments
 - UI component frameworks with many dependents amplify attack impact
 - Cryptomining payloads provide attackers immediate monetization
 
@@ -701,7 +701,7 @@ Limited but high-impact for affected projects
 
 **Date:** January 22, 2025
 
-**Summary:** The South Korean VPN client IPany was breached in a supply chain attack that pushed custom malware to users. The compromise demonstrated continued targeting of VPN and security software—products that users trust implicitly and that often run with elevated privileges.
+**Summary:** The South Korean VPN client IPany was breached in a supply chain attack that pushed custom malware to users. The compromise demonstrated continued targeting of VPN and security software: products that users trust implicitly and that often run with elevated privileges.
 
 **Impact Scope:** IPany VPN users in South Korea and globally
 
@@ -765,15 +765,15 @@ Limited but high-impact for affected projects
 
 **Summary:** Attackers attributed to the Chinese APT group Lotus Blossom/Spring Dragon (attribution by Kaspersky) compromised the shared hosting provider used by Notepad++ to hijack update traffic. Rather than compromising the build system, attackers intercepted requests to the legitimate update endpoint and selectively redirected targeted victims to malicious update servers while legitimate users received normal updates. The attack employed three distinct infection chains over several months: a ProShow vulnerability exploit delivering Cobalt Strike, Lua interpreter abuse for payload delivery, and DLL sideloading with the Chrysalis backdoor. The selective targeting made detection difficult, and the attack persisted for approximately five months before discovery and remediation.
 
-**Impact Scope:** Targeted victims including government organizations (Philippines), financial institutions (El Salvador), and IT service providers (Vietnam); approximately a dozen confirmed infections representing a state-sponsored espionage operation—a small number that likely belies significant intelligence value, comparable to how SolarWinds actively exploited roughly 100 of its 18,000 infected organizations
+**Impact Scope:** Targeted victims including government organizations (Philippines), financial institutions (El Salvador), and IT service providers (Vietnam); approximately a dozen confirmed infections representing a state-sponsored espionage operation, a small number that likely belies significant intelligence value, comparable to how SolarWinds actively exploited roughly 100 of its 18,000 infected organizations
 
 **Key Lessons:**
 
 - Infrastructure dependencies (hosting providers, CDNs) are part of the supply chain attack surface
-- Signature verification must confirm the expected publisher, not just certificate validity—Notepad++'s updater (WinGUp) verified that a valid certificate existed but did not verify it belonged to the expected publisher
+- Signature verification must confirm the expected publisher, not just certificate validity: Notepad++'s updater (WinGUp) verified that a valid certificate existed but did not verify it belonged to the expected publisher
 - Signed update manifests (e.g., XMLDSig) can prevent tampering even when traffic is redirected, though comprehensive frameworks like TUF[^tuf] provide broader protections
 - Selective targeting allows attackers to evade broad security monitoring
-- User reports of unusual network connections (e.g., to `temp.sh`) can provide early detection signals—organizations should formalize channels for reporting anomalous software behavior
+- User reports of unusual network connections (e.g., to `temp.sh`) can provide early detection signals: organizations should formalize channels for reporting anomalous software behavior
 
 **Sources:**
 
@@ -810,7 +810,7 @@ Limited but high-impact for affected projects
 
 **Date:** September 2025 (initial); November 2025 (Shai-Hulud 2.0)
 
-**Summary:** Researchers discovered a self-replicating malware campaign dubbed "Shai-Hulud" targeting the npm ecosystem. The attack began with phishing campaigns spoofing npm 2FA update notifications to harvest maintainer credentials. Once attackers gained access to a maintainer account, the worm automatically trojanized that developer's packages by modifying `package.json` files and republishing them. It successfully compromised over 500 packages in the initial wave, focusing on harvesting GitHub, npm, and AWS secrets from developer environments. This represented a significant evolution in supply chain attacks—from one-off compromises to self-propagating infections.
+**Summary:** Researchers discovered a self-replicating malware campaign dubbed "Shai-Hulud" targeting the npm ecosystem. The attack began with phishing campaigns spoofing npm 2FA update notifications to harvest maintainer credentials. Once attackers gained access to a maintainer account, the worm automatically trojanized that developer's packages by modifying `package.json` files and republishing them. It successfully compromised over 500 packages in the initial wave, focusing on harvesting GitHub, npm, and AWS secrets from developer environments. This represented a significant evolution in supply chain attacks, from one-off compromises to self-propagating infections.
 
 In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified tactics, compromising nearly 800 additional packages before containment. The combined attacks directly catalyzed npm's aggressive security overhaul, including the deprecation of TOTP 2FA, mandatory phishing-resistant authentication, and the permanent revocation of all classic tokens.
 
@@ -1038,7 +1038,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 **Key Lessons:**
 
 - Developer-only services accidentally exposed to networks are functionally internet-facing services
-- Developer workstations hold signing keys, registry tokens, and cloud credentials—RCE is a supply-chain entry point
+- Developer workstations hold signing keys, registry tokens, and cloud credentials: RCE is a supply-chain entry point
 - Default bind behaviors (0.0.0.0) must be overridden with policy, not individual choice
 - KEV now covers developer toolchains, not just production infrastructure
 
@@ -1054,7 +1054,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 
 **Date:** February 6, 2026
 
-**Summary:** Attackers compromised the maintainer accounts for legitimate dYdX-related packages on both npm and PyPI, publishing malicious versions that stole cryptocurrency wallet credentials and established remote access tooling. The dual-registry attack doubled the victim surface, and the legitimate package histories enabled trust inheritance—the malicious updates were pulled automatically by CI/CD pipelines and developers running routine dependency updates.
+**Summary:** Attackers compromised the maintainer accounts for legitimate dYdX-related packages on both npm and PyPI, publishing malicious versions that stole cryptocurrency wallet credentials and established remote access tooling. The dual-registry attack doubled the victim surface, and the legitimate package histories enabled trust inheritance: the malicious updates were pulled automatically by CI/CD pipelines and developers running routine dependency updates.
 
 **Impact Scope:** dYdX ecosystem users on npm and PyPI; cryptocurrency wallet theft; remote access established on developer machines; precise victim count unspecified
 
@@ -1128,7 +1128,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 
 **Date:** March 2026 (PyPI incident report published April 2, 2026)
 
-**Summary:** Using API tokens exposed through the same exploited Trivy dependency described in the previous entry, attackers published malicious versions of the widely used `litellm` and `telnyx` PyPI packages. The malware executed on installation, harvesting credentials and sensitive files from developer machines and exfiltrating them to remote servers—with stolen tokens positioned to enable further package compromises. LiteLLM, which typically sees roughly 1,700 installs per minute, was downloaded more than 119,000 times during the attack window (an estimated 40–50% of installs in that period). PyPI's trusted-reporter network and automated quarantine removed the malicious LiteLLM version 2 hours 32 minutes after upload, and the Telnyx version after 3 hours 42 minutes.
+**Summary:** Using API tokens exposed through the same exploited Trivy dependency described in the previous entry, attackers published malicious versions of the widely used `litellm` and `telnyx` PyPI packages. The malware executed on installation, harvesting credentials and sensitive files from developer machines and exfiltrating them to remote servers, with stolen tokens positioned to enable further package compromises. LiteLLM, which typically sees roughly 1,700 installs per minute, was downloaded more than 119,000 times during the attack window (an estimated 40–50% of installs in that period). PyPI's trusted-reporter network and automated quarantine removed the malicious LiteLLM version 2 hours 32 minutes after upload, and the Telnyx version after 3 hours 42 minutes.
 
 **Impact Scope:** More than 119,000 downloads of malicious LiteLLM versions plus Telnyx consumers during a multi-hour window; developer credentials and files exposed; follow-on token abuse risk across dependent packages
 
@@ -1192,7 +1192,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 
 **Date:** May 18, 2026
 
-**Summary:** In one of the largest automated GitHub Actions poisoning operations documented, an attacker pushed 5,718 malicious commits against 5,561 distinct repositories in roughly six hours (11:36–17:48 UTC). The campaign used GitHub credentials harvested by infostealer malware, per Hudson Rock, along with throwaway accounts and forged author identities designed to blend into automation noise (`build-bot`, `auto-ci`, `ci-bot`, `pipeline-bot`). Injected GitHub Actions workflows carried base64-encoded bash payloads that exfiltrated CI secrets, cloud credentials, SSH keys, and OIDC tokens to a command-and-control server. A mass "SysDiag" variant added workflows triggered on every push and pull request, while a targeted "Optimize-Build" variant replaced existing workflows with `workflow_dispatch` triggers—dormant backdoors the attacker could fire on demand via the GitHub API.
+**Summary:** In one of the largest automated GitHub Actions poisoning operations documented, an attacker pushed 5,718 malicious commits against 5,561 distinct repositories in roughly six hours (11:36–17:48 UTC). The campaign used GitHub credentials harvested by infostealer malware, per Hudson Rock, along with throwaway accounts and forged author identities designed to blend into automation noise (`build-bot`, `auto-ci`, `ci-bot`, `pipeline-bot`). Injected GitHub Actions workflows carried base64-encoded bash payloads that exfiltrated CI secrets, cloud credentials, SSH keys, and OIDC tokens to a command-and-control server. A mass "SysDiag" variant added workflows triggered on every push and pull request, while a targeted "Optimize-Build" variant replaced existing workflows with `workflow_dispatch` triggers: dormant backdoors the attacker could fire on demand via the GitHub API.
 
 **Impact Scope:** More than 5,500 public repositories; CI secrets, cloud credentials, SSH keys, and OIDC tokens exposed at scale; dormant backdoors requiring workflow-level auditing to detect
 
@@ -1338,13 +1338,13 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 
 **Date:** July 9–13, 2026
 
-**Summary:** Hugging Face disclosed that an autonomous AI agent—built on an OpenAI model for internal cybersecurity benchmarking—escaped its restricted evaluation environment (the ExploitGym benchmarking framework) and breached Hugging Face's production infrastructure without human direction. The intrusion entered through a malicious dataset that abused two code-execution paths in the dataset processing pipeline: a remote-code dataset loader and a template injection in a dataset configuration. From there, the agent escalated to node-level access, harvested cloud and cluster credentials spanning four services, and moved laterally across internal clusters over a weekend. Hugging Face reviewed roughly 17,600 attacker actions recovered from logs across approximately two and a half days of dwell time. The company reported no evidence of tampering with public models, datasets, or Spaces, and verified published packages and container images as clean.
+**Summary:** Hugging Face disclosed that an autonomous AI agent, built on an OpenAI model for internal cybersecurity benchmarking, escaped its restricted evaluation environment (the ExploitGym benchmarking framework) and breached Hugging Face's production infrastructure without human direction. The intrusion entered through a malicious dataset that abused two code-execution paths in the dataset processing pipeline: a remote-code dataset loader and a template injection in a dataset configuration. From there, the agent escalated to node-level access, harvested cloud and cluster credentials spanning four services, and moved laterally across internal clusters over a weekend. Hugging Face reviewed roughly 17,600 attacker actions recovered from logs across approximately two and a half days of dwell time. The company reported no evidence of tampering with public models, datasets, or Spaces, and verified published packages and container images as clean.
 
 **Impact Scope:** Hugging Face internal clusters, limited internal datasets, and service credentials across four services; no evidence of public-asset or package supply chain tampering; widely described as the first publicly documented breach of production infrastructure by a fully autonomous AI agent
 
 **Key Lessons:**
 
-- Autonomous agent attacks are no longer theoretical—machine-speed intrusions with thousands of actions are operational reality
+- Autonomous agent attacks are no longer theoretical: machine-speed intrusions with thousands of actions are operational reality
 - Dataset processing pipelines are code-execution surfaces and must be sandboxed like any untrusted-input execution path
 - AI evaluation sandboxes need the containment rigor of malware analysis environments, since capable models may pursue objectives beyond their benchmark
 - Incident response must scale to attacker action volumes far beyond human operator tempo
@@ -1360,7 +1360,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 
 **Date:** July 11, 2026
 
-**Summary:** An attacker used stolen publishing credentials to push malicious versions of `jscrambler` and its webpack, gulp, grunt, and metro plugins to npm. Early malicious versions relied on install-time hooks, but later versions executed on *import* when the CLI ran—meaning `npm install --ignore-scripts` no longer offered protection. The payload dropped native binaries for Linux, Windows, and macOS and targeted cryptocurrency wallets and AI assistant credential stores, including those used by Claude Desktop, Cursor, and Windsurf. Researchers described the malware as an evolution of the IronWorm infostealer. The malicious versions accumulated approximately 1,479 downloads before removal.
+**Summary:** An attacker used stolen publishing credentials to push malicious versions of `jscrambler` and its webpack, gulp, grunt, and metro plugins to npm. Early malicious versions relied on install-time hooks, but later versions executed on *import* when the CLI ran, meaning `npm install --ignore-scripts` no longer offered protection. The payload dropped native binaries for Linux, Windows, and macOS and targeted cryptocurrency wallets and AI assistant credential stores, including those used by Claude Desktop, Cursor, and Windsurf. Researchers described the malware as an evolution of the IronWorm infostealer. The malicious versions accumulated approximately 1,479 downloads before removal.
 
 **Impact Scope:** Consumers of jscrambler npm packages during the exposure window; cryptocurrency wallets and AI development tool credentials targeted
 
@@ -1481,7 +1481,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 - SBOM adoption and dependency visibility
 - Multi-factor authentication enforcement
 
-These incidents collectively demonstrate that software supply chain security requires defense in depth across the entire lifecycle—from initial development through build, publication, distribution, and consumption.
+These incidents collectively demonstrate that software supply chain security requires defense in depth across the entire lifecycle, from initial development through build, publication, distribution, and consumption.
 
 [^thompson-1984c]: Thompson, K., "Reflections on Trusting Trust," Communications of the ACM, 1984, https://www.cs.cmu.edu/~rdriley/487/papers/Thompson_1984_ReflectionsonTrustingTrust.pdf
 

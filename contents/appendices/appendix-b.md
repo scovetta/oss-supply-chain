@@ -18,7 +18,7 @@ A comprehensive treatment of software supply chain security with particular emph
 The definitive guide to threat modeling methodology. Essential reading for anyone designing secure systems or evaluating the security posture of software projects.
 
 **The Art of Software Security Assessment** by Mark Dowd, John McDonald, and Justin Schuh (Addison-Wesley, 2006)[^art-security-assessment]
-Though focused on vulnerability discovery, this comprehensive text provides deep understanding of how software vulnerabilities arise—essential context for supply chain security practitioners.
+Though focused on vulnerability discovery, this comprehensive text provides deep understanding of how software vulnerabilities arise: essential context for supply chain security practitioners.
 
 **Hacking Kubernetes** by Andrew Martin and Michael Hausenblas (O'Reilly, 2021)[^hacking-kubernetes]
 Covers security considerations for containerized environments and Kubernetes, including supply chain concerns specific to cloud-native infrastructure.

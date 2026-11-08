@@ -2,7 +2,7 @@
 
 ## Summary
 
-This chapter provides a comprehensive examination of the open source ecosystem and its implications for software supply chain security. It traces the historical roots of open source from Richard Stallman's Free Software Movement in 1983 through the emergence of the "open source" term in 1998, explaining how founding principles like transparency, collaboration, and community governance continue to shape security dynamics today.
+This chapter examines the open source ecosystem and its implications for software supply chain security. It traces the historical roots of open source from Richard Stallman's Free Software Movement in 1983 through the emergence of the "open source" term in 1998, explaining how founding principles like transparency, collaboration, and community governance continue to shape security dynamics today.
 
 The chapter explores how open source projects are governed, from single-maintainer hobby projects to enterprise-critical infrastructure managed by well-funded foundations like Apache, Linux Foundation, and CNCF. Different governance models create distinct security profiles: concentrated governance enables rapid response but creates single points of failure, while distributed governance provides resilience but may slow emergency decisions.
 

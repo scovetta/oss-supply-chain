@@ -30,7 +30,7 @@ npm update lodash
 
 - Use `npm ci` in CI/CD pipelines instead of `npm install`
 - Set `save-exact=true` in `.npmrc` to pin exact versions by default
-- Review lockfile changes in pull requests—large diffs may indicate supply chain attacks
+- Review lockfile changes in pull requests: large diffs may indicate supply chain attacks
 
 ```ini
 # .npmrc
@@ -374,7 +374,7 @@ mvn org.cyclonedx:cyclonedx-maven-plugin:makeAggregateBom
 mvn capslock:analyze
 ```
 
-**JCapsLock** performs capability analysis on Java dependencies, showing which packages can access files, network, or execute code. This helps detect unexpected behavior in dependencies—useful for identifying supply chain compromises that don't yet have CVEs.
+**JCapsLock** performs capability analysis on Java dependencies, showing which packages can access files, network, or execute code. This helps detect unexpected behavior in dependencies: useful for identifying supply chain compromises that don't yet have CVEs.
 
 #### Signing and Verification
 
@@ -497,7 +497,7 @@ capslock -packages=./...
 gosec -fmt=json -out=results.json ./...
 ```
 
-**Capslock** analyzes what your Go packages and dependencies can actually *do*—file access, network calls, process execution. This is particularly valuable for auditing dependencies, as unexpected capabilities (like a data parser with network access) may indicate supply chain compromise. For Go packages, results are also available on deps.dev without local installation.
+**Capslock** analyzes what your Go packages and dependencies can actually *do*: file access, network calls, process execution. This is particularly valuable for auditing dependencies, as unexpected capabilities (like a data parser with network access) may indicate supply chain compromise. For Go packages, results are also available on deps.dev without local installation.
 
 #### Signing and Verification
 

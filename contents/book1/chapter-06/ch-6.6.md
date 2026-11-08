@@ -12,7 +12,7 @@ This attack represents a fundamental shift in supply chain threats. Traditional 
 
 ## Definition and Origin
 
-The term **slopsquatting** combines "slop"—internet slang for low-quality AI-generated content—with "squatting," the practice of claiming valuable names for malicious purposes. The term emerged from a conversation between Seth Larson, the Python Software Foundation's Security Developer-in-Residence, and Andrew Nesbitt, creator of Ecosyste.ms. [Nesbitt popularized the term on Mastodon in April 2025][nesbitt-slopsquatting], defining it as:
+The term **slopsquatting** combines "slop", internet slang for low-quality AI-generated content, with "squatting," the practice of claiming valuable names for malicious purposes. The term emerged from a conversation between Seth Larson, the Python Software Foundation's Security Developer-in-Residence, and Andrew Nesbitt, creator of Ecosyste.ms. [Nesbitt popularized the term on Mastodon in April 2025][nesbitt-slopsquatting], defining it as:
 
 > "Slopsquatting—when an LLM hallucinates a non-existent package name, and a bad actor registers it maliciously. The AI brother of typosquatting."
 
@@ -32,7 +32,7 @@ For example, when asked to write code for a specific task, an AI might suggest:
 from flask_security_utils import generate_token
 ```
 
-If `flask-security-utils` does not exist on PyPI, this is a hallucination. The name is plausible—it sounds like something that might exist—but the AI has invented it based on patterns rather than referencing an actual package.
+If `flask-security-utils` does not exist on PyPI, this is a hallucination. The name is plausible, it sounds like something that might exist, but the AI has invented it based on patterns rather than referencing an actual package.
 
 Several factors contribute to hallucination:
 
@@ -69,7 +69,7 @@ The Spracklen study found that hallucinated package names showed a bimodal distr
 3. They register these names on public registries
 4. When other developers ask similar questions and receive the same hallucinated recommendations, they install the attacker's packages
 
-This repeatability exists because hallucinations are not truly random—they result from deterministic patterns in model behavior. The same training data biases that cause one developer to receive a hallucinated recommendation will cause other developers with similar prompts to receive the same recommendation.
+This repeatability exists because hallucinations are not truly random: they result from deterministic patterns in model behavior. The same training data biases that cause one developer to receive a hallucinated recommendation will cause other developers with similar prompts to receive the same recommendation.
 
 [Socket.dev research][socket-slopsquatting] highlighted this pattern, identifying specific hallucinated package names that appeared consistently across repeated model runs. Some hallucinated names are therefore more valuable to attackers because they can be elicited predictably.
 
@@ -105,7 +105,7 @@ While slopsquatting shares surface similarities with typosquatting, the underlyi
 
 Typosquatting exploits the gap between what a developer intends to type and what they actually type. Slopsquatting exploits the gap between what developers need and what AI systems recommend.
 
-The distinction matters for defense. Typosquatting detection focuses on edit distance from known legitimate packages. Slopsquatting involves names that are not close to any existing package—they are novel inventions by the AI. Traditional typosquatting detection will not catch them.
+The distinction matters for defense. Typosquatting detection focuses on edit distance from known legitimate packages. Slopsquatting involves names that are not close to any existing package: they are novel inventions by the AI. Traditional typosquatting detection will not catch them.
 
 ## Vibe Coding and Reduced Verification
 
@@ -113,7 +113,7 @@ The distinction matters for defense. Typosquatting detection focuses on edit dis
 
     The convenience that makes AI assistants valuable can also reduce the friction that previously served as a security check. Treat AI-recommended packages as suggestions that still require independent verification.
 
-The slopsquatting risk is amplified by changing developer practices around AI-generated code. The phenomenon of **"vibe coding"**—accepting AI-generated code with minimal review because it "vibes" correctly—reduces the verification that might catch non-existent packages.
+The slopsquatting risk is amplified by changing developer practices around AI-generated code. The phenomenon of **"vibe coding"** (accepting AI-generated code with minimal review because it "vibes" correctly) reduces the verification that might catch non-existent packages.
 
 In traditional development, a developer would:
 
@@ -178,7 +178,7 @@ Package registries face challenges defending against slopsquatting:
 - Registration of potentially millions of names
 - Policy decisions about name reservation without packages
 
-**Reactive removal is the current approach**: Registries currently respond to slopsquatting as they do to other malicious packages—removing them when reported and applying behavioral analysis to detect suspicious publications.
+**Reactive removal is the current approach**: Registries currently respond to slopsquatting as they do to other malicious packages, removing them when reported and applying behavioral analysis to detect suspicious publications.
 
 **Potential future defenses:**
 
@@ -187,7 +187,7 @@ Package registries face challenges defending against slopsquatting:
 - **Namespace policies**: Encouraging use of organizational namespaces that AI systems are less likely to hallucinate
 - **Collaboration with AI providers**: Sharing intelligence about hallucinated names so AI models can be updated to avoid recommending them
 
-Some registries have begun implementing enhanced scrutiny for newly-registered packages that receive immediate downloads—a pattern consistent with slopsquatting attacks where the attacker promotes their malicious package immediately after registration.
+Some registries have begun implementing enhanced scrutiny for newly-registered packages that receive immediate downloads, a pattern consistent with slopsquatting attacks where the attacker promotes their malicious package immediately after registration.
 
 ## Recommendations
 
@@ -207,7 +207,7 @@ Slopsquatting represents a novel threat category that will grow as AI coding ass
 
 ## AI-Generated Slop Reports: Drowning Maintainers in Fake Vulnerabilities
 
-While slopsquatting targets developers consuming AI-generated package recommendations, a parallel threat targets the other side of the ecosystem: open source maintainers receiving security vulnerability reports. **AI-generated slop reports**—invalid vulnerability reports created by AI that describe non-existent security issues—are overwhelming bug bounty programs and maintainer security workflows.
+While slopsquatting targets developers consuming AI-generated package recommendations, a parallel threat targets the other side of the ecosystem: open source maintainers receiving security vulnerability reports. **AI-generated slop reports** (invalid vulnerability reports created by AI that describe non-existent security issues) are overwhelming bug bounty programs and maintainer security workflows.
 
 This problem has escalated dramatically since 2024, with some projects reporting that the majority of their security submissions are now AI-generated slop. The consequences extend beyond wasted time: if maintainers cannot distinguish legitimate vulnerabilities from AI-generated noise, critical security issues may be overlooked, and the entire bug bounty model that has effectively identified vulnerabilities for years may collapse.
 
@@ -216,12 +216,12 @@ This problem has escalated dramatically since 2024, with some projects reporting
 Daniel Stenberg,[^stenberg] creator and maintainer of curl,[^curl] one of the world's most widely deployed software components with an estimated 6+ billion installations, has been particularly vocal about the impact of AI slop on security reporting. In 2025, Stenberg reported that:[^stenberg-ai-slop]
 
 - Approximately **20% of all security submissions** to curl's bug bounty program were AI-generated slop
-- Only around **5% of submissions in 2025** turned out to be genuine vulnerabilities—a dramatic decline from previous years when legitimate vulnerability rates were much higher
+- Only around **5% of submissions in 2025** turned out to be genuine vulnerabilities, a dramatic decline from previous years when legitimate vulnerability rates were much higher
 - The time spent triaging AI-generated fake reports effectively constitutes a **denial-of-service attack** on maintainer time
 
 [^stenberg-ai-slop]: Daniel Stenberg, "Death by a Thousand Slops," daniel.haxx.se, July 2025, https://daniel.haxx.se/blog/2025/07/14/death-by-a-thousand-slops/
 
-HackerOne,[^hackerone] one of the largest bug bounty platforms, noted they've seen a rise in false positives—vulnerabilities that appear real but are generated by LLMs and lack real-world impact.[^bugbounty-ai] Bugcrowd[^bugcrowd] reported an overall increase of 500 submissions per week, though they indicate AI is widely used in most submissions and hasn't yet caused a significant spike in low-quality slop reports specifically (though this may reflect their triage effectiveness rather than the volume of slop submitted).
+HackerOne,[^hackerone] one of the largest bug bounty platforms, noted they've seen a rise in false positives: vulnerabilities that appear real but are generated by LLMs and lack real-world impact.[^bugbounty-ai] Bugcrowd[^bugcrowd] reported an overall increase of 500 submissions per week, though they indicate AI is widely used in most submissions and hasn't yet caused a significant spike in low-quality slop reports specifically (though this may reflect their triage effectiveness rather than the volume of slop submitted).
 
 [^bugbounty-ai]: HackerOne and Bugcrowd platform observations regarding AI-generated security submissions, 2024-2025.
 
@@ -246,7 +246,7 @@ In 2025, the curl project received an AI-fabricated vulnerability report via Hac
 - Described vulnerabilities that couldn't be reproduced following the provided steps
 - Used security terminology correctly but applied it to scenarios that didn't exist
 
-Stenberg and the curl team spent significant time investigating before determining the report was invalid—time that could have been spent fixing real vulnerabilities.
+Stenberg and the curl team spent significant time investigating before determining the report was invalid: time that could have been spent fixing real vulnerabilities.
 
 **Why This Is Happening:**
 

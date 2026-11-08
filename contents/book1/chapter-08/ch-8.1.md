@@ -6,7 +6,7 @@ icon: "lucide/key"
 
 # 8.1 Compromised Maintainer Accounts
 
-Chapter 7 examined attacks that compromise build systems and distribution infrastructure—complex operations requiring access to protected servers and sophisticated persistence mechanisms. But there is often a simpler path to supply chain compromise: stealing a maintainer's credentials. With a maintainer's username and password, an attacker can publish malicious package versions directly, no build system compromise required. The attack completes in minutes, the malicious code flows through official channels, and downstream users install it without suspicion.
+Chapter 7 examined attacks that compromise build systems and distribution infrastructure: complex operations requiring access to protected servers and sophisticated persistence mechanisms. But there is often a simpler path to supply chain compromise: stealing a maintainer's credentials. With a maintainer's username and password, an attacker can publish malicious package versions directly, no build system compromise required. The attack completes in minutes, the malicious code flows through official channels, and downstream users install it without suspicion.
 
 Maintainer accounts are among the highest-value credentials in the software ecosystem. Their compromise has repeatedly enabled supply chain attacks affecting millions of users.
 
@@ -19,9 +19,9 @@ A maintainer account provides direct publishing access to packages that may be i
 - Installation scripts execute immediately, before any human review
 - The malicious package arrives through official, trusted channels
 
-Unlike attacking a company's servers—which requires finding vulnerabilities, establishing persistence, and evading detection—attacking a maintainer account requires only obtaining credentials. Many maintainers are volunteers without security training, using consumer email accounts and reused passwords.
+Unlike attacking a company's servers (which requires finding vulnerabilities, establishing persistence, and evading detection) attacking a maintainer account requires only obtaining credentials. Many maintainers are volunteers without security training, using consumer email accounts and reused passwords.
 
-The leverage is extraordinary. An attacker who compromises the maintainer of a package like `lodash` or `requests`—each with tens of millions of weekly downloads—gains code execution on a substantial fraction of the world's development infrastructure.
+The leverage is extraordinary. An attacker who compromises the maintainer of a package like `lodash` or `requests`, each with tens of millions of weekly downloads, gains code execution on a substantial fraction of the world's development infrastructure.
 
 This leverage makes maintainer accounts targets for:
 
@@ -35,7 +35,7 @@ Attackers use multiple techniques to compromise maintainer accounts:
 
 **Credential Stuffing:**
 
-When data breaches expose username-password pairs, attackers test these credentials against other services. If a maintainer reuses passwords—a depressingly common practice—their npm, PyPI, or RubyGems account may be accessible using credentials from an unrelated breach.
+When data breaches expose username-password pairs, attackers test these credentials against other services. If a maintainer reuses passwords, a depressingly common practice, their npm, PyPI, or RubyGems account may be accessible using credentials from an unrelated breach.
 
 Credential stuffing is automated and operates at scale. Attackers obtain breach databases containing billions of credentials and systematically test them against valuable targets. A maintainer who used the same password for a gaming forum and their npm account becomes vulnerable when the gaming forum is breached.
 
@@ -62,7 +62,7 @@ SIM swapping requires social engineering carrier support or exploiting carrier s
 
 **Malware on Developer Machines:**
 
-Infostealers—malware designed to exfiltrate credentials, cookies, and authentication tokens—specifically target developers. Once installed, they harvest:
+Infostealers (malware designed to exfiltrate credentials, cookies, and authentication tokens) specifically target developers. Once installed, they harvest:
 
 - Browser stored passwords and cookies
 - SSH keys and git credentials
@@ -81,7 +81,7 @@ On July 12, 2018, attackers compromised the npm account of an ESLint maintainer 
 
 The malicious code in version 3.7.2 stole npm tokens from developer machines. The `postinstall` script read the npm configuration file and transmitted authentication tokens to an attacker-controlled server.
 
-The attack was detected within hours because the malicious version broke builds—an unusual outcome that attracted attention. npm invalidated all tokens that might have been exposed and required affected users to re-authenticate.
+The attack was detected within hours because the malicious version broke builds, an unusual outcome that attracted attention. npm invalidated all tokens that might have been exposed and required affected users to re-authenticate.
 
 [The ESLint postmortem][eslint-postmortem] determined that the maintainer had reused their npm password on several other sites and did not have two-factor authentication enabled, underscoring the importance of unique passwords and MFA.
 
@@ -113,7 +113,7 @@ The maintainer's npm account had been protected with a password but not two-fact
 
 **Megalodon (May 2026):**
 
-The Megalodon campaign showed what account compromise looks like at industrial scale. On May 18, 2026, an attacker used GitHub credentials harvested by infostealer malware on developer machines to push [5,718 malicious commits against 5,561 repositories in roughly six hours][megalodon-stepsecurity]. Forged author identities like `build-bot`, `auto-ci`, and `pipeline-bot` disguised the commits as routine automation, while injected GitHub Actions workflows exfiltrated CI secrets, cloud credentials, SSH keys, and OIDC tokens. A targeted variant replaced existing workflows with dormant `workflow_dispatch` backdoors the attacker could trigger on demand—meaning cleanup required auditing workflow files, not just reverting malicious commits.
+The Megalodon campaign showed what account compromise looks like at industrial scale. On May 18, 2026, an attacker used GitHub credentials harvested by infostealer malware on developer machines to push [5,718 malicious commits against 5,561 repositories in roughly six hours][megalodon-stepsecurity]. Forged author identities like `build-bot`, `auto-ci`, and `pipeline-bot` disguised the commits as routine automation, while injected GitHub Actions workflows exfiltrated CI secrets, cloud credentials, SSH keys, and OIDC tokens. A targeted variant replaced existing workflows with dormant `workflow_dispatch` backdoors the attacker could trigger on demand, meaning cleanup required auditing workflow files, not just reverting malicious commits.
 
 Megalodon illustrates two shifts in the account-compromise landscape. First, credentials increasingly arrive in bulk from infostealer infections rather than one-at-a-time phishing, turning a single malware campaign into thousands of simultaneous repository compromises. Second, stolen session tokens and personal access tokens often sidestep two-factor authentication entirely, because the authentication already happened on the victim's machine.
 
@@ -154,7 +154,7 @@ Two-factor authentication significantly raises the bar for attackers, but determ
 
 **Real-Time Phishing Proxies:**
 
-Sophisticated phishing attacks don't just capture credentials—they proxy the entire authentication session in real-time. The victim enters credentials and MFA codes into a phishing site, which immediately relays them to the real site, completing authentication and capturing the resulting session.
+Sophisticated phishing attacks don't just capture credentials: they proxy the entire authentication session in real-time. The victim enters credentials and MFA codes into a phishing site, which immediately relays them to the real site, completing authentication and capturing the resulting session.
 
 Tools like Evilginx2 and Modlishka automate this attack. The victim experiences a normal login (with MFA), but the attacker obtains authenticated session tokens.
 
@@ -170,7 +170,7 @@ MFA protects normal login, but account recovery flows often bypass MFA. If attac
 
 ## Account Recovery as Attack Vector
 
-Account recovery processes are designed for convenience—helping legitimate users who lose access. This creates tension with security. Attackers exploit recovery mechanisms through:
+Account recovery processes are designed for convenience, helping legitimate users who lose access. This creates tension with security. Attackers exploit recovery mechanisms through:
 
 **Social Engineering Support:**
 
@@ -192,7 +192,7 @@ Recovery tokens and links have occasionally been vulnerable to prediction, reuse
 
 ## Domain Resurrection Attacks
 
-A particularly insidious form of account takeover exploits expired domain names. When a maintainer registers an account using an email address on a custom domain (not Gmail, Outlook, or other major providers), that account's security becomes tied to the domain's continued registration. If the domain expires, anyone can purchase it—and with it, gain control of any email addresses under that domain.
+A particularly insidious form of account takeover exploits expired domain names. When a maintainer registers an account using an email address on a custom domain (not Gmail, Outlook, or other major providers), that account's security becomes tied to the domain's continued registration. If the domain expires, anyone can purchase it, and with it, gain control of any email addresses under that domain.
 
 **The attack chain is straightforward:**
 
@@ -203,21 +203,21 @@ A particularly insidious form of account takeover exploits expired domain names.
 5. Attacker receives the password reset email and takes over the account
 6. Attacker publishes malicious package versions
 
-The entire attack, from domain purchase to malicious publication, can complete in under an hour. No vulnerability exploitation, no phishing, no social engineering of support teams—just the predictable consequence of a forgotten domain renewal.
+The entire attack, from domain purchase to malicious publication, can complete in under an hour. No vulnerability exploitation, no phishing, no social engineering of support teams: just the predictable consequence of a forgotten domain renewal.
 
 **Case Study: Python ctx Package (May 2022)**
 
-The [ctx package compromise][ctx-attack] demonstrated this attack in practice. The ctx library, used for accessing Python dictionaries with dot notation, had been stable for eight years—no updates needed, no attention required. When the maintainer's personal domain (figlief.com) expired, an attacker registered it for approximately $5.
+The [ctx package compromise][ctx-attack] demonstrated this attack in practice. The ctx library, used for accessing Python dictionaries with dot notation, had been stable for eight years: no updates needed, no attention required. When the maintainer's personal domain (figlief.com) expired, an attacker registered it for approximately $5.
 
 WHOIS records show the domain was registered on May 14, 2022 at 18:40 UTC. The attacker initiated a password reset just 12 minutes later, rapidly gaining control of the PyPI account. Within 40 minutes of domain registration, malicious package versions were being uploaded.
 
-The [malicious code exfiltrated environment variables][ctx-analysis]—including AWS credentials—to an attacker-controlled Heroku endpoint. The compromised versions remained on PyPI for 10 days before detection, during which approximately 27,000 copies were downloaded.
+The [malicious code exfiltrated environment variables][ctx-analysis], including AWS credentials, to an attacker-controlled Heroku endpoint. The compromised versions remained on PyPI for 10 days before detection, during which approximately 27,000 copies were downloaded.
 
 The attack's simplicity was striking. No 2FA was enabled on the account. The maintainer had long since stopped actively using the email address but never updated their PyPI credentials or secured the account with additional factors.
 
 **Case Study: npm foreach Package (May 2022)**
 
-Around the same time, security researcher Lance Vick [demonstrated the vulnerability's scope in the npm ecosystem][foreach-disclosure]. He noticed that the maintainer of the `foreach` package—with nearly 6 million weekly downloads and 36,000+ dependent projects—had let their personal domain expire.
+Around the same time, security researcher Lance Vick [demonstrated the vulnerability's scope in the npm ecosystem][foreach-disclosure]. He noticed that the maintainer of the `foreach` package (with nearly 6 million weekly downloads and 36,000+ dependent projects) had let their personal domain expire.
 
 Vick purchased the expired domain to make a point about npm's security posture. While he responsibly disclosed the issue and returned the domain rather than exploiting it, the incident revealed the scale of the problem: research identified [2,818 maintainer email addresses associated with expired domains][jfrog-research], potentially enabling hijacking of 8,494 npm packages.
 
@@ -238,7 +238,7 @@ Registries have begun implementing defenses against domain resurrection attacks:
 
 **PyPI's Domain Monitoring:**
 
-In 2025, [PyPI deployed automated domain monitoring][pypi-domain-monitoring] to detect expired domains associated with user accounts. The system uses the Domainr Status API to periodically check domain status and unverify email addresses when domains enter the redemption period—the window before a domain becomes publicly available for purchase.
+In 2025, [PyPI deployed automated domain monitoring][pypi-domain-monitoring] to detect expired domains associated with user accounts. The system uses the Domainr Status API to periodically check domain status and unverify email addresses when domains enter the redemption period: the window before a domain becomes publicly available for purchase.
 
 Since implementation, PyPI has unverified over 1,800 email addresses with expired domains. Affected accounts aren't deleted, but password resets are blocked until users verify a new email address or complete account recovery.
 
@@ -281,7 +281,7 @@ Beyond mandatory 2FA, registries have implemented additional protections:
 
 **Hardware Security Key Programs:**
 
-Both npm (through GitHub) and PyPI have distributed free hardware security keys to maintainers of critical packages. Hardware keys are phishing-resistant—they verify the domain they're authenticating to, preventing real-time phishing attacks.
+Both npm (through GitHub) and PyPI have distributed free hardware security keys to maintainers of critical packages. Hardware keys are phishing-resistant: they verify the domain they're authenticating to, preventing real-time phishing attacks.
 
 **Trusted Publishing (PyPI):**
 
@@ -339,7 +339,7 @@ Some registries allow restricting publication to specific IP ranges, limiting th
 
 5. **Detect and alert on suspicious activity.** Anomaly detection can identify compromises before malicious packages reach users.
 
-Maintainer account security is one of the most cost-effective supply chain security investments. The asymmetry between attack cost (obtaining one password) and impact (millions of affected installations) makes strong authentication essential. As registries continue expanding mandatory 2FA and providing phishing-resistant authentication, the ecosystem becomes meaningfully more secure—but maintaining this progress requires continued vigilance from maintainers, platforms, and organizations alike.
+Maintainer account security is one of the most cost-effective supply chain security investments. The asymmetry between attack cost (obtaining one password) and impact (millions of affected installations) makes strong authentication essential. As registries continue expanding mandatory 2FA and providing phishing-resistant authentication, the ecosystem becomes meaningfully more secure, but maintaining this progress requires continued vigilance from maintainers, platforms, and organizations alike.
 
 [eslint-postmortem]: https://eslint.org/blog/2018/07/postmortem-for-malicious-package-publishes/
 [megalodon-stepsecurity]: https://www.stepsecurity.io/blog/megalodon-mass-github-actions-secret-exfiltration-across-5-500-public-repositories

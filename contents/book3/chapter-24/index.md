@@ -1,6 +1,6 @@
 # Chapter 24: Guidance for Open Source Maintainers
 
-This chapter provides comprehensive guidance for open source maintainers on securing their projects and protecting themselves while doing so. It addresses both technical security practices and the human dimensions of maintainership.
+This chapter gives guidance for open source maintainers on securing their projects and protecting themselves while doing so. It addresses both technical security practices and the human dimensions of maintainership.
 
 The chapter begins with foundational security practices, including creating security policies (SECURITY.md), enabling platform security features like Dependabot and secret scanning, establishing vulnerability disclosure processes, and signing releases cryptographically. It emphasizes the importance of transparent communication about project maintenance status through standards like SECURITY-INSIGHTS.yml.
 

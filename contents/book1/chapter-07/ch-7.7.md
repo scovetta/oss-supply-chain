@@ -6,7 +6,7 @@ icon: "lucide/pen-tool"
 
 # 7.7 Code Signing and Its Limitations
 
-Throughout the preceding case studies, a pattern recurs: malicious software arrived signed by trusted entities. SolarWinds' backdoored updates bore valid SolarWinds signatures. The 3CX trojanized installer (see Section 7.3) carried authentic 3CX certificates. These attacks succeeded not despite code signing but alongside it—the signatures were genuine, produced by compromised build systems using legitimate keys.
+Throughout the preceding case studies, a pattern recurs: malicious software arrived signed by trusted entities. SolarWinds' backdoored updates bore valid SolarWinds signatures. The 3CX trojanized installer (see Section 7.3) carried authentic 3CX certificates. These attacks succeeded not despite code signing but alongside it: the signatures were genuine, produced by compromised build systems using legitimate keys.
 
 This pattern reveals a critical truth about code signing: it is necessary but not sufficient for supply chain security. Understanding what signing does and does not guarantee is essential for building effective defenses.
 
@@ -56,11 +56,11 @@ The security of this system depends on keeping private keys secret. This is hard
 - Long-lived keys accumulate risk over time
 - Key rotation requires coordinating with CAs and updating verifier trust
 
-For commercial software vendors, code signing certificates cost money and require identity verification—a vendor like SolarWinds undergoes vetting before receiving a certificate. But this vetting confirms identity, not security practices. A compromised vendor signs with a valid certificate.
+For commercial software vendors, code signing certificates cost money and require identity verification, a vendor like SolarWinds undergoes vetting before receiving a certificate. But this vetting confirms identity, not security practices. A compromised vendor signs with a valid certificate.
 
 **Timestamping:**
 
-Code signing timestamps record when a signature was created, using a trusted Time Stamping Authority (TSA). Without timestamping, signatures become invalid when certificates expire—software signed with an expired certificate cannot be verified. With timestamps, signatures remain valid indefinitely if created while the certificate was valid. However, this creates a complication for revocation: software signed and timestamped before a certificate was revoked may still be accepted, even if the certificate was later compromised. Organizations must balance long-term signature validity against the security implications of honoring pre-revocation signatures.
+Code signing timestamps record when a signature was created, using a trusted Time Stamping Authority (TSA). Without timestamping, signatures become invalid when certificates expire: software signed with an expired certificate cannot be verified. With timestamps, signatures remain valid indefinitely if created while the certificate was valid. However, this creates a complication for revocation: software signed and timestamped before a certificate was revoked may still be accepted, even if the certificate was later compromised. Organizations must balance long-term signature validity against the security implications of honoring pre-revocation signatures.
 
 ## Signing in Open Source: The Adoption Gap
 
@@ -96,11 +96,11 @@ The Sigstore model differs fundamentally from traditional PKI:
 | Key management | User responsibility | Ephemeral, no long-term keys |
 | Audit trail | Limited | Transparency log (Rekor) |
 
-Short-lived certificates eliminate long-term key management—an approach sometimes called **keyless signing** because developers never manage persistent cryptographic keys. Developers authenticate with existing identities (GitHub accounts) rather than obtaining separate certificates. The transparency log provides visibility into signing activity that traditional PKI lacks.
+Short-lived certificates eliminate long-term key management, an approach sometimes called **keyless signing** because developers never manage persistent cryptographic keys. Developers authenticate with existing identities (GitHub accounts) rather than obtaining separate certificates. The transparency log provides visibility into signing activity that traditional PKI lacks.
 
 Sigstore adoption has grown rapidly. Major package ecosystems including npm, PyPI, and container registries have integrated Sigstore-based signing. GitHub's Artifact Attestations use Sigstore infrastructure.
 
-However, OIDC-based identity introduces its own risks. If an attacker compromises a maintainer's GitHub account (through credential theft, session hijacking, or social engineering), they can generate valid Sigstore signatures tied to that identity. The transparency log captures this activity—useful for forensic investigation—but does not prevent the initial abuse. Organizations relying on Sigstore signatures should implement additional controls: monitoring for unexpected signing activity, requiring multi-factor authentication on identity provider accounts, and verifying provenance claims beyond just signature validity.
+However, OIDC-based identity introduces its own risks. If an attacker compromises a maintainer's GitHub account (through credential theft, session hijacking, or social engineering), they can generate valid Sigstore signatures tied to that identity. The transparency log captures this activity, useful for forensic investigation, but does not prevent the initial abuse. Organizations relying on Sigstore signatures should implement additional controls: monitoring for unexpected signing activity, requiring multi-factor authentication on identity provider accounts, and verifying provenance claims beyond just signature validity.
 
 ## Attacks on Signing: When Signatures Don't Help
 
@@ -114,7 +114,7 @@ In 2012, [Adobe discovered][adobe-2012] that attackers had compromised build ser
 
 **Compromised Signers:**
 
-Even without stealing keys, attackers who compromise build systems can cause legitimate signing processes to sign malicious code. The build system faithfully signs whatever it produces—including backdoors injected by attackers.
+Even without stealing keys, attackers who compromise build systems can cause legitimate signing processes to sign malicious code. The build system faithfully signs whatever it produces, including backdoors injected by attackers.
 
 This is what happened in SolarWinds, 3CX, and other build compromise attacks. The signing infrastructure worked correctly; it just signed malicious software.
 
@@ -131,7 +131,7 @@ Many systems do not verify signatures rigorously:
 - Verification may check signature validity but not certificate properties
 - Revocation checking may be disabled or unreliable
 
-In 2013, [security firm Bluebox discovered the "Master Key" vulnerability][android-2013] (CVE-2013-4787, affecting Android 1.6 Donut through 4.2 Jelly Bean—nearly 900 million devices at the time), demonstrating that the signature verification process could be bypassed, allowing attackers to modify signed APKs while maintaining valid signatures.
+In 2013, [security firm Bluebox discovered the "Master Key" vulnerability][android-2013] (CVE-2013-4787, affecting Android 1.6 Donut through 4.2 Jelly Bean, nearly 900 million devices at the time), demonstrating that the signature verification process could be bypassed, allowing attackers to modify signed APKs while maintaining valid signatures.
 
 ## What Signing Does Not Prove
 
@@ -139,7 +139,7 @@ Given these attack vectors, it is essential to understand signing's limits:
 
 **Signing does not prove software is safe.**
 
-A developer can sign malware. An attacker who gains commit access can merge malicious code, which is then signed through normal release processes. The XZ Utils backdoor would have been signed if it had reached stable releases—the signing infrastructure had no way to detect malicious code.
+A developer can sign malware. An attacker who gains commit access can merge malicious code, which is then signed through normal release processes. The XZ Utils backdoor would have been signed if it had reached stable releases: the signing infrastructure had no way to detect malicious code.
 
 **Signing does not prove software matches source code.**
 
@@ -237,7 +237,7 @@ Given signing's importance and limitations:
 
 4. **Implement SLSA verification.** Check provenance attestations against SLSA level requirements.
 
-Code signing remains a foundational supply chain control—but one that must be understood in context. It provides integrity and attribution, not safety guarantees. The emerging ecosystem of attestation and provenance mechanisms—Sigstore, SLSA, in-toto—addresses signing's limitations by providing verifiable claims about how software was built. Book 2 explores these mechanisms in detail: Chapter 12 examines SBOMs and software inventory practices, while Chapter 17 covers SLSA provenance implementation, Sigstore adoption across ecosystems, and practical guidance for achieving higher SLSA levels.
+Code signing remains a foundational supply chain control, but one that must be understood in context. It provides integrity and attribution, not safety guarantees. The emerging ecosystem of attestation and provenance mechanisms (Sigstore, SLSA, in-toto) addresses signing's limitations by providing verifiable claims about how software was built. Book 2 explores these mechanisms in detail: Chapter 12 examines SBOMs and software inventory practices, while Chapter 17 covers SLSA provenance implementation, Sigstore adoption across ecosystems, and practical guidance for achieving higher SLSA levels.
 
 [sigstore]: https://sigstore.dev
 [fulcio]: https://docs.sigstore.dev/certificate_authority/overview/

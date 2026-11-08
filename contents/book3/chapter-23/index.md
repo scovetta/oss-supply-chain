@@ -6,7 +6,7 @@ icon: "lucide/graduation-cap"
 
 # Chapter 23: Training, Education, and Career Development
 
-Chapter 23 addresses the human dimension of software supply chain security, recognizing that technical controls alone cannot protect organizations. The chapter provides comprehensive guidance on building security awareness, developing expertise, and creating career pathways in this emerging field.
+Chapter 23 addresses the human dimension of software supply chain security, recognizing that technical controls alone cannot protect organizations. The chapter covers building security awareness, developing expertise, and creating career pathways in this emerging field.
 
 The chapter begins with security awareness programs, emphasizing that effective training must go beyond checkbox compliance to create lasting behavior change. It presents a tiered curriculum framework spanning foundation, practitioner, specialist, and leadership levels, with audience-specific content for developers, DevOps engineers, managers, security teams, and executives. Multiple delivery methods are recommended, including e-learning, workshops, tabletop exercises, and capture-the-flag challenges, with guidance on measuring training effectiveness through reaction, learning, behavior, and outcome metrics.
 

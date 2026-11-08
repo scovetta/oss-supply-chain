@@ -6,7 +6,7 @@ icon: "lucide/file-code"
 
 # 9.6 Infrastructure-as-Code Supply Chains
 
-Infrastructure-as-Code (IaC) has transformed how organizations provision and manage infrastructure. Terraform, Ansible, Helm, and similar tools enable version-controlled, repeatable infrastructure deployments. But these tools operate through modules, providers, roles, and charts—dependencies that carry supply chain risk just like application packages. The difference is stakes: a compromised npm package might steal credentials; a compromised Terraform module can provision backdoored infrastructure, create unauthorized access, or exfiltrate secrets from the provisioning process itself.
+Infrastructure-as-Code (IaC) has transformed how organizations provision and manage infrastructure. Terraform, Ansible, Helm, and similar tools enable version-controlled, repeatable infrastructure deployments. But these tools operate through modules, providers, roles, and charts: dependencies that carry supply chain risk just like application packages. The difference is stakes: a compromised npm package might steal credentials; a compromised Terraform module can provision backdoored infrastructure, create unauthorized access, or exfiltrate secrets from the provisioning process itself.
 
 IaC supply chains deserve the same scrutiny as application dependencies, yet often receive less attention because infrastructure teams may not think of modules as "software dependencies" in the traditional sense.
 
@@ -16,7 +16,7 @@ IaC supply chains deserve the same scrutiny as application dependencies, yet oft
 
 **Providers:**
 
-Terraform **providers** are plugins that interface with APIs—AWS, Azure, GCP, Kubernetes, and hundreds of other services. Providers translate Terraform configuration into API calls.
+Terraform **providers** are plugins that interface with APIs: AWS, Azure, GCP, Kubernetes, and hundreds of other services. Providers translate Terraform configuration into API calls.
 
 - **Official providers**: Maintained by HashiCorp (AWS, Azure, GCP, Kubernetes)
 - **Partner providers**: Maintained by technology partners with HashiCorp verification
@@ -51,7 +51,7 @@ The [Terraform Registry][terraform-registry] hosts thousands of modules:
 
 !!! warning "No Security Review"
 
-    The Terraform Registry operates like npm or PyPI: anyone can publish with a GitHub account, no mandatory security review exists, and verification badges indicate partnership—not security vetting.
+    The Terraform Registry operates like npm or PyPI: anyone can publish with a GitHub account, no mandatory security review exists, and verification badges indicate partnership, not security vetting.
 
 **Registry Trust Model:**
 
@@ -98,7 +98,7 @@ Terraform 0.14 introduced [`.terraform.lock.hcl`][terraform-lock] for provider c
 
 ## Ansible Roles and Galaxy
 
-[Ansible][ansible] automates configuration management through **playbooks** that reference **roles**—reusable configuration packages. **[Ansible Galaxy][ansible-galaxy]** serves as the public repository for community roles.
+[Ansible][ansible] automates configuration management through **playbooks** that reference **roles**: reusable configuration packages. **[Ansible Galaxy][ansible-galaxy]** serves as the public repository for community roles.
 
 **Galaxy Security Model:**
 
@@ -142,7 +142,7 @@ collections:
     version: 7.0.0
 ```
 
-Without explicit version pinning, `ansible-galaxy install` fetches the latest version—creating the same update-as-attack-vector risk seen in other ecosystems.
+Without explicit version pinning, `ansible-galaxy install` fetches the latest version, creating the same update-as-attack-vector risk seen in other ecosystems.
 
 **Parallel: Linux User Repositories and PKGBUILD Scripts:**
 
@@ -227,7 +227,7 @@ A compromised policy could:
 
 **Kyverno Policies:**
 
-Kyverno policies are Kubernetes resources that can be packaged and distributed. The Kyverno Policy Library provides community policies—useful but unverified.
+Kyverno policies are Kubernetes resources that can be packaged and distributed. The Kyverno Policy Library provides community policies: useful but unverified.
 
 **Policy Supply Chain Risks:**
 
@@ -388,7 +388,7 @@ Where supported, verify checksums:
 
 5. **Monitor sync operations.** Alert on unexpected or unauthorized sync events.
 
-Infrastructure-as-Code supply chains represent a convergence of software dependency risks with infrastructure-level impact. The same patterns—untrusted registries, version flexibility, transitive dependencies—that create risk in npm or PyPI create amplified risk when the "dependency" provisions cloud infrastructure or configures production servers. Organizations that have matured their application supply chain practices should extend those practices to their IaC ecosystems before supply chain attackers recognize the opportunity that infrastructure modules present.
+Infrastructure-as-Code supply chains represent a convergence of software dependency risks with infrastructure-level impact. The same patterns (untrusted registries, version flexibility, transitive dependencies) that create risk in npm or PyPI create amplified risk when the "dependency" provisions cloud infrastructure or configures production servers. Organizations that have matured their application supply chain practices should extend those practices to their IaC ecosystems before supply chain attackers recognize the opportunity that infrastructure modules present.
 
 [terraform]: https://www.terraform.io/
 [terraform-registry]: https://registry.terraform.io/

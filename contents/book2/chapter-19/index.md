@@ -1,6 +1,6 @@
 # Chapter 19: Incident Response for Supply Chain Compromises
 
-This chapter provides a comprehensive framework for responding to supply chain security incidents, which present unique challenges compared to traditional security breaches. Unlike conventional attacks, supply chain compromises embed malicious functionality within trusted software, using legitimate update channels and operating with the privileges of intentionally-installed applications.
+This chapter lays out a framework for responding to supply chain security incidents, which present unique challenges compared to traditional security breaches. Unlike conventional attacks, supply chain compromises embed malicious functionality within trusted software, using legitimate update channels and operating with the privileges of intentionally-installed applications.
 
 The chapter begins with detection strategies, emphasizing that supply chain attacks are often discovered through indirect effects rather than direct observation. The XZ Utils and SolarWinds incidents exemplify this pattern, highlighting the need for monitoring behavioral anomalies, dependency changes, and threat intelligence from both official and community sources.
 

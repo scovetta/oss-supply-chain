@@ -1,6 +1,6 @@
 ## Appendix C: SBOM and AI-BOM Format Guide
 
-This appendix provides practical guidance for implementing Software Bills of Materials (SBOMs) and AI Bills of Materials (AI-BOMs). We cover the two dominant SBOM formats—SPDX and CycloneDX—along with their extensions for machine learning components, and offer guidance on selecting the appropriate format for your use case.
+This appendix provides practical guidance for implementing Software Bills of Materials (SBOMs) and AI Bills of Materials (AI-BOMs). We cover the two dominant SBOM formats, SPDX and CycloneDX, along with their extensions for machine learning components, and offer guidance on selecting the appropriate format for your use case.
 
 ---
 

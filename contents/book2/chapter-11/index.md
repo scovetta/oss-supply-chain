@@ -1,12 +1,12 @@
 ---
 title: "Measuring Supply Chain Risk"
-description: "A comprehensive guide to measuring, assessing, and managing software supply chain risk through frameworks, metrics, and culture."
+description: "A guide to measuring, assessing, and managing software supply chain risk through frameworks, metrics, and culture."
 icon: "lucide/bar-chart-3"
 ---
 
 # Chapter 11: Measuring Supply Chain Risk
 
-Chapter 11 provides a comprehensive guide to measuring and managing software supply chain risk. It establishes that understanding threats is necessary but not sufficient; organizations need structured approaches to assess, prioritize, and respond to supply chain risks in their specific context.
+Chapter 11 is a guide to measuring and managing software supply chain risk. It establishes that understanding threats is necessary but not sufficient; organizations need structured approaches to assess, prioritize, and respond to supply chain risks in their specific context.
 
 The chapter begins by examining established risk frameworks including NIST C-SCRM, ISO 28000, and FAIR, alongside software-specific frameworks like SLSA, OpenSSF Scorecards, and S2C2F. It emphasizes that no single framework perfectly addresses all needs, and mature organizations typically combine multiple approaches.
 
