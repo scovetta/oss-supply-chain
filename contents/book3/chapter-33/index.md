@@ -2,7 +2,7 @@
 
 This concluding chapter examines the evolving landscape of software supply chain security, exploring emerging technologies, future threats, and the path toward trustworthy software ecosystems.
 
-The chapter opens by surveying defensive technologies ready for adoption today, including memory-safe languages like Rust and Go, AI-assisted vulnerability detection, automated patching tools, and hardware-assisted security through confidential computing. While formal verification offers the highest assurance, it remains limited to security-critical components due to cost and expertise requirements.
+The chapter opens by surveying defensive technologies ready for adoption today, including memory-safe languages like Rust and Go, AI-assisted vulnerability detection, automated patching tools, and hardware-assisted security through confidential computing. AI-assisted discovery gets particular attention: after Anthropic's Mythos announcement in April 2026, AI tools began finding real vulnerabilities in mature open source code far faster than maintainers could fix them, and the chapter looks at what that gap means for anyone who depends on open source. While formal verification offers the highest assurance, it remains limited to security-critical components due to cost and expertise requirements.
 
 The threat landscape continues to evolve as AI enables attackers to develop exploits faster, conduct social engineering at unprecedented scale, and create autonomous attack tools. Nation-state investment in supply chain capabilities is increasing, while the attack surface expands into IoT, edge computing, and embedded systems with weaker security foundations.
 
