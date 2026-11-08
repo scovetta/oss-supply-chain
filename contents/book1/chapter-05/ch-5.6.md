@@ -54,9 +54,7 @@ The NSA specifically identified C#, Go, Java, Ruby, Rust, and Swift as examples 
 
 **[CISA][cisa-memory-safety]**, jointly with the FBI, NSA, and international partners, published "The Case for Memory Safe Roadmaps" in December 2023. This guidance called on software manufacturers to develop plans for transitioning to memory-safe languages, particularly for new development and for security-critical components.
 
-The CISA guidance acknowledged that immediate migration is impractical but emphasized that the status quo (continuously patching memory safety vulnerabilities without addressing their root cause) is unsustainable:
-
-> "Memory safe programming languages can eliminate entire classes of vulnerabilities... Memory safety should be a key consideration in product development."
+The CISA guidance acknowledged that immediate migration is impractical but emphasized that the status quo (continuously patching memory safety vulnerabilities without addressing their root cause) is unsustainable. It asked manufacturers to publish roadmaps for eliminating memory safety vulnerabilities in their products, starting with new code and the most exposed components.
 
 This government attention elevates memory safety from a technical concern to a strategic priority, with potential implications for procurement requirements and regulatory expectations.
 

@@ -12,9 +12,9 @@ This attack represents a fundamental shift in supply chain threats. Traditional 
 
 ## Definition and Origin
 
-The term **slopsquatting** combines "slop", internet slang for low-quality AI-generated content, with "squatting," the practice of claiming valuable names for malicious purposes. The term emerged from a conversation between Seth Larson, the Python Software Foundation's Security Developer-in-Residence, and Andrew Nesbitt, creator of Ecosyste.ms. [Nesbitt popularized the term on Mastodon in April 2025][nesbitt-slopsquatting], defining it as:
+The term **slopsquatting** combines "slop", internet slang for low-quality AI-generated content, with "squatting," the practice of claiming valuable names for malicious purposes. Seth Larson, the Python Software Foundation's Security Developer-in-Residence, coined the name, and Andrew Nesbitt, creator of Ecosyste.ms, [popularized it in an April 2025 Mastodon post][nesbitt-slopsquatting] that credited Larson for it, defining it as:
 
-> "Slopsquatting—when an LLM hallucinates a non-existent package name, and a bad actor registers it maliciously. The AI brother of typosquatting."
+> "Slopsquatting -- when an LLM hallucinates a non-existent package name, and a bad actor registers it maliciously. The AI brother of typosquatting."
 
 The attack leverages a well-documented phenomenon: large language models (LLMs) generate plausible-sounding but non-existent package names when asked to solve programming problems. If attackers can predict which non-existent names AI models will recommend, they can register those names with malicious packages and wait for victims to install them.
 

@@ -10,7 +10,7 @@ The open source ecosystem is not a single entity but a collection of distinct co
 
 ## JavaScript/Node.js: npm
 
-The **npm registry** is the largest package ecosystem in the world by a substantial margin, hosting over 2.5 million packages with more than 200 billion downloads per month.[^npm-downloads] This scale reflects JavaScript's ubiquity: it runs in every web browser, powers countless server applications through Node.js, and has expanded into mobile development, desktop applications, and even embedded systems.
+The **npm registry** is the largest package ecosystem in the world by a substantial margin, hosting more than 4 million packages (the registry's replication feed counted about 4.58 million package documents in November 2026) with more than 200 billion downloads per month.[^npm-downloads] This scale reflects JavaScript's ubiquity: it runs in every web browser, powers countless server applications through Node.js, and has expanded into mobile development, desktop applications, and even embedded systems.
 
 npm, Inc. was founded in 2014 to provide commercial stewardship of the registry created by Isaac Schlueter in 2010. GitHub acquired npm in 2020, integrating it into Microsoft's developer platform portfolio. The registry operates as a centralized service; there is no federated alternative for the npm ecosystem comparable to what exists in some other language communities.
 
@@ -28,7 +28,7 @@ Despite these improvements, npm's scale creates ongoing challenges. The registry
 
 ## Python: PyPI
 
-The **Python Package Index (PyPI)** hosts over 500,000 projects with billions of downloads annually. Managed by the Python Software Foundation with significant infrastructure support from sponsors, PyPI has grown from a minimal package index into critical infrastructure for data science, machine learning, web development, and automation.
+The **Python Package Index (PyPI)** hosts more than 900,000 projects (about 937,000 in November 2026) with billions of downloads annually. Managed by the Python Software Foundation with significant infrastructure support from sponsors, PyPI has grown from a minimal package index into critical infrastructure for data science, machine learning, web development, and automation.
 
 PyPI's governance reflects Python's community-driven ethos. The Python Packaging Authority (PyPA) develops packaging standards and tools, while the PSF provides organizational oversight. Unlike npm's corporate ownership, PyPI operates as community infrastructure supported by donations and sponsorship.
 
@@ -82,7 +82,7 @@ The Ruby community's relatively close-knit nature has some security benefits: ma
 
 ## Rust: crates.io
 
-**crates.io** hosts over 140,000 crates for the Rust programming language. Operated by the Rust Foundation, crates.io was designed with explicit attention to lessons learned from earlier ecosystems.
+**crates.io** hosts more than 370,000 crates for the Rust programming language (as of November 2026). Operated by the Rust Foundation, crates.io was designed with explicit attention to lessons learned from earlier ecosystems.
 
 Rust's ecosystem benefits from launching after major supply chain incidents had raised awareness. Security-conscious design choices include:
 
@@ -115,7 +115,7 @@ Go's ecosystem has seen **typosquatting** attempts and **malicious modules**, th
 
 ## PHP: Composer and Packagist
 
-**Packagist** serves as the primary repository for PHP packages installed via Composer, hosting over 350,000 packages. PHP powers a substantial portion of the web (WordPress, Laravel, Drupal, and countless custom applications) making Packagist critical infrastructure despite receiving less attention than npm or PyPI.
+**Packagist** serves as the primary repository for PHP packages installed via Composer, hosting nearly 480,000 packages (as of November 2026). PHP powers a substantial portion of the web (WordPress, Laravel, Drupal, and countless custom applications) making Packagist critical infrastructure despite receiving less attention than npm or PyPI.
 
 Packagist is operated by Private Packagist GmbH, which also offers commercial private repository services. The registry's governance is less formalized than foundation-backed ecosystems.
 
@@ -152,7 +152,7 @@ The Apple ecosystem relies on two primary package management systems: **CocoaPod
 
 !!! warning "CocoaPods in Maintenance Mode"
 
-    CocoaPods is in **maintenance mode**, with no active feature development planned. The CocoaPods team has discussed eventually making the Specs repository read-only as a long-term security simplification, but has not announced a cutoff date. Organizations should audit iOS dependencies and plan migrations to Swift Package Manager where feasible. Projects using React Native or Flutter, which rely on CocoaPods as a hidden abstraction, face particular migration challenges.
+    CocoaPods is in **maintenance mode**, with no active feature development planned. In November 2024 the maintainers [announced](https://blog.cocoapods.org/CocoaPods-Specs-Repo/) that CocoaPods Trunk will stop accepting new podspecs permanently on **December 2, 2026**, making the Specs repository read-only. Organizations should audit iOS dependencies and complete migration to Swift Package Manager. Projects using React Native or Flutter, which rely on CocoaPods as a hidden abstraction, face particular migration challenges.
 
 **CocoaPods** manages over 100,000 pods (libraries) and has historically been widely used in iOS, macOS, watchOS, and tvOS development. However, the project entered **maintenance mode** with no active feature development, and usage is now primarily sustained by React Native and Flutter ecosystems that depend on CocoaPods as a hidden abstraction layer.[^cocoapods-support-plans] The CocoaPods Trunk[^cocoapods-trunk] serves as the centralized registry, operated by a small team of volunteers under the CocoaPods organization.
 
@@ -207,7 +207,7 @@ Examining these ecosystems reveals both common patterns and significant divergen
 | Go modules | Google (mirror/checksum) | Corporate |
 | Packagist | Private Packagist GmbH | Commercial |
 | NuGet | Microsoft | Corporate |
-| CocoaPods | CocoaPods Volunteers | Community/Donations (maintenance mode; future read-only Specs repo discussed) |
+| CocoaPods | CocoaPods Volunteers | Community/Donations (maintenance mode; Trunk read-only from December 2, 2026) |
 | Swift PM | Apple (decentralized) | N/A (uses Git hosts) |
 
 **Dependency scale varies dramatically by ecosystem:**

@@ -257,32 +257,27 @@ PyPI's historically more limited security infrastructure compared to npm meant:
 
 Recent improvements including malware scanning, Trusted Publishers, and enhanced authentication have improved PyPI's security posture, but the ecosystem remains an active attacker target.
 
-## dYdX: Maintainer Compromise Across Two Registries (2026)
+## dYdX: One Release, Two Registries (2026)
 
-The **dYdX package compromise** in February 2026 demonstrated a multi-registry maintainer account takeover that used trust in a legitimate project's name to distribute credential-stealing malware across both npm and PyPI simultaneously.[^dydx-compromise]
+The **dYdX package compromise** in January 2026 showed how a single set of publishing credentials can poison the same project in two ecosystems at once.[^dydx-compromise]
 
-[^dydx-compromise]: Socket Security research and public reporting on dYdX package compromise, https://socket.dev/blog/malicious-dydx-packages-published-to-npm-and-pypi, February 6, 2026.
+[^dydx-compromise]: Socket Security, "Malicious dYdX packages published to npm and PyPI," February 6, 2026, https://socket.dev/blog/malicious-dydx-packages-published-to-npm-and-pypi
 
 **Background and Timeline:**
 
-dYdX is a decentralized derivatives exchange with significant usage in the cryptocurrency ecosystem. Legitimate dYdX-related packages on npm and PyPI were used by developers building trading bots, portfolio managers, and DeFi integrations. On February 6, 2026, Socket Security reported that malicious versions had been published to both registries.
+dYdX is a decentralized derivatives exchange, and its official v4 client libraries are used by developers building trading bots, portfolio tools, and DeFi integrations. On January 27, 2026, malicious versions of `@dydxprotocol/v4-client-js` (3.4.1, 1.22.1, 1.15.2, and 1.0.31) on npm and `dydx-v4-client` (1.1.5post1) on PyPI were published at the same time using legitimate publishing credentials. Socket's scanners flagged them within minutes, Socket notified dYdX the next day, and dYdX acknowledged the incident publicly on January 28. Socket's full analysis followed on February 6.
 
 **Technical Details:**
 
-Attackers compromised the maintainer's accounts on both registries and published malicious versions of existing, trusted packages. Because the packages were already established with legitimate histories and download counts, the malicious updates were pulled automatically by CI/CD pipelines and developers running routine dependency updates.
-
-The malicious versions included two complementary capabilities:
-
-1. **Cryptocurrency wallet stealers**: Targeted wallet credentials, private keys, and seed phrases stored on developer machines
-2. **Remote access tooling**: Established persistent backdoor access enabling follow-on operations, including exfiltration of source code and additional credentials
+The two ecosystems got different payloads. The npm versions hid a wallet stealer inside a registry function; when called with a seed phrase, it sent the phrase and a device fingerprint to a typosquatted domain. The PyPI version carried the same stealer plus an encrypted remote access trojan that ran on import and beaconed to its command server every ten seconds, running whatever code it received. Socket judged the attack consistent with a developer account compromise but could not confirm how the credentials were obtained.
 
 **Impact:**
 
 The dYdX incident illustrates several trends in package attack evolution:
 
-- **Multi-registry attacks**: Rather than targeting a single ecosystem, attackers compromised the same project across npm and PyPI, doubling the victim surface
-- **Legitimate-to-malicious flip**: Unlike typosquatting, the packages were genuine projects with established trust — the "supply-chain trust inheritance" problem
-- **Follow-on capability**: The combination of credential theft and remote access suggests interest in persistent access to developer environments as a staging ground for further supply-chain attacks
+- **Multi-registry attacks**: The same project was poisoned on npm and PyPI at once, reaching both JavaScript and Python users
+- **Legitimate-to-malicious flip**: Unlike typosquatting, these were the project's own packages with established trust
+- **Follow-on capability**: Pairing seed-phrase theft with a remote access trojan on the Python side points to interest in persistent access, not just a one-time theft
 
 **Lessons:**
 

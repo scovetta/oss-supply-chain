@@ -22,7 +22,7 @@ iOS development relies on several dependency management systems:
 
 !!! warning "CocoaPods Read-Only Deadline: December 2026"
 
-    CocoaPods Trunk will become **permanently read-only on December 2nd, 2026**. New projects should use Swift Package Manager. Existing projects should plan migration by Q3 2026. See [Section 2.4](../chapter-02/ch-2.4.md#swiftobjective-c-cocoapods-and-swift-package-manager) for detailed CocoaPods history and vulnerabilities.
+    CocoaPods Trunk becomes **permanently read-only on December 2, 2026**. New projects should use Swift Package Manager, and existing projects that still publish or consume pods through Trunk should complete their migration now. See [Section 2.4](../chapter-02/ch-2.4.md#swiftobjective-c-cocoapods-and-swift-package-manager) for detailed CocoaPods history and vulnerabilities.
 
 **CocoaPods** has historically been the most widely used dependency manager for iOS, with [over 100,000 libraries available][cocoapods]. However, the project is now in **maintenance mode** with no active feature development. Usage is sustained primarily by React Native and Flutter ecosystems that depend on CocoaPods as a hidden abstraction layer. CocoaPods uses a centralized specification repository that defines how to fetch and build dependencies.
 

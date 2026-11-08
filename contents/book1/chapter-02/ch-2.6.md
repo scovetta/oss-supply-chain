@@ -64,7 +64,7 @@ A variety of mechanisms have emerged to channel funding to maintainers, with var
 
 Despite these mechanisms, the overall picture remains one of chronic underfunding.
 
-As Filippo Valsorda, a cryptographer and open source maintainer, [wrote in his influential essay "Professional Maintainers"][valsorda-essay]:
+As Filippo Valsorda, a cryptographer and open source maintainer, [wrote in his December 2021 essay "Professional maintainers: a wake-up call"][valsorda-essay]:
 
 > "Open Source software runs the Internet, and by extension the economy. This is an undisputed fact about reality... And yet, the role of Open Source maintainer has failed to mature from a hobby into a proper profession."
 

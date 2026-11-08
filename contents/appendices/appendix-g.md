@@ -6,7 +6,7 @@ This appendix provides quick-reference security guides for major programming lan
 
 ### JavaScript/npm Security Best Practices
 
-The JavaScript ecosystem, centered on npm (Node Package Manager), is the largest package ecosystem with over 2 million packages. Its size and the tendency toward many small dependencies create unique supply chain challenges.
+The JavaScript ecosystem, centered on npm (Node Package Manager), is the largest package ecosystem, with more than 4 million packages. Its size and the tendency toward many small dependencies create unique supply chain challenges.
 
 #### Lockfile and Pinning
 

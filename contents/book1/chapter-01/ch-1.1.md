@@ -14,7 +14,7 @@ In the early days of commercial software development, teams wrote the majority o
 
 The shift began gradually in the 1990s with the rise of shared libraries and the open source movement. The release of the Linux kernel in 1991 and the founding of the Apache Software Foundation in 1999 signaled a new era in which high-quality software components would be freely available for anyone to use. But the true revolution came with the emergence of **package managers**: tools that automated the discovery, download, and integration of external components.
 
-Maven Central launched in 2002, providing Java developers with a centralized repository for sharing libraries. Python's Package Index (PyPI) followed in 2003. RubyGems arrived in 2004. But it was npm's launch in 2010 that truly democratized package management, making it trivially easy for JavaScript developers to add functionality with a single command. Today, npm hosts over 2.5 million packages, with developers initiating more than 200 billion package downloads per month.[^npm-stats]
+Maven Central launched in 2002, providing Java developers with a centralized repository for sharing libraries. Python's Package Index (PyPI) followed in 2003. RubyGems arrived in 2004. But it was npm's launch in 2010 that truly democratized package management, making it trivially easy for JavaScript developers to add functionality with a single command. Today, npm hosts more than 4 million packages, with developers initiating more than 200 billion package downloads per month.[^npm-stats]
 
 ![Evolution of package managers from Maven Central (2002) to the modern ecosystem handling trillions of downloads annually](img/ch-1-package-manager-timeline.svg)
 
@@ -61,7 +61,7 @@ This rational economic choice, multiplied across thousands of decisions in every
 
 ## The AI-Assisted Development Frontier
 
-The most recent evolution in software development adds another dimension to supply chain complexity. **AI coding assistants** like GitHub Copilot, Claude Code, Cline, and OpenAI Codex have rapidly become standard tools for developers, with GitHub reporting[^github-copilot] that Copilot generates an average of 46% of code in files where it is enabled (based on accepted suggestions in enabled files, as measured in 2023). These tools suggest code, recommend packages, and generate entire functions based on natural language prompts.
+The most recent evolution in software development adds another dimension to supply chain complexity. **AI coding assistants** like GitHub Copilot, Claude Code, Cline, and OpenAI Codex have rapidly become standard tools for developers, with GitHub reporting[^github-oss-ai-2023] that Copilot generates an average of 46% of code in files where it is enabled (based on accepted suggestions in enabled files, as measured in 2023). These tools suggest code, recommend packages, and generate entire functions based on natural language prompts.
 
 This capability introduces new supply chain considerations. AI assistants may suggest dependencies that developers would not have discovered otherwise, sometimes excellent choices, sometimes obscure packages with minimal maintenance. When an AI suggests importing a package, it is drawing on patterns learned from vast codebases, which may include outdated practices or packages that have since been deprecated or compromised.
 
@@ -79,5 +79,5 @@ The chapters that follow examine this bargain in detail: the benefits of open so
 
 [ossra-2024]: <https://www.synopsys.com/software-integrity/resources/analyst-reports/open-source-security-risk-analysis.html>
 [sonatype-2024]: https://www.sonatype.com/state-of-the-software-supply-chain/introduction
-[^github-copilot]: GitHub, "The State of Open Source and AI" (2023). <https://github.blog/news-insights/research/the-state-of-open-source-and-ai/>
+[^github-oss-ai-2023]: GitHub, "The State of Open Source and AI" (2023). <https://github.blog/news-insights/research/the-state-of-open-source-and-ai/>
 [^npm-stats]: npm, "npm Registry Statistics," npm Blog, 2024. <https://www.npmjs.com/>; Sonatype, "2024 State of the Software Supply Chain Report," 2024.

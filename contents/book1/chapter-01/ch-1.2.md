@@ -14,7 +14,7 @@ Open source software has moved from the margins to the mainstream with remarkabl
 
 According to [Synopsys's 2024 Open Source Security and Risk Analysis report][ossra-2024], 96% of commercial codebases contain open source components. The [Linux Foundation and Harvard's Census II study][census-ii] found that 70-90% of any given modern software solution consists of open source software. [GitHub's 2023 Octoverse report][octoverse-2023] documented over 300 million contributions to open source projects in a single year, with more than 98 million developers participating in the platform's open source ecosystem.
 
-These percentages translate into staggering absolute numbers. The npm registry alone serves nearly 200 billion package downloads monthly.[^npm-stats] Maven Central exceeded one trillion downloads in 2024 alone for the Java ecosystem.[^maven-stats] PyPI, the Python Package Index, distributes over 700,000 projects to millions of developers.[^pypi-stats] Behind each download is a decision (often implicit, often unexamined) to incorporate external code into an application.
+These percentages translate into staggering absolute numbers. The npm registry alone serves nearly 200 billion package downloads monthly.[^socket-npm-2023] Maven Central exceeded one trillion downloads in 2024 alone for the Java ecosystem.[^maven-stats] PyPI, the Python Package Index, distributes over 700,000 projects to millions of developers.[^pypi-stats] Behind each download is a decision (often implicit, often unexamined) to incorporate external code into an application.
 
 The trajectory is consistently upward. [Sonatype's 2024 State of the Software Supply Chain report][sonatype-2024] documented 6.6 trillion open source downloads in 2024 alone, with JavaScript (npm) accounting for 4.5 trillion requests, a 70% year-over-year increase, and Python (PyPI) reaching 530 billion requests, up 87% year-over-year driven by AI and cloud adoption. Organizations are not merely maintaining their open source usage; they are dramatically accelerating it.
 
@@ -83,7 +83,7 @@ This reality is neither good nor bad: it simply is. Open source has enabled extr
 [harvard-oss-value]: https://www.hbs.edu/faculty/Pages/item.aspx?num=65230
 [ec-oss-study]: https://digital-strategy.ec.europa.eu/en/news/commission-publishes-study-impact-open-source-european-economy
 
-[^npm-stats]: Socket.dev, "npm in Review: A 2023 Retrospective" (2024). https://socket.dev/blog/2023-npm-retrospective
+[^socket-npm-2023]: Socket.dev, "npm in Review: A 2023 Retrospective" (2024). https://socket.dev/blog/2023-npm-retrospective
 [^maven-stats]: Sonatype, "Maven Central: Addressing the Tragedy of the Commons" (2024). https://www.sonatype.com/blog/maven-central-and-the-tragedy-of-the-commons
 [^pypi-stats]: PyPI Statistics. https://pypi.org/stats/
 
