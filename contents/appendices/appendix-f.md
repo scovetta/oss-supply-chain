@@ -2,7 +2,7 @@
 
 This appendix provides a chronological reference of significant software supply chain incidents that have shaped our understanding of supply chain security risks. Each entry documents what happened, the scope of impact, key lessons learned, and sources for further investigation. These incidents span four decades, demonstrating both the evolution of attack techniques and the persistent nature of supply chain vulnerabilities.
 
-> **Disclaimer on Incident Information**: All incident descriptions in this appendix are based on publicly available information, security research reports, and official disclosures as of the publication date (August 2026). Details about security incidents may be:
+> **Disclaimer on Incident Information**: All incident descriptions in this appendix are based on publicly available information, security research reports, and official disclosures as of the publication date (November 2026). Details about security incidents may be:
 >
 > - **Incomplete** due to ongoing investigations or undisclosed information
 > - **Subject to interpretation** based on available evidence
@@ -1377,6 +1377,204 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" (the attackers called it
 
 ---
 
+#### LuaRocks.org Registry Compromise
+
+**Date:** July 9 – September 26, 2026 (exploitation July 9 – August 20; reported September 25; fixed September 26)
+
+**Summary:** An attacker exploited a remote code execution flaw in the rockspec parser on **LuaRocks.org**, the main package registry for Lua. The parser passed uploaded files to `loadstring` without rejecting precompiled bytecode, and because LuaJIT does not verify bytecode, a crafted "rockspec" could reach arbitrary memory in the server process. Any registered user could trigger it. Server logs showed shell commands run through malicious uploads on July 9 and August 7, three malicious packages (`bcrcewon`, `7e0b94029db0`, and `7e0b9402f9c8`) published on August 7, and several hundred automated exploit attempts against the upload API on August 16 and 20. The flaw was reported through CISA on September 25 and fixed the next day. Because the web server's account could gain full administrative access, the maintainers assumed the attacker could read the whole database: usernames, email addresses, bcrypt password hashes, API keys, two-factor secrets, and GitHub linking tokens. They rebuilt the service on new infrastructure and revoked every API key, session, and 2FA secret. By comparing package files against a July 8 mirror, they found no evidence that existing packages had been modified.
+
+**Impact Scope:** All LuaRocks.org accounts (credentials and 2FA secrets assumed exposed); anyone who installed the three malicious packages; roughly eleven weeks between first exploitation and discovery
+
+**Key Lessons:**
+
+- The registry server is itself part of the supply chain, and a parser bug on the upload path can expose every publisher's credentials at once
+- Small, volunteer-run registries carry ecosystem-wide blast radius with very little security staffing
+- An independent mirror or snapshot made it possible to prove after the fact that published packages had not been altered
+- Revoking 2FA secrets, not just passwords and API keys, is part of recovering from a registry database exposure
+
+**Sources:**
+
+- LuaRocks, "Security Incident September 2026," September 2026[^luarocks-incident-2026]
+
+---
+
+#### ChainDrop npm Worm (keyv and cacheable)
+
+**Date:** August 4, 2026
+
+**Summary:** Starting around 09:00 UTC, an attacker used a compromised GitHub account belonging to a maintainer of `keyv` to plant IDE persistence files in the repository and then publish a malicious `keyv` release. Wiz assessed the payload as a descendant of the Mini Shai-Hulud family, largely built on code TeamPCP had published. On install, a `preinstall` hook launched an obfuscated Bun bundle that collected npm, GitHub, cloud, Kubernetes, and secret-store credentials, along with AI agent configuration and cryptocurrency wallets. It then used any npm token it found to download each package the victim could publish, inject itself, bump the patch version, and republish. Within hours the worm had reached more than 400 packages, including `cacheable`, `flat-cache`, and `cache-manager`. Releases pushed through hijacked GitHub Actions OIDC workflows carried valid provenance even though many had no matching source commit or tag. The malware persisted through Claude Code hooks and VS Code `tasks.json` files, fetched its command-and-control domain from an Ethereum smart contract, and fell back to exfiltrating data into public GitHub repositories with the description "Shai-Hulud: Here We Go Again."
+
+**Impact Scope:** More than 400 npm packages across unrelated publishers; developer workstations and CI runners that installed affected versions on August 4
+
+**Key Lessons:**
+
+- Eleven months after the first Shai-Hulud worm, the same propagation pattern still worked against accounts that held publish-capable tokens
+- Provenance shows which workflow produced a package, not whether its maintainer intended the release
+- Editor and coding-agent configuration files have become a standard persistence location for package malware
+- Microsoft's guidance after the incident pointed to npm CLI v12 (install scripts off by default) and minimum release age settings as the practical countermeasures
+
+**Sources:**
+
+- Microsoft Security, "ChainDrop supply chain compromise: Anatomy of a self-propagating worm," August 4, 2026[^microsoft-chaindrop-2026]
+- Wiz, "keyv and cacheable npm Package Hijacked in Supply Chain Attack," August 4, 2026[^wiz-keyv-2026]
+
+---
+
+#### crates.io arrayref Compromise and Targeted Attacks on Rust Maintainers
+
+**Date:** August 20, 2026 (crate compromise); September 17, 2026 (Rust project warning)
+
+**Summary:** Malicious versions of `arrayref` (0.3.10), `internment` (0.8.7), and `append-only-vec` (0.1.9) were published to crates.io from a single maintainer's account. Each was republished to depend on a malicious crate, `proc-macro1`, whose build script downloaded a remote payload. The attacker also yanked recent legitimate `arrayref` versions so that resolvers would pick the malicious one, and published several typosquat crates. Nextron Systems reported the problem, and the Rust Security Response Team deleted the malicious versions within 86 to 107 minutes of publication, restored the yanked releases, and locked the author's account. A month later the Rust project warned of an ongoing campaign against rust-lang members and owners of popular crates: attackers set up video calls under job or contract pretexts, then asked targets to install a "missing audio codec" or paste a command from the clipboard. The warning said `arrayref` had been compromised "through similar attacks" and noted the technique is associated with North Korean actors.
+
+**Impact Scope:** Rust projects that resolved the affected versions during a window of under two hours; maintainers of widely used crates targeted for account takeover
+
+**Key Lessons:**
+
+- Cargo build scripts run arbitrary code at build time, which gives a compromised crate the same reach as an npm install hook
+- Yanking legitimate versions is a way to steer resolvers toward a malicious release
+- Small, stable, widely depended-on crates are attractive because few people watch them closely
+- Fake-interview and fake-call techniques documented against cryptocurrency developers are now aimed at package maintainers directly
+
+**Sources:**
+
+- Rust Blog, "Supply chain attack on arrayref," August 20, 2026[^rust-arrayref-2026]
+- Rust Blog, "Be alert: targeted attacks on prominent Rustaceans," September 17, 2026[^rust-targeted-2026]
+
+---
+
+#### Coder Module Registry Hijack
+
+**Date:** August 31, 2026 (07:35–21:45 UTC)
+
+**Summary:** An attacker gained access to Coder's Cloudflare account and added their own IP addresses to the pool serving `registry.coder.com`, Coder's Terraform module registry. For about fourteen hours, some requests reached a copy of the registry whose modules contained a `data "external" "telemetry"` block that ran shell scripts to collect credentials and send them to the lookalike domain `coder-infra[.]com`. Anyone who created or updated a template, ran a template dry run, or built a workspace with module caching disabled during that window could have pulled the malicious modules. Depending on where the provisioner ran, exposed secrets included provisioner environment variables, users' OIDC tokens and SSH keys, single-use tokens for external auth providers, and in some deployments the Coder database password. Coder rated the advisory critical (CVSS 4.0 score 9.0) and shipped fixes in 2.37.0 with backports to 2.36.4, 2.35.7, and 2.34.9.
+
+**Impact Scope:** Coder deployments that fetched modules from the public registry during the window; Coder could not determine conclusively who was affected because the malicious servers were outside its control
+
+**Key Lessons:**
+
+- CDN, DNS, and load-balancer accounts sit in the distribution path and deserve the same protection as registry publishing credentials
+- Infrastructure-as-code modules execute code during planning, so a poisoned module is a credential-theft tool before anything is deployed
+- Caching and pinning modules by checksum limit exposure to a hijacked registry
+- When the attacker controls the serving infrastructure, the vendor may have no logs that identify victims
+
+**Sources:**
+
+- Coder, "Malicious Packages Served from Unauthorized Registry Server," GHSA-vx42-ghc9-gw65, September 1, 2026[^coder-registry-2026]
+
+---
+
+#### GhostAction Returns
+
+**Date:** August 31 – October 12, 2026
+
+**Summary:** The GhostAction technique first seen in September 2025 came back at much larger scale. Using stolen GitHub credentials, attackers committed a workflow disguised as a security audit (`security-audit.yml` or `github_actions_security.yml`) directly into victims' repositories. The workflow dumped the repository's named secrets, scanned the working tree and git history for credential patterns, and sent everything over plain HTTP to a hard-coded IP address. GitGuardian counted 772 public repositories across 373 users and organizations in a first wave between August 31 and September 30. A second wave between October 8 and 12 targeted more than 30,000 repositories across roughly 3,000 users and organizations, with about 1,900 user accounts compromised and around 28,000 repositories hit on October 8 and 9 alone. Socket traced two of the pushing accounts to well-known maintainers. Some victims had also been hit in the 2025 wave, suggesting the attackers were reusing credentials that had never been rotated. GitHub held most of the injected runs for approval (only 499 of 3,669 collected runs executed) and began blocking the workflow outright on October 9, so later waves extracted no secrets. By October 5, only 16% of first-wave repositories had removed the malicious workflow from their public history.
+
+**Impact Scope:** Tens of thousands of public repositories; CI secrets including cloud keys, registry tokens, and AI provider API keys; no malicious package releases had been traced to the stolen publishing credentials as of mid-October
+
+**Key Lessons:**
+
+- Rotating repository secrets does not help if the GitHub credential that wrote the workflow is still valid
+- Platform-level holds on new or unproven workflows blunted the October wave far more than individual repository hygiene did
+- Cleanup lags badly: most victims of the first wave had not removed the workflow weeks later
+- Credentials stolen in one campaign get reused in the next, sometimes a year later
+
+**Sources:**
+
+- GitGuardian, "GhostAction Returns: 772 Repos Hit, 30k More in Oct," October 7, 2026 (updated October 13, 2026)[^gitguardian-ghostaction-2026]
+- The Hacker News, "Credential-Stealing GitHub Actions Workflows Planted in Tens of Thousands of Repositories," October 2026[^hackernews-ghostaction-2026]
+
+---
+
+#### npm Trusted Publishing Repository-Name Flaw
+
+**Date:** Reported June 6, 2026; fixed October 2, 2026; disclosed October 13, 2026
+
+**Summary:** Researchers at Bloom Security found that npm's trusted publishing feature bound a package to a GitHub repository by its `owner/repo` name rather than by GitHub's permanent numeric repository and owner IDs. If a maintainer renamed, transferred, or deleted the bound repository, anyone who claimed the freed name could obtain a publish credential for the package, and the resulting release would carry a valid provenance attestation naming the attacker's repository. Bloom confirmed the attack end to end on packages it controlled and counted more than 1,500 exposed packages with over 10 million total downloads. GitHub validated the report on June 9 but then stopped responding to follow-ups for nearly three months. Its October 2 fix expires any trusted publishing configuration that has not been validated within 48 hours and binds a configuration to the repository's immutable identity on first publish. Bloom said npm's GitLab trusted publishing integration had the same weakness. No exploitation in the wild was known at disclosure.
+
+**Impact Scope:** More than 1,500 npm packages whose trusted publishing configuration pointed at a renamed, transferred, or deleted repository
+
+**Key Lessons:**
+
+- Any identity binding that uses a mutable name repeats the repo-jacking problem, even inside a modern OIDC flow
+- A provenance attestation proves that a named repository built a package; consumers still have to check that it is the right repository
+- Maintainers should audit their bindings (`npm trust list`) and remove them before deleting or renaming a repository
+
+**Sources:**
+
+- Help Net Security, "npm Trusted Publishing flaw exposed 1,500+ npm packages to takeover," October 13, 2026[^helpnet-slugfest-2026]
+- GitHub Changelog, "Unvalidated npm trusted publishing configurations now expire," October 2, 2026[^github-tp-expire-2026]
+
+---
+
+#### eMudhra Intermediate CA Key Exposure
+
+**Date:** October 17–20, 2026
+
+**Summary:** Certificate authority eMudhra generated eight intermediate CA certificates (six for TLS, two for code signing) with keys so weak that the private keys could be recovered from the certificates themselves. Because the intermediates chained to widely trusted roots, anyone holding the keys could issue a certificate for any domain. Mozilla blocked the intermediates through OneCRL on October 17 and Chrome followed the same day; Apple did the same on October 19 and Microsoft on October 20. Mozilla also removed the emSign ECC Root CA - G3 root. Browsers were only part of the problem. A long list of language runtimes and package tools bundle their own CA stores or verify certificates without checking revocation, including certifi, pip, uv, pixi, conda, rustls's webpki-roots, Node.js, Go, Composer, Elixir's castore, Perl's Mozilla::CA, and the curl CA bundle, and each needed its own release. Go's security team shipped Go 1.27.3 and 1.26.10 roughly seven and a half hours after being alerted on October 19, its first release on an "urgent" track. Two weeks later, the git, curl, and python3 shipped with macOS still trusted the intermediates, and GitHub's macOS runners did too because their images disabled Homebrew updates.
+
+**Impact Scope:** Any client that trusted the affected roots without consuming revocation data, across browsers, operating systems, language runtimes, package managers, and CI images
+
+**Key Lessons:**
+
+- A bundled CA store is a dependency, and a fix in the operating system or browser does not reach software that carries its own copy
+- SBOMs that record only package names and versions miss bundled trust anchors entirely
+- Package managers fetch code over TLS, so a forgeable certificate puts every registry download at risk for clients that skip lockfile hash checks
+- Runtimes that can ship an urgent fix within hours are rare; most of the ecosystem took days or weeks to catch up
+
+**Sources:**
+
+- The Go Blog, "Our Response To The eMudhra Key Disclosure Incident," October 2026[^go-emudhra-2026]
+- Andrew Nesbitt, "Trust Stores Are Dependencies Too," October 21, 2026[^nesbitt-truststores-2026]
+
+---
+
+#### LiteLLM Second Compromise (1.107.0)
+
+**Date:** October 21, 2026
+
+**Summary:** Seven months after the TeamPCP compromise described earlier in this timeline, LiteLLM's release pipeline was hijacked again. Malicious version 1.107.0 was available on PyPI from 11:39 to 13:23 UTC, and the `ghcr.io/berriai/litellm` image tags `v1.107.0`, `latest`, `main-latest`, and `main-stable` served the bad build until 14:20 UTC. The wheels carried `cook.pth` and `sitecustomize.py` files that ran a credential collector every time Python started in the environment, whether or not anything imported LiteLLM. The collector went after cloud and Kubernetes credentials, Git, SSH, and GPG keys, `.env` files, browser data, and the auth files of coding agents such as Codex, Claude, Gemini, and Cursor, and it queried LiteLLM's own credential tables when a database URL was set. The container build provenance recorded the source owner as `Berri-AI`, one hyphen away from the real `BerriAI`. LiteLLM said the attacker worked through the GitHub accounts of three engineers, apparently using stolen GitHub CLI OAuth tokens: one account changed the pipeline and triggered the release, a second approved it, and a third deleted workflow records. Wiz observed the attacker validating stolen AWS keys and probing Amazon Bedrock access about four and a half hours after exfiltration.
+
+**Impact Scope:** Environments that installed LiteLLM 1.107.0 from PyPI or pulled the affected GHCR tags during a window of roughly two to three hours; LiteLLM averages about 23 million weekly downloads
+
+**Key Lessons:**
+
+- A project that has been compromised once is a proven target, and a second attack can come through a completely different path
+- Python `.pth` and `sitecustomize.py` files execute at interpreter startup, so "we never import that package" is not a defense
+- Two-person release approval fails when the attacker controls both people's tokens
+- Provenance needs to be checked against an expected source identity; a lookalike owner name in an otherwise valid attestation is a red flag
+
+**Sources:**
+
+- Socket, analysis of the LiteLLM 1.107.0 compromise, October 21, 2026[^socket-litellm-2026]
+- Help Net Security, "LiteLLM hit by second supply chain attack this year, users urged to rotate credentials," October 22, 2026[^helpnet-litellm-2026]
+
+---
+
+#### The AI Vulnerability Report Surge
+
+**Date:** January – November 2026
+
+**Summary:** Over the course of 2026 the problem facing open source security teams changed from AI-generated junk to AI-generated volume. In January, curl ended its bug bounty because fewer than one in twenty reports were real. By April, Daniel Stenberg wrote that the slop had largely stopped, the confirmed rate had climbed back to 15–16%, and reports were arriving at twice the 2025 rate. curl paused all vulnerability intake for July, published a record 18 CVEs in one release in June and 24 fixes in October (including its first HIGH-severity CVE since 2023), and from October 26 began handling LOW and MEDIUM reports as public GitHub issues. The pattern repeated elsewhere. GNOME ended its bug bounty in February after an AI-driven flood, and its CVE count rose from 37 in 2024 to 141 in the first nine months of 2026. The OpenJS Foundation's CNA paused all triage and CVE assignment from September 17 to October 6. Google stopped accepting product vulnerability reports to its open source VRP on October 1, citing automated submissions, "the vast majority of which are not valid." GitHub's CNA had published more than 7,000 CVE IDs by mid-year, and the CVE Program granted OpenAI and Anthropic temporary CNA status so they could assign IDs to model-found bugs. As of November 2, Anthropic's disclosure dashboard reported 5,087 vulnerabilities disclosed to 680 open source projects, of which 629 had been patched upstream.
+
+**Impact Scope:** Open source maintainers, CNAs, bug bounty platforms, and the CVE Program; downstream consumers facing far higher CVE volumes with the same patching capacity
+
+**Key Lessons:**
+
+- Discovery now outpaces remediation by an order of magnitude; the scarce resource is maintainer time to validate and fix
+- Accurate reports can still overwhelm a project, so "ignore the AI reports" is not a safe policy
+- Embargoes and private handling are being reserved for the most severe issues as volume grows
+- Organizations that depend on open source should expect many more CVEs per component and plan prioritization accordingly (see Chapter 33)
+
+**Sources:**
+
+- Daniel Stenberg, "High-Quality Chaos," April 22, 2026[^stenberg-hqchaos-2026]
+- Daniel Stenberg, "Do minor curl vulnerabilities in the open," October 20, 2026[^stenberg-open-2026]
+- Michael Catanzaro, "The Era of Software Quality, or the Era of Ostriches?," October 2, 2026[^catanzaro-gnome-2026]
+- Cybersecurity Dive, "CVE Program eyes automation and globalization to weather AI 'vulnpocalypse'," August 11, 2026[^cybersecuritydive-cve-2026]
+- Anthropic, "Anthropic's coordinated vulnerability disclosure dashboard," snapshot of November 2, 2026[^anthropic-cvd-dashboard-2026]
+
+---
+
 ### Summary of Attack Vectors by Incident
 
 | Incident | Year | Primary Vector | Sophistication |
@@ -1436,6 +1634,15 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" (the attackers called it
 | Hugging Face Agent Intrusion | 2026 | Autonomous AI agent / malicious dataset | Very High |
 | jscrambler | 2026 | Account takeover / import-time execution | High |
 | AsyncAPI | 2026 | CI/CD workflow exploitation | High |
+| LuaRocks.org | 2026 | Registry server RCE / credential database exposure | High |
+| ChainDrop | 2026 | Account compromise + self-replicating malware | Very High |
+| crates.io arrayref | 2026 | Social engineering / account compromise | High |
+| Coder Module Registry | 2026 | CDN account compromise / registry impersonation | High |
+| GhostAction Returns | 2026 | Mass workflow poisoning via stolen credentials | High |
+| npm Trusted Publishing Flaw | 2026 | Mutable identity binding (design flaw) | Medium |
+| eMudhra Intermediate CAs | 2026 | Trust anchor compromise | High |
+| LiteLLM 1.107.0 | 2026 | Release pipeline hijack via stolen OAuth tokens | High |
+| AI Vulnerability Report Surge | 2026 | Ecosystem capacity (not an attack) | N/A |
 
 ---
 
@@ -1691,6 +1898,44 @@ These incidents collectively demonstrate that software supply chain security req
 [^hackernews-huggingface-2026]: The Hacker News, "World's Largest AI Model Repository Hugging Face Breached by Autonomous AI Agent," July 2026, https://thehackernews.com/2026/07/worlds-largest-ai-model-repository.html
 
 [^gitguardian-streak-2026]: GitGuardian, "The Streak Continues: Four More Supply Chain Attacks Hit npm and PyPI," July 2026, https://blog.gitguardian.com/shai-hulud-npm-pypi-supply-chain-attacks/
+
+[^luarocks-incident-2026]: LuaRocks, "Security Incident September 2026," September 2026, https://luarocks.org/security-incident-september-2026
+
+[^microsoft-chaindrop-2026]: Microsoft Security, "ChainDrop supply chain compromise: Anatomy of a self-propagating worm," August 4, 2026, https://www.microsoft.com/en-us/security/blog/2026/08/04/chaindrop-supply-chain-compromise-anatomy-self-propagating-worm/
+
+[^wiz-keyv-2026]: Wiz, "keyv and cacheable npm Package Hijacked in Supply Chain Attack," August 4, 2026, https://www.wiz.io/blog/keyv-and-cacheable-npm-supply-chain-attack
+
+[^rust-arrayref-2026]: Rust Security Response Team, "Supply chain attack on arrayref," Rust Blog, August 20, 2026, https://blog.rust-lang.org/2026/08/20/supply-chain-attack-on-arrayref/
+
+[^rust-targeted-2026]: Adam Harvey, "Be alert: targeted attacks on prominent Rustaceans," Rust Blog, September 17, 2026, https://blog.rust-lang.org/2026/09/17/targeted-attacks/
+
+[^coder-registry-2026]: Coder, "Malicious Packages Served from Unauthorized Registry Server," GHSA-vx42-ghc9-gw65, September 1, 2026, https://github.com/coder/coder/security/advisories/GHSA-vx42-ghc9-gw65
+
+[^gitguardian-ghostaction-2026]: GitGuardian, "GhostAction Returns: 772 Repos Hit, 30k More in Oct," October 7, 2026, https://blog.gitguardian.com/ghostaction-github-actions-supply-chain-attack-returns/
+
+[^hackernews-ghostaction-2026]: The Hacker News, "Credential-Stealing GitHub Actions Workflows Planted in Tens of Thousands of Repositories," October 2026, https://thehackernews.com/2026/10/credential-stealing-github-actions.html
+
+[^helpnet-slugfest-2026]: Help Net Security, "npm Trusted Publishing flaw exposed 1,500+ npm packages to takeover," October 13, 2026, https://www.helpnetsecurity.com/2026/10/13/slugfest-npm-trusted-publishing-flaw/
+
+[^github-tp-expire-2026]: GitHub, "Unvalidated npm trusted publishing configurations now expire," GitHub Changelog, October 2, 2026, https://github.blog/changelog/2026-10-02-unvalidated-npm-trusted-publishing-configurations-now-expire
+
+[^go-emudhra-2026]: The Go Team, "Our Response To The eMudhra Key Disclosure Incident," The Go Blog, October 2026, https://go.dev/blog/emudhra-incident
+
+[^nesbitt-truststores-2026]: Andrew Nesbitt, "Trust Stores Are Dependencies Too," October 21, 2026, https://nesbitt.io/2026/10/21/trust-stores-are-dependencies-too.html
+
+[^socket-litellm-2026]: Socket, analysis of the LiteLLM 1.107.0 compromise, October 21, 2026, https://socket.dev/blog/litellm-compromise
+
+[^helpnet-litellm-2026]: Help Net Security, "LiteLLM hit by second supply chain attack this year, users urged to rotate credentials," October 22, 2026, https://www.helpnetsecurity.com/2026/10/22/litellm-compromised-supply-chain-attack-pypi-docker/
+
+[^stenberg-hqchaos-2026]: Daniel Stenberg, "High-Quality Chaos," daniel.haxx.se, April 22, 2026, https://daniel.haxx.se/blog/2026/04/22/high-quality-chaos/
+
+[^stenberg-open-2026]: Daniel Stenberg, "Do minor curl vulnerabilities in the open," daniel.haxx.se, October 20, 2026, https://daniel.haxx.se/blog/2026/10/20/do-minor-curl-vulnerabilities-in-the-open/
+
+[^catanzaro-gnome-2026]: Michael Catanzaro, "The Era of Software Quality, or the Era of Ostriches?," October 2, 2026, https://blogs.gnome.org/mcatanzaro/2026/10/02/the-era-of-software-quality-or-the-era-of-ostriches/
+
+[^cybersecuritydive-cve-2026]: Eric Geller, "CVE Program eyes automation and globalization to weather AI 'vulnpocalypse'," Cybersecurity Dive, August 11, 2026, https://www.cybersecuritydive.com/news/cve-program-ai-black-hat-def-con/827477/
+
+[^anthropic-cvd-dashboard-2026]: Anthropic, "Anthropic's coordinated vulnerability disclosure dashboard," snapshot of November 2, 2026, https://red.anthropic.com/2026/cvd/
 
 [^hackernews-openai-hf-2026]: The Hacker News, "OpenAI Agent Used Exposed Credentials Across Four Services During Hugging Face Breach," July 29, 2026 (updated August 1, 2026), https://thehackernews.com/2026/07/openai-agent-used-exposed-credentials.html
 
