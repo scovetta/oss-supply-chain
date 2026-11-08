@@ -38,73 +38,22 @@ for svg_file in $(find "$BOOK_DIR/chapter-"* -name "*.svg" -type f); do
 done
 echo "SVG to PDF conversion complete."
 
-# Collect all markdown files in order
+# Collect all markdown files in order: book front matter, then every
+# chapter (index first, sections in numeric order so ch-10.10 follows
+# ch-10.9), then this book's appendices. Chapters are discovered rather
+# than listed so that new sections are never silently left out.
 FILES=(
     "$BOOK_DIR/index.md"
     "$BOOK_DIR/../frontmatter/preamble-author.md"
     "$BOOK_DIR/../frontmatter/preamble-legal.md"
-    "$BOOK_DIR/chapter-01/index.md"
-    "$BOOK_DIR/chapter-01/ch-1.1.md"
-    "$BOOK_DIR/chapter-01/ch-1.2.md"
-    "$BOOK_DIR/chapter-01/ch-1.3.md"
-    "$BOOK_DIR/chapter-01/ch-1.4.md"
-    "$BOOK_DIR/chapter-01/ch-1.5.md"
-    "$BOOK_DIR/chapter-01/ch-1.6.md"
-    "$BOOK_DIR/chapter-02/index.md"
-    "$BOOK_DIR/chapter-02/ch-2.1.md"
-    "$BOOK_DIR/chapter-02/ch-2.2.md"
-    "$BOOK_DIR/chapter-02/ch-2.3.md"
-    "$BOOK_DIR/chapter-02/ch-2.4.md"
-    "$BOOK_DIR/chapter-02/ch-2.5.md"
-    "$BOOK_DIR/chapter-02/ch-2.6.md"
-    "$BOOK_DIR/chapter-03/index.md"
-    "$BOOK_DIR/chapter-03/ch-3.1.md"
-    "$BOOK_DIR/chapter-03/ch-3.2.md"
-    "$BOOK_DIR/chapter-03/ch-3.3.md"
-    "$BOOK_DIR/chapter-03/ch-3.4.md"
-    "$BOOK_DIR/chapter-03/ch-3.5.md"
-    "$BOOK_DIR/chapter-04/index.md"
-    "$BOOK_DIR/chapter-04/ch-4.1.md"
-    "$BOOK_DIR/chapter-04/ch-4.2.md"
-    "$BOOK_DIR/chapter-04/ch-4.3.md"
-    "$BOOK_DIR/chapter-04/ch-4.4.md"
-    "$BOOK_DIR/chapter-04/ch-4.5.md"
-    "$BOOK_DIR/chapter-05/index.md"
-    "$BOOK_DIR/chapter-05/ch-5.1.md"
-    "$BOOK_DIR/chapter-05/ch-5.2.md"
-    "$BOOK_DIR/chapter-05/ch-5.3.md"
-    "$BOOK_DIR/chapter-05/ch-5.4.md"
-    "$BOOK_DIR/chapter-05/ch-5.5.md"
-    "$BOOK_DIR/chapter-06/index.md"
-    "$BOOK_DIR/chapter-06/ch-6.1.md"
-    "$BOOK_DIR/chapter-06/ch-6.2.md"
-    "$BOOK_DIR/chapter-06/ch-6.3.md"
-    "$BOOK_DIR/chapter-06/ch-6.4.md"
-    "$BOOK_DIR/chapter-06/ch-6.5.md"
-    "$BOOK_DIR/chapter-07/index.md"
-    "$BOOK_DIR/chapter-07/ch-7.1.md"
-    "$BOOK_DIR/chapter-07/ch-7.2.md"
-    "$BOOK_DIR/chapter-07/ch-7.3.md"
-    "$BOOK_DIR/chapter-07/ch-7.4.md"
-    "$BOOK_DIR/chapter-07/ch-7.5.md"
-    "$BOOK_DIR/chapter-08/index.md"
-    "$BOOK_DIR/chapter-08/ch-8.1.md"
-    "$BOOK_DIR/chapter-08/ch-8.2.md"
-    "$BOOK_DIR/chapter-08/ch-8.3.md"
-    "$BOOK_DIR/chapter-08/ch-8.4.md"
-    "$BOOK_DIR/chapter-08/ch-8.5.md"
-    "$BOOK_DIR/chapter-09/index.md"
-    "$BOOK_DIR/chapter-09/ch-9.1.md"
-    "$BOOK_DIR/chapter-09/ch-9.2.md"
-    "$BOOK_DIR/chapter-09/ch-9.3.md"
-    "$BOOK_DIR/chapter-09/ch-9.4.md"
-    "$BOOK_DIR/chapter-09/ch-9.5.md"
-    "$BOOK_DIR/chapter-10/index.md"
-    "$BOOK_DIR/chapter-10/ch-10.1.md"
-    "$BOOK_DIR/chapter-10/ch-10.2.md"
-    "$BOOK_DIR/chapter-10/ch-10.3.md"
-    "$BOOK_DIR/chapter-10/ch-10.4.md"
-    "$BOOK_DIR/chapter-10/ch-10.5.md"
+)
+for chapter_dir in "$BOOK_DIR"/chapter-*/; do
+    FILES+=("${chapter_dir}index.md")
+    while IFS= read -r section; do
+        FILES+=("$section")
+    done < <(find "$chapter_dir" -maxdepth 1 -name 'ch-*.md' | sort -V)
+done
+FILES+=(
     "$BOOK_DIR/../appendices/index.md"
     "$BOOK_DIR/../appendices/appendix-a.md"
     "$BOOK_DIR/../appendices/appendix-b.md"
