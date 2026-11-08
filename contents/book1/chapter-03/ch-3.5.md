@@ -165,6 +165,10 @@ The **Polyfill.io incident** (June 2024) demonstrated CDN supply chain risk vivi
 
 The Polyfill.io incident represents a new category of supply chain attack, not compromising a package registry, but acquiring a widely-trusted distribution service and weaponizing it. As more services and domains change hands, similar attacks become increasingly likely.
 
+CDN risk is not limited to the content a CDN serves; the account that configures it is also part of the distribution path. On August 31, 2026, an attacker who had gained access to Coder's Cloudflare account added their own servers to the pool behind `registry.coder.com`. For about fourteen hours, some users fetching Terraform modules received copies that ran credential-stealing scripts during planning (see Appendix F).[^coder-35] Nothing in Coder's code or build pipeline had been touched.
+
+[^coder-35]: Coder, "Malicious Packages Served from Unauthorized Registry Server," GHSA-vx42-ghc9-gw65, September 1, 2026, https://github.com/coder/coder/security/advisories/GHSA-vx42-ghc9-gw65
+
 Similar risks exist whenever websites load resources from external domains:
 
 - JavaScript CDNs like cdnjs, jsDelivr, and unpkg serve libraries to millions of websites
@@ -187,6 +191,12 @@ For software supply chains, CA trust has specific implications:
 - Code signing certificates from CAs authenticate software publishers
 - Compromised CAs could enable man-in-the-middle attacks during package installation
 - Revocation mechanisms (CRL, OCSP) may not propagate quickly enough to prevent exploitation
+
+The **eMudhra incident** of October 2026 showed how the last point plays out in practice. The CA had generated eight intermediate certificates with keys so weak that the private keys could be recovered from the certificates themselves, which meant anyone could mint a certificate for any domain that chained to a trusted root. Browsers blocked the intermediates within days. But much of the software that downloads packages does not use the browser's trust store or check revocation at all. Python's `certifi`, pip, uv, Rust's `webpki-roots`, Node.js, Go, Composer, and the curl CA bundle each carry or enforce their own copy of the trust anchors, and each needed a separate release; two weeks later, the `git`, `curl`, and `python3` shipped with macOS still trusted the bad intermediates.[^nesbitt-truststores-35][^go-emudhra-35] Andrew Nesbitt's point is that a bundled CA store is a dependency like any other, a "phantom binary dependency" with a PEM file in place of a shared library, and SBOMs that record only package names and versions do not show it.
+
+[^nesbitt-truststores-35]: Andrew Nesbitt, "Trust Stores Are Dependencies Too," October 21, 2026, https://nesbitt.io/2026/10/21/trust-stores-are-dependencies-too.html
+
+[^go-emudhra-35]: The Go Team, "Our Response To The eMudhra Key Disclosure Incident," The Go Blog, October 2026, https://go.dev/blog/emudhra-incident
 
 ## Time Synchronization
 
