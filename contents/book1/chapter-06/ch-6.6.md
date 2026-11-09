@@ -292,13 +292,13 @@ Projects have responded by changing their processes rather than trying to filter
 
 [^scrutineer]: Andrew Nesbitt, "Scrutineer: scanning open source without flooding maintainers," June 25, 2026, https://nesbitt.io/2026/06/25/scrutineer.html
 
-Chapter 33 covers the broader consequences of AI-driven discovery, including the coalitions and clearinghouses formed in 2026 to absorb it.
+Chapter 33 covers the broader consequences of AI-driven discovery, including the coalitions and clearinghouses formed in 2026 to absorb it. Book 3, Section 29.1 describes how Alpha-Omega began paying for security engineers inside ecosystems such as Drupal and Erlang to validate findings before they reach maintainers.
 
 ### Recommendations
 
 **For maintainers:**
 
-1. **Publish a threat model and a severity policy.** Most invalid or low-value AI reports describe behavior the project already considers out of scope. Writing that down lets you close them by reference.
+1. **Publish a threat model and a severity policy.** Most invalid or low-value AI reports describe behavior the project already considers out of scope. Writing that down lets you close them by reference. It also improves the scans themselves. Jacob Finkelman, the Rust Foundation's AI security engineer in residence, found that most of the AI reports he reviewed treated misuse of a project as a vulnerability. He suggests that even projects without a threat model write at least one sentence answering three questions: what the project is good for, when someone should use it, and when they should not.[^finkelman-intended-use] When the Apache Software Foundation scanned 230 of its repositories through Anthropic's Project Glasswing in August 2026, scans run against a reviewed threat model cost roughly one-fifth less than scans without one, and notes on design decisions cut false positives.[^asf-scan]
 2. **Decide what you will handle privately.** curl's split (public for LOW and MEDIUM, private for HIGH and CRITICAL) is one workable model. Embargoes protect little when a public fix can be reverse-engineered in minutes.
 3. **Require reproducers, not AI disclosure alone.** Disclosure is useful context, but a standalone reproducer is what separates a real bug from a fabricated one.
 4. **Use platform controls.** Rate limits, trusted-reporter lists, and structured forms reduce the cost of each report.
@@ -315,6 +315,10 @@ Chapter 33 covers the broader consequences of AI-driven discovery, including the
 
 1. **Measure verified fixes, not findings.** A program that rewards report volume will get volume.
 2. **Fund remediation alongside discovery.** The bottleneck in 2026 was not finding bugs.
+
+[^finkelman-intended-use]: Jacob Finkelman, "Reducing slop LLM reports by documenting your project's intended use case," Alpha-Omega, October 2026, https://alpha-omega.dev/blog/reducing-slop-llm-reports-by-documenting-your-projects-intended-use-case/
+
+[^asf-scan]: ASF Tooling and ASF Security, "Security Scanning at Foundation Scale," The Apache Software Foundation, September 3, 2026, republished by Alpha-Omega, https://alpha-omega.dev/blog/security-scanning-at-foundation-scale/
 
 ### The Broader Implications
 
