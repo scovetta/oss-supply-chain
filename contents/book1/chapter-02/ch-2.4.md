@@ -6,32 +6,17 @@ icon: "lucide/package"
 
 # 2.4 Major Package Ecosystems: A Comparative Survey
 
-The open source ecosystem is not a single entity but a collection of distinct communities, each with its own culture, governance, tooling, and security posture. Understanding these ecosystems—their strengths, weaknesses, and idiosyncrasies—is essential for anyone managing software supply chain security. A vulnerability disclosure process that works well in one ecosystem may not exist in another. Security features considered standard in one registry may be absent elsewhere. This section surveys the major package ecosystems, providing reference material for practitioners who must secure applications spanning multiple language communities.
+The open source ecosystem is not a single entity but a collection of distinct communities, each with its own culture, governance, tooling, and security posture. Understanding these ecosystems (their strengths, weaknesses, and idiosyncrasies) is essential for anyone managing software supply chain security. A vulnerability disclosure process that works well in one ecosystem may not exist in another. Security features considered standard in one registry may be absent elsewhere. This section surveys the major package ecosystems, providing reference material for practitioners who must secure applications spanning multiple language communities.
 
 ## JavaScript/Node.js: npm
 
-!!! note "npm: The Largest Ecosystem"
-
-    - **2.5+ million** packages hosted
-    - **200+ billion** downloads per month
-    - Acquired by GitHub/Microsoft in 2020
-    - JavaScript's ubiquity makes npm critical infrastructure for web, server, mobile, and desktop development
-
-The **npm registry** is the largest package ecosystem in the world by a substantial margin, hosting over 2.5 million packages with more than 200 billion downloads per month.[^npm-downloads] This scale reflects JavaScript's ubiquity: it runs in every web browser, powers countless server applications through Node.js, and has expanded into mobile development, desktop applications, and even embedded systems.
+The **npm registry** is the largest package ecosystem in the world by a substantial margin, hosting more than 4 million packages (the registry's replication feed counted about 4.58 million package documents in November 2026) with more than 200 billion downloads per month.[^npm-downloads] This scale reflects JavaScript's ubiquity: it runs in every web browser, powers countless server applications through Node.js, and has expanded into mobile development, desktop applications, and even embedded systems.
 
 npm, Inc. was founded in 2014 to provide commercial stewardship of the registry created by Isaac Schlueter in 2010. GitHub acquired npm in 2020, integrating it into Microsoft's developer platform portfolio. The registry operates as a centralized service; there is no federated alternative for the npm ecosystem comparable to what exists in some other language communities.
 
 The npm ecosystem's security posture has evolved significantly following high-profile incidents. The **event-stream compromise** of 2018 demonstrated how social engineering could transfer control of popular packages to malicious actors. The **ua-parser-js**, **coa**, and **rc** hijackings in 2021 showed that even widely-used packages remained vulnerable to account takeover.
 
 In response, npm has implemented substantial security improvements:
-
-!!! tip "npm Security Features"
-
-    - **Mandatory 2FA** for high-impact package maintainers
-    - **npm provenance** using Sigstore for cryptographic build attestation
-    - **Trusted publishing** via OpenID Connect (no long-lived tokens)
-    - **Automated malware detection** on publication
-    - **Security advisories** integrated with GitHub's database
 
 - **Mandatory two-factor authentication** for maintainers of high-impact packages (top 100 by dependents) since 2022, extended to top 500 packages subsequently
 - **npm provenance** using Sigstore, allowing packages built in CI/CD environments to include cryptographic attestation of their build origin
@@ -43,7 +28,7 @@ Despite these improvements, npm's scale creates ongoing challenges. The registry
 
 ## Python: PyPI
 
-The **Python Package Index (PyPI)** hosts over 500,000 projects with billions of downloads annually. Managed by the Python Software Foundation with significant infrastructure support from sponsors, PyPI has grown from a minimal package index into critical infrastructure for data science, machine learning, web development, and automation.
+The **Python Package Index (PyPI)** hosts more than 900,000 projects (about 937,000 in November 2026) with billions of downloads annually. Managed by the Python Software Foundation with significant infrastructure support from sponsors, PyPI has grown from a minimal package index into critical infrastructure for data science, machine learning, web development, and automation.
 
 PyPI's governance reflects Python's community-driven ethos. The Python Packaging Authority (PyPA) develops packaging standards and tools, while the PSF provides organizational oversight. Unlike npm's corporate ownership, PyPI operates as community infrastructure supported by donations and sponsorship.
 
@@ -73,7 +58,7 @@ Sonatype provides additional security capabilities:
 - **Repository policies** enforced through Nexus repository managers
 - **Sigstore adoption** bringing keyless signing to the Java ecosystem
 
-The Java ecosystem's security incidents have often involved dependency confusion or compromised build processes rather than direct registry attacks. The **Log4Shell vulnerability** (CVE-2021-44228) in Apache Log4j represented the ecosystem's most significant security event—not a supply chain attack per se, but a critical vulnerability in a ubiquitous logging library that affected virtually every Java application.
+The Java ecosystem's security incidents have often involved dependency confusion or compromised build processes rather than direct registry attacks. The **Log4Shell vulnerability** (CVE-2021-44228) in Apache Log4j represented the ecosystem's most significant security event, not a supply chain attack per se, but a critical vulnerability in a ubiquitous logging library that affected virtually every Java application.
 
 Maven's dependency resolution is deterministic given a `pom.xml` file, and enterprise users typically employ repository managers that proxy and cache artifacts. This architecture provides natural points for security controls but requires proper configuration to be effective.
 
@@ -97,11 +82,7 @@ The Ruby community's relatively close-knit nature has some security benefits: ma
 
 ## Rust: crates.io
 
-!!! tip inline end "Rust's Security-First Design"
-
-    crates.io was designed after major supply chain incidents raised awareness. **Immutable versions** (once published, cannot be modified), archived source packages, and ecosystem audit tooling (`cargo-audit`, `cargo-vet`) reflect lessons learned.
-
-**crates.io** hosts over 140,000 crates for the Rust programming language. Operated by the Rust Foundation, crates.io was designed with explicit attention to lessons learned from earlier ecosystems.
+**crates.io** hosts more than 370,000 crates for the Rust programming language (as of November 2026). Operated by the Rust Foundation, crates.io was designed with explicit attention to lessons learned from earlier ecosystems.
 
 Rust's ecosystem benefits from launching after major supply chain incidents had raised awareness. Security-conscious design choices include:
 
@@ -112,7 +93,7 @@ Rust's ecosystem benefits from launching after major supply chain incidents had 
 - **cargo-vet**: Ecosystem tooling for tracking dependency audits
 - **Sigstore integration**: Through community tooling
 
-crates.io has experienced relatively few major security incidents compared to older ecosystems, though researchers have demonstrated **typosquatting vulnerabilities** and identified **malicious crates** that were removed. The ecosystem's smaller size and newer vintage make comparison difficult—it may simply have not yet attracted the same attacker attention as larger ecosystems.
+crates.io has experienced relatively few major security incidents compared to older ecosystems, though researchers have demonstrated **typosquatting vulnerabilities** and identified **malicious crates** that were removed. The ecosystem's smaller size and newer vintage make comparison difficult: it may simply have not yet attracted the same attacker attention as larger ecosystems.
 
 Rust's memory safety guarantees address an entire class of vulnerabilities at the language level, but supply chain risks remain. Crates can still contain logic bugs, backdoors, or malicious functionality that memory safety does not prevent.
 
@@ -134,7 +115,7 @@ Go's ecosystem has seen **typosquatting** attempts and **malicious modules**, th
 
 ## PHP: Composer and Packagist
 
-**Packagist** serves as the primary repository for PHP packages installed via Composer, hosting over 350,000 packages. PHP powers a substantial portion of the web—WordPress, Laravel, Drupal, and countless custom applications—making Packagist critical infrastructure despite receiving less attention than npm or PyPI.
+**Packagist** serves as the primary repository for PHP packages installed via Composer, hosting nearly 480,000 packages (as of November 2026). PHP powers a substantial portion of the web (WordPress, Laravel, Drupal, and countless custom applications) making Packagist critical infrastructure despite receiving less attention than npm or PyPI.
 
 Packagist is operated by Private Packagist GmbH, which also offers commercial private repository services. The registry's governance is less formalized than foundation-backed ecosystems.
 
@@ -147,7 +128,7 @@ Security features include:
 
 PHP's ecosystem has experienced security incidents including **typosquatting** and **account compromise**. The **PHPUnit vulnerability** (CVE-2017-9841) demonstrated how widely-used testing tools could become attack vectors when improperly configured.
 
-The PHP community's decentralized nature—with many applications self-hosted rather than deployed through modern CI/CD—creates challenges for security update distribution. WordPress's automatic update mechanism has been crucial for patching vulnerable sites, demonstrating how deployment architecture affects supply chain security.
+The PHP community's decentralized nature (with many applications self-hosted rather than deployed through modern CI/CD) creates challenges for security update distribution. WordPress's automatic update mechanism has been crucial for patching vulnerable sites, demonstrating how deployment architecture affects supply chain security.
 
 ## .NET: NuGet
 
@@ -171,7 +152,7 @@ The Apple ecosystem relies on two primary package management systems: **CocoaPod
 
 !!! warning "CocoaPods in Maintenance Mode"
 
-    CocoaPods is in **maintenance mode**, with no active feature development planned. The CocoaPods team has discussed eventually making the Specs repository read-only as a long-term security simplification, but has not announced a cutoff date. Organizations should audit iOS dependencies and plan migrations to Swift Package Manager where feasible. Projects using React Native or Flutter—which rely on CocoaPods as a hidden abstraction—face particular migration challenges.
+    CocoaPods is in **maintenance mode**, with no active feature development planned. In November 2024 the maintainers [announced](https://blog.cocoapods.org/CocoaPods-Specs-Repo/) that CocoaPods Trunk will stop accepting new podspecs permanently on **December 2, 2026**, making the Specs repository read-only. Organizations should audit iOS dependencies and complete migration to Swift Package Manager. Projects using React Native or Flutter, which rely on CocoaPods as a hidden abstraction, face particular migration challenges.
 
 **CocoaPods** manages over 100,000 pods (libraries) and has historically been widely used in iOS, macOS, watchOS, and tvOS development. However, the project entered **maintenance mode** with no active feature development, and usage is now primarily sustained by React Native and Flutter ecosystems that depend on CocoaPods as a hidden abstraction layer.[^cocoapods-support-plans] The CocoaPods Trunk[^cocoapods-trunk] serves as the centralized registry, operated by a small team of volunteers under the CocoaPods organization.
 
@@ -188,9 +169,9 @@ Security practices and mitigations include:
 - **Session management** improvements following the 2021 and 2023 vulnerability disclosures
 - **Pod ownership verification** requiring email confirmation
 - **Spec repository mirroring** through CDN for improved availability
-- **`prepare_command` scrutiny**: Podspecs using `prepare_command`—which allows arbitrary script execution during pod installation—require particular care because they can become script-based supply chain attack vectors
+- **`prepare_command` scrutiny**: Podspecs using `prepare_command`, which allows arbitrary script execution during pod installation, require particular care because they can become script-based supply chain attack vectors
 
-**Swift Package Manager** represents Apple's modern approach, integrated directly into Xcode and the Swift compiler. Unlike CocoaPods' centralized registry, SPM uses a decentralized model similar to Go modules—packages are referenced by their Git repository URLs and fetched directly from source.
+**Swift Package Manager** represents Apple's modern approach, integrated directly into Xcode and the Swift compiler. Unlike CocoaPods' centralized registry, SPM uses a decentralized model similar to Go modules: packages are referenced by their Git repository URLs and fetched directly from source.
 
 SPM's security properties include:
 
@@ -226,12 +207,12 @@ Examining these ecosystems reveals both common patterns and significant divergen
 | Go modules | Google (mirror/checksum) | Corporate |
 | Packagist | Private Packagist GmbH | Commercial |
 | NuGet | Microsoft | Corporate |
-| CocoaPods | CocoaPods Volunteers | Community/Donations (maintenance mode; future read-only Specs repo discussed) |
+| CocoaPods | CocoaPods Volunteers | Community/Donations (maintenance mode; Trunk read-only from December 2, 2026) |
 | Swift PM | Apple (decentralized) | N/A (uses Git hosts) |
 
 **Dependency scale varies dramatically by ecosystem:**
 
-The "dependency explosion" phenomenon—where a single installation brings in hundreds or thousands of packages—is well-documented but varies significantly across ecosystems. The following table illustrates how common starter projects expand into complex dependency trees:
+The "dependency explosion" phenomenon (where a single installation brings in hundreds or thousands of packages) is well-documented but varies significantly across ecosystems. The following table illustrates how common starter projects expand into complex dependency trees:
 
 | Ecosystem | Package | Contributors | Direct Deps | Transitive Deps | Total Size |
 |-----------|---------|--------------|-------------|-----------------|------------|
@@ -251,13 +232,13 @@ Note: Contributor counts from GitHub as of late 2024. Create React App is now de
 
 Several patterns emerge from this analysis:
 
-- **JavaScript/npm exhibits the highest expansion ratios**, often 30-50x between direct and transitive dependencies. This reflects the ecosystem's culture of small, single-purpose packages—what some call the "one-liner package" phenomenon.
+- **JavaScript/npm exhibits the highest expansion ratios**, often 30-50x between direct and transitive dependencies. This reflects the ecosystem's culture of small, single-purpose packages: what some call the "one-liner package" phenomenon.
 - **Python shows bimodal behavior**: simple web frameworks like Django have minimal dependencies, while data science and ML tooling creates massive dependency trees including native code.
 - **Java/Maven tends toward larger but fewer packages**, with enterprise applications averaging 150 components according to Sonatype's research.
 - **Rust and Go exhibit more controlled growth**, partly due to ecosystem design (Rust's feature flags, Go's minimal version selection) and cultural emphasis on reducing dependencies.
 - **Install size correlates loosely with dependency count**; packages with native code (TensorFlow, NumPy) are much larger per dependency than pure JavaScript packages.
 
-These numbers matter for security because each dependency represents code that must be trusted, monitored for vulnerabilities, and updated when issues arise. An organization with 1,500 transitive dependencies has 1,500 potential points of compromise—and the Sonatype 2024 report found that 86% of vulnerabilities originate in transitive dependencies that developers never explicitly chose.
+These numbers matter for security because each dependency represents code that must be trusted, monitored for vulnerabilities, and updated when issues arise. An organization with 1,500 transitive dependencies has 1,500 potential points of compromise, and the Sonatype 2024 report found that 86% of vulnerabilities originate in transitive dependencies that developers never explicitly chose.
 
 **Security feature adoption is uneven:**
 

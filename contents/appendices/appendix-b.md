@@ -18,7 +18,7 @@ A comprehensive treatment of software supply chain security with particular emph
 The definitive guide to threat modeling methodology. Essential reading for anyone designing secure systems or evaluating the security posture of software projects.
 
 **The Art of Software Security Assessment** by Mark Dowd, John McDonald, and Justin Schuh (Addison-Wesley, 2006)[^art-security-assessment]
-Though focused on vulnerability discovery, this comprehensive text provides deep understanding of how software vulnerabilities arise—essential context for supply chain security practitioners.
+Though focused on vulnerability discovery, this comprehensive text provides deep understanding of how software vulnerabilities arise: essential context for supply chain security practitioners.
 
 **Hacking Kubernetes** by Andrew Martin and Michael Hausenblas (O'Reilly, 2021)[^hacking-kubernetes]
 Covers security considerations for containerized environments and Kubernetes, including supply chain concerns specific to cloud-native infrastructure.
@@ -149,7 +149,7 @@ Commercial platform (with free tier) for vulnerability scanning, license complia
 **Dependabot**[^dependabot]
 GitHub-integrated tool that automatically creates pull requests to update vulnerable dependencies. Now part of GitHub's native security features.
 
-**Trivy**[^trivy]
+**Trivy**[^trivy-appb]
 Comprehensive scanner for vulnerabilities, misconfigurations, secrets, and SBOM generation in containers, filesystems, and repositories.
 
 #### SBOM Generation and Management
@@ -185,7 +185,7 @@ CNCF project implementing TUF for container image signing and verification.
 **SLSA Tools**[^slsa-tools]
 Generators and verifiers for SLSA provenance, with GitHub Actions integration.
 
-**OpenSSF Scorecard**[^scorecard]
+**OpenSSF Scorecard**[^scorecard-appb]
 Automated tool that assesses open source project security practices against a defined set of checks.
 
 **in-toto**[^in-toto]
@@ -348,7 +348,7 @@ Official Google security blog with announcements about SLSA, Sigstore, and other
 **Chainguard Blog**[^chainguard]
 Focused on supply chain security, container security, and Sigstore ecosystem.
 
-**Socket.dev Blog**[^socket]
+**Socket.dev Blog**[^socket-appb]
 Analysis of supply chain attacks and package security across ecosystems.
 
 **Snyk Blog**[^snyk-blog]
@@ -468,7 +468,7 @@ Commercial vulnerability intelligence with broader coverage than NVD alone.
 
 [^dependabot]: GitHub, "Dependabot," https://github.com/dependabot
 
-[^trivy]: Aqua Security, "Trivy," https://github.com/aquasecurity/trivy
+[^trivy-appb]: Aqua Security, "Trivy," https://github.com/aquasecurity/trivy
 
 [^syft]: Anchore, "Syft," https://github.com/anchore/syft
 
@@ -488,7 +488,7 @@ Commercial vulnerability intelligence with broader coverage than NVD alone.
 
 [^slsa-tools]: SLSA, "SLSA Get Started," https://slsa.dev/get-started
 
-[^scorecard]: OpenSSF, "Security Scorecards," https://securityscorecards.dev
+[^scorecard-appb]: OpenSSF, "Security Scorecards," https://securityscorecards.dev
 
 [^in-toto]: in-toto, "in-toto," https://in-toto.io
 
@@ -574,7 +574,7 @@ Commercial vulnerability intelligence with broader coverage than NVD alone.
 
 [^chainguard]: Chainguard, "Chainguard Blog," https://www.chainguard.dev/unchained
 
-[^socket]: Socket, "Socket.dev Blog," https://socket.dev/blog
+[^socket-appb]: Socket, "Socket.dev Blog," https://socket.dev/blog
 
 [^snyk-blog]: Snyk, "Snyk Blog," https://snyk.io/blog/
 

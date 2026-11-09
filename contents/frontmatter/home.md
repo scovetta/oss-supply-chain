@@ -1,6 +1,6 @@
 ---
 title: Home
-description: A comprehensive guide to understanding, protecting, and governing the open source software supply chain.
+description: A practical guide to understanding, protecting, and governing the open source software supply chain.
 hide:
     - navigation
     - path
@@ -9,7 +9,7 @@ hide:
 
 # Open Source Software Supply Chain Security
 
-A comprehensive guide to understanding, protecting, and governing the open source software supply chain.
+A practical guide to understanding, protecting, and governing the open source software supply chain.
 
 <div class="equal-table" markdown="1">
 
@@ -24,9 +24,9 @@ A comprehensive guide to understanding, protecting, and governing the open sourc
 
 ## About This Book Series
 
-Modern software is built from thousands of components sourced from global repositories, open source projects, and third-party vendors. This interconnected ecosystem delivers unprecedented productivity but creates complex webs of trust that attackers increasingly exploit.
+Most of the code in a modern application was written by someone else: open source maintainers, registry operators, CI providers, and vendors you may never have heard of. That arrangement is why software gets built so quickly, and it is also why a single compromised package, build server, or maintainer account can reach thousands of organizations at once.
 
-This three-book series provides practitioners with the knowledge and tools to secure their software supply chains, from understanding the threats to implementing defenses to building organizational programs.
+This three-book series is for the people who have to deal with that. Book 1 explains how the supply chain works and how it gets attacked, Book 2 covers the defenses, and Book 3 covers the organizational, legal, and economic questions that decide whether those defenses last.
 
 ---
 
@@ -36,7 +36,7 @@ This three-book series provides practitioners with the knowledge and tools to se
 
 **Chapters 1-10** | Foundations and Attack Patterns
 
-Provides a comprehensive foundation for understanding software supply chain security. Examines how software is actually built today, explores the threat landscape in depth, and analyzes attack patterns in granular detail.
+How software is actually built today, who maintains it, and how attackers exploit it, with each attack pattern grounded in real incidents.
 
 - **Part I - Foundations**: How software is built, supply chain threats, historical attacks
 - **Part II - Attack Patterns**: Malicious packages, dependency confusion, typosquatting, build system attacks, insider threats, social engineering
@@ -51,7 +51,7 @@ Provides a comprehensive foundation for understanding software supply chain secu
 
 **Chapters 11-22** | Practical Defenses and Incident Response
 
-Translates threat knowledge into practical defenses across the development lifecycle, from dependency selection through production deployment.
+Defenses across the development lifecycle, from choosing a dependency to running code in production, plus what to do when prevention fails.
 
 - **Part III - Risk Assessment & Testing**: Risk measurement, SBOMs, dependency management, security testing, red teaming
 - **Part IV - Defense & Response**: Securing development environments, CI/CD pipelines, distribution, incident response, crisis communication
@@ -67,7 +67,7 @@ Translates threat knowledge into practical defenses across the development lifec
 
 **Chapters 23-33** | Policy, Compliance, and Organizational Strategy
 
-Addresses human, policy, and strategic dimensions: organizational commitment, regulatory compliance, economic incentives, and industry collaboration.
+The people, money, and rules behind supply chain security: training, maintainers, vendor risk, regulation, economics, and where the field is heading.
 
 - **Part V - People & Organizations**: Training and security culture, open source maintainers, vendor risk management
 - **Part VI - Regulatory & Legal**: Regulatory landscape, compliance frameworks, legal considerations, industry initiatives

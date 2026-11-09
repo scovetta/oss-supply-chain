@@ -6,26 +6,13 @@ icon: "lucide/workflow"
 
 # 7.6 CI/CD Pipeline Vulnerabilities
 
-The case studies in preceding sections—SolarWinds, 3CX, Codecov, XZ Utils—demonstrate the catastrophic potential of compromised build and delivery systems. But these high-profile incidents represent the visible peak of a much larger problem. CI/CD pipelines contain systemic vulnerabilities that, while individually less dramatic, create pervasive risk across the software industry. Understanding these vulnerabilities systematically enables defenders to assess and harden their pipelines before attackers exploit them.
+The case studies in preceding sections (SolarWinds, 3CX, Codecov, XZ Utils) demonstrate the catastrophic potential of compromised build and delivery systems. But these high-profile incidents represent the visible peak of a much larger problem. CI/CD pipelines contain systemic vulnerabilities that, while individually less dramatic, create pervasive risk across the software industry. Understanding these vulnerabilities systematically enables defenders to assess and harden their pipelines before attackers exploit them.
 
 This section provides a taxonomy of CI/CD security weaknesses, drawing on the **OWASP CI/CD Security Top 10** framework and research from security organizations studying build pipeline risks. Each vulnerability category includes examples, detection approaches, and hardening recommendations.
 
 ## A Systematic Overview of CI/CD Weaknesses
 
 Modern CI/CD systems automate software building, testing, and deployment. This automation provides enormous productivity benefits but concentrates risk: pipelines have access to source code, secrets, build infrastructure, and production systems. A compromised pipeline can affect every release it produces.
-
-!!! info "OWASP CI/CD Security Top 10"
-
-    1. Insufficient Flow Control Mechanisms
-    2. Inadequate Identity and Access Management
-    3. Dependency Chain Abuse
-    4. Poisoned Pipeline Execution (PPE)
-    5. Insufficient PBAC
-    6. Insufficient Credential Hygiene
-    7. Insecure System Configuration
-    8. Ungoverned Third-Party Services
-    9. Improper Artifact Integrity Validation
-    10. Insufficient Logging and Visibility
 
 The OWASP CI/CD Security Top 10 identifies the most critical pipeline vulnerabilities:
 
@@ -61,11 +48,11 @@ Many CI/CD platforms attempt to redact known secrets, but redaction is imperfect
 - Base64 or hex-encoded secrets may not be recognized
 - Partial secrets or secret derivatives may be logged
 
-**Example**: [Security researchers documented widespread secret exposure in Travis CI logs][travis-ci-secrets], finding API keys, database credentials, and access tokens visible in public build logs—a problem that persisted across multiple years (2019, 2021, 2022) as different researchers identified recurring patterns of credential leakage.
+**Example**: [Security researchers documented widespread secret exposure in Travis CI logs][travis-ci-secrets], finding API keys, database credentials, and access tokens visible in public build logs, a problem that persisted across multiple years (2019, 2021, 2022) as different researchers identified recurring patterns of credential leakage.
 
 **Artifact Exposure:**
 
-Build artifacts—the outputs of CI/CD pipelines—may inadvertently include secrets:
+Build artifacts, the outputs of CI/CD pipelines, may inadvertently include secrets:
 
 - Configuration files with embedded credentials
 - Debug builds with hardcoded test secrets
@@ -74,7 +61,7 @@ Build artifacts—the outputs of CI/CD pipelines—may inadvertently include sec
 
 **Environment Variable Leakage:**
 
-The Codecov attack (Section 7.4) exploited environment variable access. Any code executing in a pipeline—including dependencies, build scripts, and test code—can read environment variables. Malicious code can exfiltrate these values.
+The Codecov attack (Section 7.4) exploited environment variable access. Any code executing in a pipeline (including dependencies, build scripts, and test code) can read environment variables. Malicious code can exfiltrate these values.
 
 **Hardening Recommendations:**
 
@@ -110,14 +97,6 @@ When any one pipeline is compromised, all systems accessible through shared cred
 
 **Example**: [CVE-2022-24348][cve-2022-24348] in Argo CD allowed attackers to steal secrets, passwords, and API keys from other applications by exploiting a path traversal vulnerability in Helm chart processing, demonstrating how CI/CD access control failures can lead to broader compromise.
 
-!!! tip "Access Control Hardening"
-
-    1. Implement least-privilege for all pipeline credentials
-    2. Use scoped tokens specific to each repository or workflow
-    3. Implement just-in-time credential provisioning
-    4. Regularly audit and rotate credentials
-    5. Use OIDC federation instead of long-lived tokens where supported
-
 **Hardening Recommendations:**
 
 1. Implement least-privilege for all pipeline credentials
@@ -141,7 +120,7 @@ Open source projects and organizations allowing external contributions face a ch
 
 GitHub Actions distinguishes between `pull_request` (runs in the context of the fork, with read-only access) and `pull_request_target` (runs in the context of the base repository, with secrets access).
 
-`pull_request_target` was designed to allow workflows to interact with the target repository—posting comments, adding labels—without giving fork authors secret access. However, misuse creates severe vulnerabilities:
+`pull_request_target` was designed to allow workflows to interact with the target repository (posting comments, adding labels) without giving fork authors secret access. However, misuse creates severe vulnerabilities:
 
 ```yaml
 # DANGEROUS: Checks out PR code then runs with target secrets
@@ -187,7 +166,7 @@ If a PR title contains shell metacharacters or command injection payloads, they 
 
 ## Webhook Filter Bypass: The CodeBreach Class of Risk (2026)
 
-Webhook filters are a common mechanism for constraining which events trigger privileged CI/CD builds — for example, allowing only pull requests from trusted maintainers to run builds with access to secrets. When these filters rely on pattern matching rather than exact identity verification, they introduce a subtle but critical vulnerability class.
+Webhook filters are a common mechanism for constraining which events trigger privileged CI/CD builds, for example, allowing only pull requests from trusted maintainers to run builds with access to secrets. When these filters rely on pattern matching rather than exact identity verification, they introduce a subtle but critical vulnerability class.
 
 In January 2026, security researchers at Wiz disclosed what they termed the "CodeBreach" class of risk: a webhook filter misconfiguration in AWS CodeBuild affecting four AWS-managed open-source GitHub repositories, including `aws-sdk-js-v3`, `aws-lc`, `amazon-corretto-crypto-provider`, and `awslabs/open-data-registry`.[^codebreach-aws] Wiz's write-up described how the missing regex anchors could allow a predictably acquired GitHub actor ID to bypass the filter.[^codebreach-wiz]
 
@@ -218,7 +197,7 @@ flowchart TD
 
 **Impact Assessment:**
 
-AWS reported that researchers demonstrated the ability to commit code to one repository but did not do so maliciously, and AWS found no evidence of exploitation by other actors. AWS performed credential rotations and conducted a broader audit of similar configurations.[^codebreach-aws] However, the *potential* impact — if exploited — included repository admin token theft, malicious commits to widely-consumed libraries (the AWS SDK for JavaScript alone has millions of weekly npm downloads), and cascading supply-chain compromise.
+AWS reported that researchers demonstrated the ability to commit code to one repository but did not do so maliciously, and AWS found no evidence of exploitation by other actors. AWS performed credential rotations and conducted a broader audit of similar configurations.[^codebreach-aws] However, the *potential* impact (if exploited) included repository admin token theft, malicious commits to widely-consumed libraries (the AWS SDK for JavaScript alone has millions of weekly npm downloads), and cascading supply-chain compromise.
 
 **Lessons:**
 
@@ -340,7 +319,7 @@ Many self-hosted runner configurations default to persistent mode for performanc
 
 ## Pipeline-as-Code Security
 
-Modern CI/CD systems define pipelines as code—YAML files, scripts, or configuration that lives in repositories alongside application code. This brings software development practices to pipeline management but also creates security considerations.
+Modern CI/CD systems define pipelines as code: YAML files, scripts, or configuration that lives in repositories alongside application code. This brings software development practices to pipeline management but also creates security considerations.
 
 **Pipeline Definition Attacks:**
 

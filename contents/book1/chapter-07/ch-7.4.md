@@ -6,13 +6,13 @@ icon: "lucide/terminal-square"
 
 # 7.4 Case Study: Codecov Bash Uploader (2021)
 
-The SolarWinds and 3CX attacks compromised build systems to inject malicious code into distributed software. The Codecov incident demonstrated a different approach: rather than modifying the final product, attackers targeted a script that ran in thousands of CI/CD pipelines, harvesting credentials and secrets from each environment. The attack required no malware installation on end-user systems—the build environments themselves were the target, and the secrets they contained were the prize.
+The SolarWinds and 3CX attacks compromised build systems to inject malicious code into distributed software. The Codecov incident demonstrated a different approach: rather than modifying the final product, attackers targeted a script that ran in thousands of CI/CD pipelines, harvesting credentials and secrets from each environment. The attack required no malware installation on end-user systems: the build environments themselves were the target, and the secrets they contained were the prize.
 
 !!! danger "The `curl | bash` Anti-Pattern"
 
     The modified Codecov script ran in thousands of CI pipelines for two months, exfiltrating credentials from each environment. A single line added to the script collected git remotes and all environment variables, transmitted to attacker-controlled servers.
 
-This attack exemplifies the risks of the `curl | bash` pattern—fetching and executing remote scripts without verification—that remains common in CI/CD configurations despite its obvious security implications.
+This attack exemplifies the risks of the `curl | bash` pattern, fetching and executing remote scripts without verification, that remains common in CI/CD configurations despite its obvious security implications.
 
 ## Background: Codecov and Code Coverage Reporting
 
@@ -85,7 +85,7 @@ The two-month window during which the modified script was active (January 31 - A
 
 > "The impacted CI environment... had access to a GPG signing key used for signing hashes used to validate HashiCorp product releases."
 
-HashiCorp rotated affected credentials, including the GPG key used to sign product releases—a significant operational undertaking.
+HashiCorp rotated affected credentials, including the GPG key used to sign product releases, a significant operational undertaking.
 
 **[Twilio][twilio-disclosure]** disclosed that the Codecov breach led to unauthorized cloning of some GitHub repositories:
 
@@ -106,7 +106,7 @@ The full scope of affected organizations remains unknown. Codecov notified appro
 
 !!! note "Two Months Undetected"
 
-    The attack persisted for approximately two months before detection. Detection occurred not through automated security tools but through a customer who happened to verify the script's integrity—a practice that, while recommended, is rarely implemented.
+    The attack persisted for approximately two months before detection. Detection occurred not through automated security tools but through a customer who happened to verify the script's integrity, a practice that, while recommended, is rarely implemented.
 
 **January 31, 2021**: Attackers modify the Codecov bash uploader script.
 
@@ -120,11 +120,11 @@ The full scope of affected organizations remains unknown. Codecov notified appro
 
 **April - May 2021**: Affected organizations begin disclosing their exposure and remediating.
 
-The attack persisted for approximately two months before detection. Detection occurred not through automated security tools but through a customer who happened to verify the script's integrity—a practice that, while recommended, is rarely implemented.
+The attack persisted for approximately two months before detection. Detection occurred not through automated security tools but through a customer who happened to verify the script's integrity, a practice that, while recommended, is rarely implemented.
 
 ## The `curl | bash` Anti-Pattern
 
-The Codecov attack reignited discussion of the `curl | bash` pattern—piping a remote script directly into a shell for execution.
+The Codecov attack reignited discussion of the `curl | bash` pattern, piping a remote script directly into a shell for execution.
 
 ```shell
 # The dangerous pattern
@@ -243,7 +243,7 @@ Document all third-party services and scripts integrated into your pipelines. As
 
 When incidents occur, rapid credential rotation limits attacker opportunity. Organizations without prepared procedures faced longer exposure windows.
 
-The Codecov attack demonstrated that supply chain compromise does not require modifying distributed software. By targeting the build process itself, attackers accessed credentials that unlocked far more than any single piece of software could provide. This pivot from compromising products to compromising processes represents an evolution in supply chain attack tactics—one that organizations must address through CI/CD security investments.
+The Codecov attack demonstrated that supply chain compromise does not require modifying distributed software. By targeting the build process itself, attackers accessed credentials that unlocked far more than any single piece of software could provide. This pivot from compromising products to compromising processes represents an evolution in supply chain attack tactics: one that organizations must address through CI/CD security investments.
 
 [codecov-disclosure]: https://about.codecov.io/security-update/
 [hashicorp-disclosure]: https://discuss.hashicorp.com/t/hcsec-2021-12-codecov-security-event-and-hashicorp-gpg-key-exposure/23512

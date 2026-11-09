@@ -6,9 +6,9 @@ icon: "lucide/server-crash"
 
 # 7.1 Compromising Build Infrastructure
 
-The journey from source code to deployed software passes through build systems—infrastructure that compiles, packages, signs, and prepares code for distribution. This transformation is invisible to most users, who reasonably assume that the software they install corresponds to the source code they can inspect. Attackers have recognized that this assumption creates opportunity. By compromising build infrastructure, adversaries can inject malicious code that never appears in any source repository, evading the code review, static analysis, and community oversight that open source development provides.
+The journey from source code to deployed software passes through build systems: infrastructure that compiles, packages, signs, and prepares code for distribution. This transformation is invisible to most users, who reasonably assume that the software they install corresponds to the source code they can inspect. Attackers have recognized that this assumption creates opportunity. By compromising build infrastructure, adversaries can inject malicious code that never appears in any source repository, evading the code review, static analysis, and community oversight that open source development provides.
 
-Build infrastructure compromise represents one of the highest-leverage attack vectors in the software supply chain. A single successful attack on a widely-used project's build system can affect millions of downstream users, as the SolarWinds, 3CX, and Codecov incidents—examined in subsequent sections—demonstrate.
+Build infrastructure compromise represents one of the highest-leverage attack vectors in the software supply chain. A single successful attack on a widely-used project's build system can affect millions of downstream users, as the SolarWinds, 3CX, and Codecov incidents (examined in subsequent sections) demonstrate.
 
 ## The Build System as a High-Value Target
 
@@ -34,7 +34,7 @@ The leverage is exceptional. Rather than compromising individual developer machi
 
 ## The Gap Between Source and Binary
 
-When you examine source code on GitHub or GitLab, you see what developers wrote and reviewers approved. When you install a binary package, you receive something different—the output of a build process that transformed source into executable form.
+When you examine source code on GitHub or GitLab, you see what developers wrote and reviewers approved. When you install a binary package, you receive something different: the output of a build process that transformed source into executable form.
 
 This transformation involves many steps:
 
@@ -52,10 +52,6 @@ Each step represents an opportunity for malicious modification. An attacker who 
 - Cannot be detected through source code review
 - May be difficult to discover through binary analysis
 - Appears legitimate because it carries official signatures
-
-!!! warning "Phantom Dependencies"
-
-    Dependencies introduced during the build process that do not appear in declared dependency manifests. A malicious build script might install packages that execute code during the build but never appear in `package.json` or lockfiles that developers review.
 
 **Phantom dependencies** exemplify this risk. These are dependencies introduced during the build process that do not appear in declared dependency manifests. A malicious build script might:
 
@@ -77,9 +73,9 @@ Attackers compromise build infrastructure through multiple vectors:
 - Attacking the underlying infrastructure (cloud accounts, container registries)
 - Social engineering operators responsible for build systems
 
-Once inside, attackers can modify build scripts, inject code during compilation, or exfiltrate secrets. The persistence can be subtle—modifications that only activate under specific conditions, avoiding detection during testing.
+Once inside, attackers can modify build scripts, inject code during compilation, or exfiltrate secrets. The persistence can be subtle: modifications that only activate under specific conditions, avoiding detection during testing.
 
-**Malicious build scripts** introduce risk through the build configuration itself. Build definitions (`Jenkinsfile`, `.github/workflows/*.yml`, `.gitlab-ci.yml`) are code that executes with high privilege. An attacker who can modify these files—through compromised credentials, social engineering, or malicious pull requests—controls what happens during builds.
+**Malicious build scripts** introduce risk through the build configuration itself. Build definitions (`Jenkinsfile`, `.github/workflows/*.yml`, `.gitlab-ci.yml`) are code that executes with high privilege. An attacker who can modify these files (through compromised credentials, social engineering, or malicious pull requests) controls what happens during builds.
 
 Build scripts can:
 
@@ -89,11 +85,11 @@ Build scripts can:
 - Exfiltrate environment variables containing secrets
 - Establish persistent access to build infrastructure
 
-**Poisoned caches** exploit build optimization mechanisms. Modern CI/CD systems cache dependencies, build artifacts, and intermediate results to accelerate builds. If attackers can poison these caches—by compromising cache storage or exploiting cache key collisions—subsequent builds will incorporate malicious content.
+**Poisoned caches** exploit build optimization mechanisms. Modern CI/CD systems cache dependencies, build artifacts, and intermediate results to accelerate builds. If attackers can poison these caches, by compromising cache storage or exploiting cache key collisions, subsequent builds will incorporate malicious content.
 
 The Codecov attack (detailed in Section 7.4) demonstrated this vector: attackers modified a script that was executed in thousands of CI environments, exfiltrating secrets from each.
 
-**Compromised build dependencies** introduce malicious code through the tools used to build software rather than the software itself. Compilers, transpilers, bundlers, and other build tools are software too—software that runs with full access to everything being built.
+**Compromised build dependencies** introduce malicious code through the tools used to build software rather than the software itself. Compilers, transpilers, bundlers, and other build tools are software too: software that runs with full access to everything being built.
 
 Ken Thompson's classic paper ["Reflections on Trusting Trust"][thompson-trust] described this threat decades ago: a compromised compiler could insert backdoors into programs it compiles while appearing innocent when its own source code is examined. Modern build toolchains are far more complex than 1984-era compilers, with many more opportunities for supply chain attacks.
 
@@ -119,7 +115,7 @@ The [**Reproducible Builds project**][reproducible-builds] has made significant 
 - Container images often incorporate non-deterministic operations
 - Commercial software rarely prioritizes reproducibility
 
-Without reproducibility, users cannot independently verify that binaries match source. They must trust build infrastructure—trust that sophisticated attackers target precisely because it is granted implicitly.
+Without reproducibility, users cannot independently verify that binaries match source. They must trust build infrastructure: trust that sophisticated attackers target precisely because it is granted implicitly.
 
 ## CI/CD Platform Security Considerations
 
@@ -197,7 +193,7 @@ GitHub, npm, and PyPI have implemented provenance features aligned with SLSA, en
 
 Build tools themselves are software, subject to the same supply chain risks as any other software. Attackers have targeted:
 
-**Compilers and language toolchains**: A compromised compiler can inject vulnerabilities into everything it compiles. While Thompson's theoretical attack has not been widely observed in practice, the principle remains valid. The Rust compiler, for instance, is built from a chain of prior Rust compilers—a bootstrap process that must be trusted.
+**Compilers and language toolchains**: A compromised compiler can inject vulnerabilities into everything it compiles. While Thompson's theoretical attack has not been widely observed in practice, the principle remains valid. The Rust compiler, for instance, is built from a chain of prior Rust compilers, a bootstrap process that must be trusted.
 
 **Package managers**: npm, pip, cargo, and other package managers execute during builds with significant privileges. Compromising these tools affects every build that uses them.
 

@@ -6,25 +6,21 @@ icon: "lucide/clock"
 
 # 5.4 The Patching Gap
 
-The previous section established that known, unpatched vulnerabilities cause more breaches than zero-days. This raises an obvious question: why do organizations fail to patch vulnerabilities when fixes are available? The answer lies in a complex interplay of technical constraints, organizational factors, and supply chain dynamics that together create the **patching gap**—the period during which vulnerable systems remain exposed despite available remediation.
+The previous section established that known, unpatched vulnerabilities cause more breaches than zero-days. This raises an obvious question: why do organizations fail to patch vulnerabilities when fixes are available? The answer lies in a complex interplay of technical constraints, organizational factors, and supply chain dynamics that together create the **patching gap**: the period during which vulnerable systems remain exposed despite available remediation.
 
 Understanding why the patching gap exists is the first step toward closing it. For supply chain security specifically, the challenge is compounded because many vulnerabilities exist in code you did not write and cannot directly modify.
 
 ## The Scale of the Problem
 
-!!! note "The Attacker Advantage"
-
-    Qualys TruRisk Research found attackers weaponize vulnerabilities in an average of 19.5 days, while organizations patch in 30.6 days—an 11-day gap of continuous exposure.
-
 Research consistently shows that patching takes longer than security teams would like and policy often demands:
 
-The **[Kenna Security/Cyentia Institute Prioritization to Prediction research][kenna-p2p]** on vulnerability remediation found that organizations typically remediate only about 10% of their vulnerabilities in any given month. Their analysis of 3.6 billion vulnerability observations across hundreds of organizations showed that this ratio remains remarkably constant regardless of organization size—every tenfold increase in open vulnerabilities is met with a roughly tenfold increase in closed vulnerabilities. High-severity vulnerabilities receive faster attention, but even critical CVEs have a median remediation time measured in weeks, not days.
+The **[Kenna Security/Cyentia Institute Prioritization to Prediction research][kenna-p2p]** on vulnerability remediation found that organizations typically remediate only about 10% of their vulnerabilities in any given month. Their analysis of 3.6 billion vulnerability observations across hundreds of organizations showed that this ratio remains remarkably constant regardless of organization size: every tenfold increase in open vulnerabilities is met with a roughly tenfold increase in closed vulnerabilities. High-severity vulnerabilities receive faster attention, but even critical CVEs have a median remediation time measured in weeks, not days.
 
 **[Verizon's 2025 DBIR][verizon-dbir]** documented that vulnerability exploitation as an initial access vector increased 34% from the previous year and appeared in 20% of breaches. The report also highlighted the remediation challenge for edge device and VPN vulnerabilities: exploitation grew nearly eight-fold, yet only 54% of these critical vulnerabilities were fully remediated during the year, with a median time of 32 days to patch.
 
 **[Qualys TruRisk Research][qualys-trurisk]** found that weaponized vulnerabilities are patched within an average of 30.6 days, while attackers weaponize those same vulnerabilities in just 19.5 days on average. This 11-day gap represents continuous exposure to significant cyber risk. For vulnerabilities on CISA's Known Exploited Vulnerabilities list, the disparity is even more pronounced.
 
-For supply chain dependencies specifically, patching is often slower than for directly controlled code. Transitive dependency vulnerabilities are particularly challenging—as [Snyk's documentation notes][snyk-transitive], you cannot automatically fix transitive dependencies due to their relationships with other components. Organizations must wait for intermediate packages to update before they can incorporate fixes, adding delays at each level of the dependency tree.
+For supply chain dependencies specifically, patching is often slower than for directly controlled code. Transitive dependency vulnerabilities are particularly challenging, as [Snyk's documentation notes][snyk-transitive], you cannot automatically fix transitive dependencies due to their relationships with other components. Organizations must wait for intermediate packages to update before they can incorporate fixes, adding delays at each level of the dependency tree.
 
 [kenna-p2p]: https://www.cyentia.com/research/
 [verizon-dbir]: https://www.verizon.com/business/resources/reports/dbir/
@@ -35,21 +31,21 @@ For supply chain dependencies specifically, patching is often slower than for di
 
 Several technical factors contribute to delayed patching:
 
-**Compatibility concerns** top the list. Updates to dependencies can introduce breaking changes, alter behavior in subtle ways, or create incompatibilities with other components. Development teams reasonably fear that updating a library to fix a security vulnerability might break production functionality. This fear is not unfounded—major version updates frequently require code changes, and even minor updates occasionally introduce regressions.
+**Compatibility concerns** top the list. Updates to dependencies can introduce breaking changes, alter behavior in subtle ways, or create incompatibilities with other components. Development teams reasonably fear that updating a library to fix a security vulnerability might break production functionality. This fear is not unfounded: major version updates frequently require code changes, and even minor updates occasionally introduce regressions.
 
 The JavaScript ecosystem's experience with `left-pad` and other incidents has made some teams cautious about automatic updates. A library update that breaks the build at 2 AM is a memorable experience that can make teams permanently gun-shy about patching.
 
-**Testing requirements** consume significant resources. Responsible organizations test updates before deployment, but testing takes time. For complex applications, comprehensive testing might require days or weeks—during which the vulnerability remains unpatched. Organizations face a genuine tradeoff between patching speed and patching safety.
+**Testing requirements** consume significant resources. Responsible organizations test updates before deployment, but testing takes time. For complex applications, comprehensive testing might require days or weeks, during which the vulnerability remains unpatched. Organizations face a genuine tradeoff between patching speed and patching safety.
 
 **Environmental complexity** makes updates difficult. Enterprise environments often run diverse software versions, custom configurations, and interconnected systems. An update that works in development might fail in production due to environmental differences. Legacy integrations and undocumented dependencies create uncertainty about update impacts.
 
-**Embedded and constrained systems** cannot always be updated. IoT devices, industrial controllers, and medical equipment may lack update mechanisms or require vendor involvement to patch. Some systems must be taken offline for updates—unacceptable for critical infrastructure. Others run on hardware that cannot support newer software versions.
+**Embedded and constrained systems** cannot always be updated. IoT devices, industrial controllers, and medical equipment may lack update mechanisms or require vendor involvement to patch. Some systems must be taken offline for updates: unacceptable for critical infrastructure. Others run on hardware that cannot support newer software versions.
 
 ## Why Patching Fails: Organizational Factors
 
 Technical challenges are often compounded by organizational dynamics:
 
-**Resource constraints** limit patching capacity. Security teams and operations staff have finite time. When thousands of CVEs are disclosed annually and applications have hundreds of dependencies, triaging and patching everything is simply not possible. Teams must prioritize, and lower-severity or less-exposed vulnerabilities get deferred—sometimes indefinitely.
+**Resource constraints** limit patching capacity. Security teams and operations staff have finite time. When thousands of CVEs are disclosed annually and applications have hundreds of dependencies, triaging and patching everything is simply not possible. Teams must prioritize, and lower-severity or less-exposed vulnerabilities get deferred, sometimes indefinitely.
 
 **Change management overhead** slows updates. Many organizations require formal approval for production changes. Change advisory boards may meet weekly or less frequently. Emergency change processes exist but create overhead and scrutiny. The processes designed to prevent outages from hasty changes also delay security updates.
 
@@ -95,7 +91,7 @@ flowchart LR
     F -->|"Waiting"| A
 ```
 
-*Figure 5.4.1: The transitive dependency patching cascade. Each layer must wait for its dependency to update before it can incorporate the fix. A vulnerability in a utility library may take weeks or months to reach your application—during which time attackers can exploit it.*
+*Figure 5.4.1: The transitive dependency patching cascade. Each layer must wait for its dependency to update before it can incorporate the fix. A vulnerability in a utility library may take weeks or months to reach your application, during which time attackers can exploit it.*
 
 1. Utility maintainer releases patched version
 2. Library B maintainer updates their dependency on the utility (days to weeks)
@@ -115,7 +111,7 @@ Each step in this chain introduces delay. If any maintainer is slow, unresponsiv
 
 One common reason for deferred patching deserves specific attention: the claim that a vulnerability is "not exploitable in our context."
 
-This rationalization proceeds as follows: A vulnerability is disclosed in a library. Analysis suggests that exploitation requires specific conditions—particular configurations, exposed interfaces, or usage patterns. The security team determines that the organization's use of the library does not meet those conditions, concluding the vulnerability is not exploitable and patching is unnecessary.
+This rationalization proceeds as follows: A vulnerability is disclosed in a library. Analysis suggests that exploitation requires specific conditions: particular configurations, exposed interfaces, or usage patterns. The security team determines that the organization's use of the library does not meet those conditions, concluding the vulnerability is not exploitable and patching is unnecessary.
 
 Sometimes this analysis is correct. Vulnerabilities often require preconditions for exploitation, and not all deployments meet those conditions. Reasonable risk assessment considers exploitability.
 
@@ -150,7 +146,7 @@ Configuration options allow tuning automation to organizational risk tolerance:
 
 **Continuous updating** rather than periodic updates reduces both individual update risk and cumulative drift. Small, frequent updates are easier to test and less likely to introduce compatibility issues than large version jumps accumulated over months.
 
-**Robust testing pipelines** enable confident patching. Investments in automated testing—unit tests, integration tests, end-to-end tests—pay security dividends by enabling faster update cycles. Teams that can quickly validate update safety can patch faster.
+**Robust testing pipelines** enable confident patching. Investments in automated testing (unit tests, integration tests, end-to-end tests) pay security dividends by enabling faster update cycles. Teams that can quickly validate update safety can patch faster.
 
 **Risk acceptance frameworks** provide structure for vulnerability management decisions. Not every vulnerability can be patched immediately; formal frameworks ensure that:
 
@@ -184,6 +180,6 @@ Closing the patching gap requires commitment across technical, process, and orga
 
 7. **Consider update practices in dependency selection.** Book 2, Chapter 13 explores dependency evaluation criteria; maintainer responsiveness to security issues should be among them.
 
-The patching gap will never close completely—resource constraints, testing requirements, and coordination challenges are inherent to complex systems. But organizations that deliberately invest in patching capability dramatically reduce their exposure to the known vulnerability attacks that dominate real-world breaches.
+The patching gap will never close completely: resource constraints, testing requirements, and coordination challenges are inherent to complex systems. But organizations that deliberately invest in patching capability dramatically reduce their exposure to the known vulnerability attacks that dominate real-world breaches.
 
 ![The patching gap: 19.5 days to weaponize vs. 30.6 days to patch](img/ch-5-patching-gap.svg)

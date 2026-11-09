@@ -6,7 +6,7 @@ icon: "lucide/text-cursor-input"
 
 # 6.1 Typosquatting and Namesquatting
 
-Package managers have made software dependency management remarkably convenient. A single command—`npm install lodash` or `pip install requests`—retrieves code from a registry and integrates it into your project. This convenience depends on package names being reliable identifiers: when you request `lodash`, you expect to receive the popular JavaScript utility library, not something else. Attackers exploit this trust through **typosquatting** and **namesquatting**, claiming package names designed to deceive developers into installing malicious code instead of legitimate dependencies.
+Package managers have made software dependency management remarkably convenient. A single command, `npm install lodash` or `pip install requests`, retrieves code from a registry and integrates it into your project. This convenience depends on package names being reliable identifiers: when you request `lodash`, you expect to receive the popular JavaScript utility library, not something else. Attackers exploit this trust through **typosquatting** and **namesquatting**, claiming package names designed to deceive developers into installing malicious code instead of legitimate dependencies.
 
 !!! warning "A Single Keystroke Mistake"
 
@@ -14,7 +14,7 @@ Package managers have made software dependency management remarkably convenient.
 
 ## How Typosquatting Works
 
-**Typosquatting** in the package ecosystem involves registering package names that are visually or typographically similar to popular legitimate packages. When developers mistype package names—whether due to keyboard errors, memory lapses, or confusion about correct spelling—they may install the attacker's package instead of the intended one.
+**Typosquatting** in the package ecosystem involves registering package names that are visually or typographically similar to popular legitimate packages. When developers mistype package names (whether due to keyboard errors, memory lapses, or confusion about correct spelling), they may install the attacker's package instead of the intended one.
 
 The attack mechanism is straightforward:
 
@@ -26,7 +26,7 @@ The attack mechanism is straightforward:
 
 The malicious payload often executes during installation, before the developer has any opportunity to inspect what they've installed. Package managers that support installation scripts (npm's `postinstall`, Python's `setup.py`) provide immediate code execution opportunity.
 
-The attack scales efficiently. An attacker can register dozens of typosquat variations for popular packages with minimal effort. Each registration costs nothing on most registries and requires only a few minutes. The attacker then waits for victims to make mistakes—a passive attack that requires no active exploitation.
+The attack scales efficiently. An attacker can register dozens of typosquat variations for popular packages with minimal effort. Each registration costs nothing on most registries and requires only a few minutes. The attacker then waits for victims to make mistakes, a passive attack that requires no active exploitation.
 
 ## Common Typosquatting Patterns
 
@@ -38,7 +38,7 @@ Research on typosquatting has identified several common patterns that attackers 
 - `requets` instead of `requests` (transposed letters)
 - `loadsh` instead of `lodash` (missing character)
 
-Adjacent keyboard keys are common substitution targets: 's' for 'a', 'o' for 'i', 'n' for 'm'. Visually similar characters—'l' and '1', 'o' and '0'—also feature heavily.
+Adjacent keyboard keys are common substitution targets: 's' for 'a', 'o' for 'i', 'n' for 'm'. Visually similar characters ('l' and '1', 'o' and '0') also feature heavily.
 
 **Character omission** removes a character from the name:
 
@@ -126,7 +126,7 @@ The **crossenv incident** on npm in August 2017 became a defining example of typ
 
 `cross-env` is a popular npm package that allows setting environment variables in a way that works across different operating systems. It had millions of downloads, making it an attractive typosquatting target.
 
-An attacker registered `crossenv`—the same name without the hyphen—and published a package containing malicious code. The package's `postinstall` script would:
+An attacker registered `crossenv`, the same name without the hyphen, and published a package containing malicious code. The package's `postinstall` script would:
 
 1. Collect environment variables from the developer's machine
 2. Harvest npm authentication tokens
@@ -134,7 +134,7 @@ An attacker registered `crossenv`—the same name without the hyphen—and publi
 
 Environment variables often contain sensitive data: API keys, database credentials, cloud access tokens. Npm tokens would allow the attacker to publish further malicious packages under the victim's identity, potentially escalating the attack.
 
-The package accumulated approximately 700 downloads before detection and removal—700 developers (or CI systems) that potentially exposed credentials to the attacker.
+The package accumulated approximately 700 downloads before detection and removal: 700 developers (or CI systems) that potentially exposed credentials to the attacker.
 
 The incident prompted npm to implement additional monitoring for typosquatting patterns and led to broader industry awareness of the threat. It demonstrated that even security-conscious developers could fall victim to simple typing errors, and that package installation hooks provided immediate, powerful code execution.
 
@@ -161,7 +161,7 @@ The malicious payload, linked to the **zgRAT** malware family, was embedded in `
 - Harvest browser data (cookies, extension data, credentials)
 - Establish persistence mechanisms to survive reboots
 
-The attack was severe enough that [PyPI suspended new user registration and project creation][pypi-suspension] for 10 hours on March 28, 2024—an extraordinary step demonstrating the operational impact of large-scale typosquatting campaigns.
+The attack was severe enough that [PyPI suspended new user registration and project creation][pypi-suspension] for 10 hours on March 28, 2024, an extraordinary step demonstrating the operational impact of large-scale typosquatting campaigns.
 
 ## Case Study: Maven Central Jackson Typosquatting (2025)
 
@@ -206,7 +206,7 @@ Registries have implemented various countermeasures:
 
 **Namespace/scoping** reduces typosquatting risk by associating packages with verified publishers. A package published under `@google/package-name` has different trust properties than `google-package-name` from an anonymous account.
 
-Research by security firms suggests that despite these measures, typosquatting packages regularly reach registries. [Sonatype's 2026 State of the Software Supply Chain report][sonatype-2026] documented 454,600 malicious packages discovered across major ecosystems in 2025 alone—bringing the cumulative total past 1.23 million—many using typosquatting techniques.
+Research by security firms suggests that despite these measures, typosquatting packages regularly reach registries. [Sonatype's 2026 State of the Software Supply Chain report][sonatype-2026] documented 454,600 malicious packages discovered across major ecosystems in 2025 alone, bringing the cumulative total past 1.23 million, many using typosquatting techniques.
 
 ## Recommendations
 

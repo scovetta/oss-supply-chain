@@ -6,15 +6,11 @@ icon: "lucide/git-pull-request"
 
 # 8.2 Malicious Commits and Pull Requests
 
-While account takeover provides attackers direct publishing access, a more subtle approach targets the code review process itself. Attackers can submit malicious code through normal contribution channels—pull requests, patches, or direct commits—hoping that reviewers will approve harmful changes. This attack vector exploits the fundamental tension in open source: projects want contributions to grow and improve, but each contribution is potential attack surface.
+While account takeover provides attackers direct publishing access, a more subtle approach targets the code review process itself. Attackers can submit malicious code through normal contribution channels (pull requests, patches, or direct commits) hoping that reviewers will approve harmful changes. This attack vector exploits the fundamental tension in open source: projects want contributions to grow and improve, but each contribution is potential attack surface.
 
 The XZ Utils backdoor (Section 7.5) demonstrated this approach at its most sophisticated: years of legitimate contributions building trust, followed by carefully hidden malicious code that evaded review. But not all attacks require such patience. Clever obfuscation, reviewer fatigue, and the inherent limitations of human code review create opportunities for attackers at every experience level.
 
 ## The Challenge: Detecting Malice in Code
-
-!!! warning "Code Review Was Not Designed as a Security Control"
-
-    Intent is invisible. Context is limited. Time is finite. Expertise varies. Trust accumulates and can be exploited. A subtle bug and a deliberately planted vulnerability may look identical.
 
 Code review is designed to catch bugs, improve quality, and maintain consistency. It was not designed as a security control, and treating it as one reveals significant limitations.
 
@@ -46,7 +42,7 @@ The most effective disguise is code that genuinely appears harmless. Techniques 
 
 - **Subtle type confusion**: In languages with implicit conversions, changes to types or comparisons can introduce vulnerabilities while looking like cleanup.
 
-- **Error handling modifications**: Changes to error handling paths—which are often less tested—can introduce vulnerabilities in code that only executes during failures.
+- **Error handling modifications**: Changes to error handling paths, which are often less tested, can introduce vulnerabilities in code that only executes during failures.
 
 **Homoglyph and Unicode Attacks:**
 
@@ -118,7 +114,7 @@ The Linux kernel maintainers:
 
 The controversy highlighted several important points:
 
-1. **Code review has limits**: The research demonstrated that even experienced maintainers could miss subtle vulnerabilities—a finding with genuine security implications.
+1. **Code review has limits**: The research demonstrated that even experienced maintainers could miss subtle vulnerabilities, a finding with genuine security implications.
 
 2. **Ethics matter**: Testing security by attacking production systems without consent violates research ethics and community trust.
 
@@ -126,7 +122,7 @@ The controversy highlighted several important points:
 
 4. **Institutional responses**: The kernel community developed new policies requiring research involving their project to follow ethical guidelines.
 
-The incident demonstrated both that malicious commits are a viable attack vector and that exploiting this vector—even for research—damages the trust relationships that open source depends upon.
+The incident demonstrated both that malicious commits are a viable attack vector and that exploiting this vector, even for research, damages the trust relationships that open source depends upon.
 
 ## Reviewer Fatigue and Its Exploitation
 
@@ -189,7 +185,7 @@ Code review operates under constraints that advantage attackers:
 - A single missed review can enable an attack; consistent detection is required for defense
 - False positives (rejecting legitimate contributions) have costs that true negatives don't
 
-Linux kernel maintainers have noted that expecting code review to catch all sophisticated attacks is unrealistic—it raises the bar for attackers but cannot provide absolute guarantees, similar to other security screening processes.
+Linux kernel maintainers have noted that expecting code review to catch all sophisticated attacks is unrealistic: it raises the bar for attackers but cannot provide absolute guarantees, similar to other security screening processes.
 
 ## Automated Detection of Suspicious Commits
 
@@ -252,7 +248,7 @@ Binary files, test data, and encoded content can hide malicious code. Consider p
 
 **5. Maintain healthy suspicion of urgent requests.**
 
-Pressure to merge quickly—whether from the contributor or external circumstances—should trigger additional scrutiny, not less.
+Pressure to merge quickly, whether from the contributor or external circumstances, should trigger additional scrutiny, not less.
 
 **6. Establish contributor verification.**
 
@@ -274,7 +270,7 @@ When the same reviewer consistently approves a contributor's PRs, trust may accu
 
 Periodically review accepted contributions from new or occasional contributors. Malicious code hidden in past commits may be detectable with hindsight.
 
-Code review remains valuable—it catches bugs, improves quality, and raises the bar for attackers. But treating it as a comprehensive security control is unrealistic. Defense in depth requires combining code review with automated analysis, contributor verification, build integrity, and monitoring. The XZ Utils attack succeeded despite code review because it was designed specifically to evade review. Organizations must build security architectures that remain effective even when individual controls fail.
+Code review remains valuable: it catches bugs, improves quality, and raises the bar for attackers. But treating it as a comprehensive security control is unrealistic. Defense in depth requires combining code review with automated analysis, contributor verification, build integrity, and monitoring. The XZ Utils attack succeeded despite code review because it was designed specifically to evade review. Organizations must build security architectures that remain effective even when individual controls fail.
 
 [hypocrite-commits]: https://github.com/QiushiWu/qiushiwu.github.io/blob/main/papers/OpenSourceInsecurity.pdf
 [trojan-source]: https://trojansource.codes/

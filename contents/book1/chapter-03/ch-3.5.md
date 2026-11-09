@@ -6,24 +6,15 @@ icon: "lucide/server"
 
 # 3.5 Infrastructure as Supply Chain
 
-The previous sections have focused on software dependencies—the packages, libraries, and components that applications incorporate. But modern software depends on far more than code. A hidden layer of infrastructure services underpins every software supply chain: DNS resolution that translates package registry names to IP addresses, cloud platforms that host build systems and registries, CDNs that distribute assets globally, certificate authorities that enable secure connections, and time synchronization services that coordinate distributed systems. Compromise or failure at this infrastructure layer can undermine software supply chain security regardless of how carefully individual packages are vetted.
+The previous sections have focused on software dependencies: the packages, libraries, and components that applications incorporate. But modern software depends on far more than code. A hidden layer of infrastructure services underpins every software supply chain: DNS resolution that translates package registry names to IP addresses, cloud platforms that host build systems and registries, CDNs that distribute assets globally, certificate authorities that enable secure connections, and time synchronization services that coordinate distributed systems. Compromise or failure at this infrastructure layer can undermine software supply chain security regardless of how carefully individual packages are vetted.
 
 ## DNS: The Foundation Beneath the Foundation
-
-!!! danger "DNS: The Hidden Foundation"
-
-    Every `npm install` or `pip install` depends on DNS resolution. DNS compromise enables:
-    
-    - **DNS hijacking**: Redirect traffic to attacker-controlled servers
-    - **Cache poisoning**: Insert malicious records affecting all resolver users
-    - **Registrar compromise**: Control authoritative DNS records via social engineering
-    - **Availability attacks**: DDoS against DNS prevents all package installations
 
 The **Domain Name System (DNS)** translates human-readable domain names into IP addresses that computers use to communicate. Every time a developer runs `npm install` or `pip install`, DNS resolution determines which servers receive those requests. This makes DNS a critical, largely invisible supply chain dependency.
 
 DNS compromise enables powerful attacks:
 
-**DNS hijacking** redirects traffic intended for legitimate services to attacker-controlled servers. If an attacker can control DNS resolution for `registry.npmjs.org`, they can disrupt package installation, harvest metadata, or—if TLS or certificate validation is also undermined—serve malicious packages to developers whose DNS queries they intercept. The **DNSpionage** attacks (2018-2019), attributed to Iranian threat actors, hijacked DNS records for government and private organizations across the Middle East and North Africa, demonstrating nation-state capability and interest in DNS-based attacks.[^dnspionage]
+**DNS hijacking** redirects traffic intended for legitimate services to attacker-controlled servers. If an attacker can control DNS resolution for `registry.npmjs.org`, they can disrupt package installation, harvest metadata, or (if TLS or certificate validation is also undermined) serve malicious packages to developers whose DNS queries they intercept. The **DNSpionage** attacks (2018-2019), attributed to Iranian threat actors, hijacked DNS records for government and private organizations across the Middle East and North Africa, demonstrating nation-state capability and interest in DNS-based attacks.[^dnspionage]
 
 **DNS cache poisoning** inserts malicious records into DNS resolvers, affecting all users of those resolvers. While modern DNS implementations include protections against classic poisoning attacks, vulnerabilities continue to emerge. The **SAD DNS** attack (2020) demonstrated that cache poisoning remained viable against significant portions of DNS infrastructure.[^saddns]
 
@@ -35,11 +26,11 @@ Organizations rarely consider DNS in supply chain risk assessments, yet DNS comp
 
 ## BGP Hijacking: Routing the Internet Astray
 
-While DNS translates names to IP addresses, the **Border Gateway Protocol (BGP)** determines how traffic actually reaches those addresses across the internet. BGP is the routing protocol that enables autonomous systems (networks operated by ISPs, cloud providers, enterprises, and other organizations) to exchange routing information and direct traffic to its destination. BGP hijacking—the malicious or accidental announcement of false routing information—can redirect internet traffic through attacker-controlled networks, enabling interception or manipulation of software supply chain communications.
+While DNS translates names to IP addresses, the **Border Gateway Protocol (BGP)** determines how traffic actually reaches those addresses across the internet. BGP is the routing protocol that enables autonomous systems (networks operated by ISPs, cloud providers, enterprises, and other organizations) to exchange routing information and direct traffic to its destination. BGP hijacking, the malicious or accidental announcement of false routing information, can redirect internet traffic through attacker-controlled networks, enabling interception or manipulation of software supply chain communications.
 
 !!! danger "BGP: The Internet's Unverified Routing"
 
-    BGP was designed in an era of implicit trust between network operators. Route announcements are not cryptographically verified by default, allowing any network to claim ownership of IP address space. Attackers who control a network—or compromise one—can redirect traffic destined for package registries, build systems, or any internet service.
+    BGP was designed in an era of implicit trust between network operators. Route announcements are not cryptographically verified by default, allowing any network to claim ownership of IP address space. Attackers who control a network, or compromise one, can redirect traffic destined for package registries, build systems, or any internet service.
 
 **How BGP Hijacking Works:**
 
@@ -67,7 +58,7 @@ BGP hijacking could target software supply chains in several ways:
 - Harvest metadata about which organizations use which packages
 - Cause availability disruptions that force developers to seek alternative sources
 
-**Build infrastructure targeting**: CI/CD systems that fetch dependencies during builds could have their traffic redirected. Attackers could serve modified packages to build pipelines while legitimate users see normal packages—making detection difficult.
+**Build infrastructure targeting**: CI/CD systems that fetch dependencies during builds could have their traffic redirected. Attackers could serve modified packages to build pipelines while legitimate users see normal packages, making detection difficult.
 
 **Certificate validation bypass**: Some BGP hijacking attacks have targeted certificate authorities or OCSP responders, potentially undermining the certificate validation that protects TLS connections.
 
@@ -96,7 +87,7 @@ Despite decades of awareness, BGP security improvements have been slow:
 
 Several technologies aim to improve BGP security:
 
-**Resource Public Key Infrastructure (RPKI)** allows network operators to cryptographically sign route origin authorizations, enabling verification that announcements come from legitimate sources. Adoption has grown significantly but remains incomplete—networks that haven't deployed RPKI cannot validate routes, and attackers can target paths through non-validating networks.
+**Resource Public Key Infrastructure (RPKI)** allows network operators to cryptographically sign route origin authorizations, enabling verification that announcements come from legitimate sources. Adoption has grown significantly but remains incomplete: networks that haven't deployed RPKI cannot validate routes, and attackers can target paths through non-validating networks.
 
 **BGPsec** extends RPKI to validate the entire path of a route, not just its origin. However, BGPsec requires universal deployment to be fully effective and has seen limited adoption due to performance and complexity concerns.
 
@@ -111,7 +102,7 @@ BGP hijacking is a sophisticated attack requiring network-level access, making i
 - Monitoring for routing anomalies should be part of critical infrastructure defense
 - Organizations with high-value supply chains should understand their BGP exposure
 
-BGP represents the deepest infrastructure layer of supply chain risk—one that most organizations cannot directly mitigate but should understand when assessing their overall threat model.
+BGP represents the deepest infrastructure layer of supply chain risk: one that most organizations cannot directly mitigate but should understand when assessing their overall threat model.
 
 [^youtube-bgp]: RIPE NCC, "YouTube Hijacking: A RIPE NCC RIS case study" (2008). https://www.ripe.net/publications/news/industry-developments/youtube-hijacking-a-ripe-ncc-ris-case-study
 [^myetherwallet-bgp]: Cloudflare, "BGP leaks and cryptocurrencies" (April 2018). https://blog.cloudflare.com/bgp-leaks-and-crypto-currencies/
@@ -120,11 +111,11 @@ BGP represents the deepest infrastructure layer of supply chain risk—one that 
 
 ## Cloud Provider Dependencies
 
-Modern software supply chains are deeply entangled with cloud providers. Package registries run on cloud infrastructure. CI/CD systems operate as cloud services. Container images are stored in cloud registries. This concentration creates **shared fate**—the security and availability of your supply chain depends on your cloud provider's security and availability.
+Modern software supply chains are deeply entangled with cloud providers. Package registries run on cloud infrastructure. CI/CD systems operate as cloud services. Container images are stored in cloud registries. This concentration creates **shared fate**: the security and availability of your supply chain depends on your cloud provider's security and availability.
 
 **Infrastructure compromise** at cloud providers would have cascading effects throughout the software ecosystem. If an attacker compromised AWS infrastructure hosting npm's registry backend, they could potentially modify packages served to millions of developers. While major cloud providers invest heavily in security, their central position makes them attractive targets for sophisticated adversaries.
 
-**Cloud service vulnerabilities** periodically affect supply chains. The **Codecov breach** (2021) exploited a vulnerability in Codecov's Docker image creation process that exposed credentials, enabling attackers to modify the Bash Uploader script and harvest secrets from customer CI environments for more than two months before detection.[^codecov] Cloud-based CI/CD services—GitHub Actions, GitLab CI, CircleCI, Travis CI—execute customer code with access to credentials and secrets, making them high-value targets.
+**Cloud service vulnerabilities** periodically affect supply chains. The **Codecov breach** (2021) exploited a vulnerability in Codecov's Docker image creation process that exposed credentials, enabling attackers to modify the Bash Uploader script and harvest secrets from customer CI environments for more than two months before detection.[^codecov] Cloud-based CI/CD services (GitHub Actions, GitLab CI, CircleCI, Travis CI) execute customer code with access to credentials and secrets, making them high-value targets.
 
 **Multi-tenancy risks** arise because cloud services serve many customers from shared infrastructure. Security boundaries between tenants are logical rather than physical, and vulnerabilities that break these boundaries enable cross-tenant attacks. The **ChaosDB vulnerability** (2021), discovered by Wiz researchers, allowed unauthorized access to other customers' Azure Cosmos DB instances through a flaw in the Jupyter Notebook feature, illustrating how cloud multi-tenancy risks can affect data and potentially supply chain assets.[^chaosdb]
 
@@ -134,7 +125,7 @@ The concentration of supply chain infrastructure in a small number of cloud prov
 
 ## Content Delivery Networks
 
-**Content Delivery Networks (CDNs)** distribute static assets—JavaScript files, fonts, images—from servers geographically close to users. Many websites load JavaScript libraries directly from CDNs rather than bundling them locally. This creates a supply chain dependency where the CDN becomes a trust point: compromise of the CDN enables modifying assets served to website visitors.
+**Content Delivery Networks (CDNs)** distribute static assets (JavaScript files, fonts, images) from servers geographically close to users. Many websites load JavaScript libraries directly from CDNs rather than bundling them locally. This creates a supply chain dependency where the CDN becomes a trust point: compromise of the CDN enables modifying assets served to website visitors.
 
 The **Polyfill.io incident** (June 2024) demonstrated CDN supply chain risk vividly and deserves detailed examination as a case study in third-party JavaScript risks.
 
@@ -158,7 +149,7 @@ The **Polyfill.io incident** (June 2024) demonstrated CDN supply chain risk vivi
 
 **Response**: Cloudflare and Fastly responded by creating mirrors of the legitimate polyfill.io library code; Cloudflare also automatically rewrote polyfill.io links for sites proxied through its network. Google began warning advertisers that their ads would be blocked if served on pages including polyfill.io scripts. Domain registrars eventually suspended the polyfill.io domain, though the attackers registered alternative domains in attempts to continue operations.
 
-**Why It Succeeded**: The attack was effective because website operators had delegated trust to a third party by including `<script src="https://cdn.polyfill.io/...">` in their pages. They had no control over what code that URL would serve in the future. When the service changed hands, so did control over code executing on their visitors' browsers. Many site operators were unaware they included this dependency—it had been added years earlier, perhaps by developers who had since left, or included transitively through other libraries and frameworks.
+**Why It Succeeded**: The attack was effective because website operators had delegated trust to a third party by including `<script src="https://cdn.polyfill.io/...">` in their pages. They had no control over what code that URL would serve in the future. When the service changed hands, so did control over code executing on their visitors' browsers. Many site operators were unaware they included this dependency: it had been added years earlier, perhaps by developers who had since left, or included transitively through other libraries and frameworks.
 
 **Lessons Learned**:
 
@@ -166,13 +157,17 @@ The **Polyfill.io incident** (June 2024) demonstrated CDN supply chain risk vivi
 
 2. **Domain and project ownership can change**: Unlike package registries where maintainer changes may be visible, domain ownership changes are opaque to downstream consumers. The previous owner's reputation provides no guarantee about future operators.
 
-3. **Subresource Integrity (SRI) provides partial protection**: Sites that had implemented SRI—a browser feature that verifies loaded resources against expected cryptographic hashes—would have blocked the modified scripts, as the hash would no longer match. However, SRI adoption remains limited, and it doesn't work for dynamically generated scripts like polyfill.io's browser-specific responses.
+3. **Subresource Integrity (SRI) provides partial protection**: Sites that had implemented SRI (a browser feature that verifies loaded resources against expected cryptographic hashes) would have blocked the modified scripts, as the hash would no longer match. However, SRI adoption remains limited, and it doesn't work for dynamically generated scripts like polyfill.io's browser-specific responses.
 
 4. **Self-hosting eliminates third-party risks**: Bundling dependencies locally rather than loading from CDNs ensures you control what code executes. The performance benefits of CDN loading rarely outweigh the security risks.
 
-5. **Audit third-party dependencies regularly**: Many affected sites were loading polyfill.io scripts added years ago that were no longer needed. Regular review of external dependencies—including third-party JavaScript—should be part of security hygiene.
+5. **Audit third-party dependencies regularly**: Many affected sites were loading polyfill.io scripts added years ago that were no longer needed. Regular review of external dependencies, including third-party JavaScript, should be part of security hygiene.
 
-The Polyfill.io incident represents a new category of supply chain attack—not compromising a package registry, but acquiring a widely-trusted distribution service and weaponizing it. As more services and domains change hands, similar attacks become increasingly likely.
+The Polyfill.io incident represents a new category of supply chain attack, not compromising a package registry, but acquiring a widely-trusted distribution service and weaponizing it. As more services and domains change hands, similar attacks become increasingly likely.
+
+CDN risk is not limited to the content a CDN serves; the account that configures it is also part of the distribution path. On August 31, 2026, an attacker who had gained access to Coder's Cloudflare account added their own servers to the pool behind `registry.coder.com`. For about fourteen hours, some users fetching Terraform modules received copies that ran credential-stealing scripts during planning (see Appendix F).[^coder-35] Nothing in Coder's code or build pipeline had been touched.
+
+[^coder-35]: Coder, "Malicious Packages Served from Unauthorized Registry Server," GHSA-vx42-ghc9-gw65, September 1, 2026, https://github.com/coder/coder/security/advisories/GHSA-vx42-ghc9-gw65
 
 Similar risks exist whenever websites load resources from external domains:
 
@@ -186,9 +181,9 @@ As noted above, SRI provides partial mitigation by specifying expected cryptogra
 
 **Certificate Authorities (CAs)** issue the TLS certificates that enable secure connections between clients and servers. When you install packages over HTTPS, your trust that the connection is secure ultimately derives from trust in CAs. CA compromise enables **man-in-the-middle attacks** against any connection the attacker can intercept.
 
-The **DigiNotar compromise** (2011) demonstrated CA risks dramatically. Attackers compromised the Dutch certificate authority and issued over 500 fraudulent certificates for high-profile domains including google.com. Investigators identified over 300,000 Iranian Gmail users as the primary targets of subsequent man-in-the-middle attacks. DigiNotar's root certificates were removed from all major browsers, and the company declared bankruptcy within weeks—demonstrating how CA compromise can undermine internet security broadly.[^diginotar]
+The **DigiNotar compromise** (2011) demonstrated CA risks dramatically. Attackers compromised the Dutch certificate authority and issued over 500 fraudulent certificates for high-profile domains including google.com. Investigators identified over 300,000 Iranian Gmail users as the primary targets of subsequent man-in-the-middle attacks. DigiNotar's root certificates were removed from all major browsers, and the company declared bankruptcy within weeks, demonstrating how CA compromise can undermine internet security broadly.[^diginotar]
 
-More recently, **certificate misissuance**—certificates issued incorrectly, whether through error or malice—has affected supply chain-relevant domains. While certificate transparency logs now provide visibility into certificate issuance, detection requires active monitoring.
+More recently, **certificate misissuance** (certificates issued incorrectly, whether through error or malice) has affected supply chain-relevant domains. While certificate transparency logs now provide visibility into certificate issuance, detection requires active monitoring.
 
 For software supply chains, CA trust has specific implications:
 
@@ -196,6 +191,12 @@ For software supply chains, CA trust has specific implications:
 - Code signing certificates from CAs authenticate software publishers
 - Compromised CAs could enable man-in-the-middle attacks during package installation
 - Revocation mechanisms (CRL, OCSP) may not propagate quickly enough to prevent exploitation
+
+The **eMudhra incident** of October 2026 showed how the last point plays out in practice. The CA had generated eight intermediate certificates with keys so weak that the private keys could be recovered from the certificates themselves, which meant anyone could mint a certificate for any domain that chained to a trusted root. Browsers blocked the intermediates within days. But much of the software that downloads packages does not use the browser's trust store or check revocation at all. Python's `certifi`, pip, uv, Rust's `webpki-roots`, Node.js, Go, Composer, and the curl CA bundle each carry or enforce their own copy of the trust anchors, and each needed a separate release; two weeks later, the `git`, `curl`, and `python3` shipped with macOS still trusted the bad intermediates.[^nesbitt-truststores-35][^go-emudhra-35] Andrew Nesbitt's point is that a bundled CA store is a dependency like any other, a "phantom binary dependency" with a PEM file in place of a shared library, and SBOMs that record only package names and versions do not show it.
+
+[^nesbitt-truststores-35]: Andrew Nesbitt, "Trust Stores Are Dependencies Too," October 21, 2026, https://nesbitt.io/2026/10/21/trust-stores-are-dependencies-too.html
+
+[^go-emudhra-35]: The Go Team, "Our Response To The eMudhra Key Disclosure Incident," The Go Blog, October 2026, https://go.dev/blog/emudhra-incident
 
 ## Time Synchronization
 
@@ -206,7 +207,7 @@ For software supply chains, CA trust has specific implications:
 - **Log correlation** during incident investigation requires accurate timestamps. Systems with time skew produce logs that are difficult to correlate.
 - **Rate limiting and timeout mechanisms** behave incorrectly when system time is wrong.
 
-NTP attacks can manipulate time on target systems. Researchers have demonstrated attacks that shift victim system clocks hours or days from actual time, potentially affecting certificate validation and other security mechanisms. **Network Time Security (NTS)**, standardized in RFC 8915, addresses these weaknesses by using TLS for initial authentication and authenticated encryption for subsequent time synchronization packets—providing cryptographic assurance that time data hasn't been tampered with.[^nts-rfc] However, NTS adoption remains limited, leaving most systems vulnerable to time-based attacks.
+NTP attacks can manipulate time on target systems. Researchers have demonstrated attacks that shift victim system clocks hours or days from actual time, potentially affecting certificate validation and other security mechanisms. **Network Time Security (NTS)**, standardized in RFC 8915, addresses these weaknesses by using TLS for initial authentication and authenticated encryption for subsequent time synchronization packets: providing cryptographic assurance that time data hasn't been tampered with.[^nts-rfc] However, NTS adoption remains limited, leaving most systems vulnerable to time-based attacks.
 
 ## The Hidden Infrastructure
 
@@ -222,13 +223,6 @@ Each infrastructure component represents a supply chain dependency. Comprehensiv
 
 ## Implications for Security Strategy
 
-!!! tip "Securing Infrastructure Dependencies"
-
-    1. **Identify infrastructure dependencies**: Map DNS, cloud platforms, CDNs, CAs
-    2. **Reduce unnecessary dependencies**: Self-host where practical; bundle assets
-    3. **Implement integrity verification**: Use Subresource Integrity; verify signatures
-    4. **Plan for failure**: Caching, fallback mechanisms, incident response plans
-
 Infrastructure dependencies create supply chain risks that traditional software composition analysis does not address. Effective security strategy must consider:
 
 **Identify infrastructure dependencies**: Map the infrastructure services your supply chain depends on—DNS providers, cloud platforms, CDNs, certificate authorities. Understand that compromise of these services affects your security regardless of your own security practices.
@@ -239,7 +233,7 @@ Infrastructure dependencies create supply chain risks that traditional software 
 
 **Plan for infrastructure failure**: Assume infrastructure dependencies will occasionally fail or be compromised. Caching, fallback mechanisms, and incident response plans provide resilience.
 
-Chapter 7 examines attacks targeting distribution infrastructure in detail, and Book 2 discusses defensive measures for securing delivery and deployment. The infrastructure layer explored here provides context for those discussions—a reminder that software supply chain security extends far beyond the packages that appear in dependency manifests.
+Chapter 7 examines attacks targeting distribution infrastructure in detail, and Book 2 discusses defensive measures for securing delivery and deployment. The infrastructure layer explored here provides context for those discussions, a reminder that software supply chain security extends far beyond the packages that appear in dependency manifests.
 
 [^dnspionage]: CISA, "DNS Infrastructure Hijacking Campaign" (January 2019). https://www.cisa.gov/news-events/cybersecurity-advisories/aa19-024a
 [^saddns]: Man, K., et al., "DNS Cache Poisoning Attack Reloaded: Revolutions with Side Channels," ACM CCS 2020. https://www.saddns.net/

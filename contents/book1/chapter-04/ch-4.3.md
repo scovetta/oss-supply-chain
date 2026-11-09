@@ -6,11 +6,7 @@ icon: "lucide/gem"
 
 # 4.3 Identifying Crown Jewels in Your Dependency Graph
 
-Threat modeling produces long lists of potential threats. With hundreds or thousands of dependencies, each subject to multiple threat categories, the output can be overwhelming. Practical security requires prioritization—focusing limited resources on the dependencies whose compromise would cause the greatest harm. This section provides frameworks for identifying which dependencies matter most, enabling risk-based investment rather than attempting to apply equal scrutiny everywhere.
-
-!!! info inline end "Crown Jewels"
-
-    An organization's most valuable assets—systems, data, and capabilities that must be protected above all else.
+Threat modeling produces long lists of potential threats. With hundreds or thousands of dependencies, each subject to multiple threat categories, the output can be overwhelming. Practical security requires prioritization, focusing limited resources on the dependencies whose compromise would cause the greatest harm. This section provides frameworks for identifying which dependencies matter most, enabling risk-based investment rather than attempting to apply equal scrutiny everywhere.
 
 The term **crown jewels** in security typically refers to an organization's most valuable assets: the systems, data, and capabilities that must be protected above all else. In supply chain contexts, we extend this concept to dependencies: which external components, if compromised, would cause the greatest damage to your organization? Identifying these critical dependencies enables targeted security investment where it matters most.
 
@@ -56,13 +52,13 @@ Map your dependencies to execution contexts:
 
 !!! danger "Single Point of Failure (SPOF)"
 
-    A component whose failure causes system-wide impact. In dependency graphs, SPOFs are packages that sit on critical paths with no alternatives—if they fail or are compromised, your application cannot function.
+    A component whose failure causes system-wide impact. In dependency graphs, SPOFs are packages that sit on critical paths with no alternatives, if they fail or are compromised, your application cannot function.
 
 Identifying SPOFs requires tracing dependency relationships:
 
 **Direct SPOFs** are dependencies your application imports directly that cannot be easily replaced. If your entire application is built on a particular framework, that framework is a SPOF. If you use a specific database driver with no alternatives for your database, that driver is a SPOF.
 
-**Transitive SPOFs** are less visible but equally dangerous. A utility library that appears in the dependency tree of many of your direct dependencies creates common-mode failure risk—a single compromise affects multiple components simultaneously. The Log4j vulnerability was severe partly because Log4j was a transitive dependency of countless Java applications through various frameworks and libraries.
+**Transitive SPOFs** are less visible but equally dangerous. A utility library that appears in the dependency tree of many of your direct dependencies creates common-mode failure risk, a single compromise affects multiple components simultaneously. The Log4j vulnerability was severe partly because Log4j was a transitive dependency of countless Java applications through various frameworks and libraries.
 
 **Infrastructure SPOFs** extend beyond code to the systems your supply chain depends on. If all your dependencies come from a single registry, that registry is a SPOF. If your builds run on a single CI/CD platform, that platform is a SPOF.
 
@@ -78,9 +74,9 @@ We recommend explicitly documenting SPOFs and evaluating mitigation options: cac
 
 !!! warning "Common Mode Failures"
 
-    When a single cause produces failures across multiple independent components. Shared dependencies create correlated vulnerabilities that affect all components simultaneously—undermining the risk diversification that distributed architectures are supposed to provide.
+    When a single cause produces failures across multiple independent components. Shared dependencies create correlated vulnerabilities that affect all components simultaneously, undermining the risk diversification that distributed architectures are supposed to provide.
 
-Consider an organization running five microservices. If each service uses the same vulnerable version of a logging library, a single vulnerability affects all five services simultaneously. The services may have independent deployment pipelines and separate maintainers, but they share a common failure mode through their shared dependency. Microservices, redundant deployments, and multi-cloud strategies provide resilience against independent failures—but shared dependencies create correlated vulnerabilities that affect all components simultaneously.
+Consider an organization running five microservices. If each service uses the same vulnerable version of a logging library, a single vulnerability affects all five services simultaneously. The services may have independent deployment pipelines and separate maintainers, but they share a common failure mode through their shared dependency. Microservices, redundant deployments, and multi-cloud strategies provide resilience against independent failures, but shared dependencies create correlated vulnerabilities that affect all components simultaneously.
 
 Identifying common mode failure risk requires cross-service analysis:
 
@@ -99,7 +95,7 @@ Certain categories of dependencies warrant elevated scrutiny regardless of speci
 
 **Authentication and identity** packages (OAuth libraries, JWT handlers, identity providers) control who can access your systems. Compromise enables account takeover, privilege escalation, and unauthorized access.
 
-**Serialization and parsing** libraries (Jackson, Gson, PyYAML, XML parsers) convert external data into internal objects. These libraries process untrusted input and have historically been rich sources of vulnerabilities, including remote code execution. The Log4j vulnerability was fundamentally an input-interpretation issue—treating attacker-controlled strings as instructions to perform lookups.
+**Serialization and parsing** libraries (Jackson, Gson, PyYAML, XML parsers) convert external data into internal objects. These libraries process untrusted input and have historically been rich sources of vulnerabilities, including remote code execution. The Log4j vulnerability was fundamentally an input-interpretation issue, treating attacker-controlled strings as instructions to perform lookups.
 
 **Network and HTTP** libraries handle communication with external systems. Compromise can enable man-in-the-middle attacks, request smuggling, or server-side request forgery.
 
@@ -205,7 +201,7 @@ Several tools can assist in identifying crown jewel dependencies:
 
 **SBOM analysis** on Software Bills of Materials can identify which dependencies appear across multiple products, revealing common mode failure risks at the organizational level.
 
-Book 2 examines risk measurement and management in greater depth, building on the prioritization concepts introduced here. The crown jewel identification process produces a priority-ordered list of dependencies warranting enhanced scrutiny—the starting point for resource allocation decisions that distinguish effective supply chain security from security theater.
+Book 2 examines risk measurement and management in greater depth, building on the prioritization concepts introduced here. The crown jewel identification process produces a priority-ordered list of dependencies warranting enhanced scrutiny: the starting point for resource allocation decisions that distinguish effective supply chain security from security theater.
 
 [criticality-score]: https://github.com/ossf/criticality_score
 [scorecard]: https://securityscorecards.dev/

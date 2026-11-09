@@ -340,7 +340,7 @@ When AI assistants suggest dependencies:
 **7.1 Developer Responsibilities**
 Developers using AI coding assistants must:
 
-- Understand all code before committing—never commit code you don't understand
+- Understand all code before committing: never commit code you don't understand
 - Verify correctness through testing
 - Check for security vulnerabilities in suggestions
 - Ensure suggestions don't introduce license conflicts

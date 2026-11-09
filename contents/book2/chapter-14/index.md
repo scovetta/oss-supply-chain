@@ -1,6 +1,6 @@
 # Chapter 14: Security Testing for Supply Chains
 
-This chapter provides a comprehensive guide to security testing techniques specifically designed for evaluating and monitoring third-party dependencies in software supply chains. Unlike traditional application security testing, dependency testing requires specialized approaches because organizations must assess code they did not write and cannot directly modify.
+This chapter is a practical guide to security testing techniques specifically designed for evaluating and monitoring third-party dependencies in software supply chains. Unlike traditional application security testing, dependency testing requires specialized approaches because organizations must assess code they did not write and cannot directly modify.
 
 The chapter begins with fuzz testing as a dependency evaluation technique, explaining how coverage-guided fuzzing can reveal vulnerabilities that human reviewers and traditional testing miss. Tools like OSS-Fuzz, AFL++, libFuzzer, and language-specific fuzzers enable organizations to assess code robustness before adoption.
 

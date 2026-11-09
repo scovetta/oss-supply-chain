@@ -6,15 +6,11 @@ icon: "lucide/skull"
 
 # 6.3 Malicious Packages
 
-Typosquatting and dependency confusion exploit mistakes—typos, misconfigurations, resolution logic flaws. But the most direct supply chain attack is simply publishing code designed to harm anyone who installs it. **Malicious packages** are software intentionally crafted to steal credentials, install backdoors, mine cryptocurrency, or achieve other attacker objectives, published to package registries where unsuspecting developers will incorporate them into their projects.
+Typosquatting and dependency confusion exploit mistakes: typos, misconfigurations, resolution logic flaws. But the most direct supply chain attack is simply publishing code designed to harm anyone who installs it. **Malicious packages** are software intentionally crafted to steal credentials, install backdoors, mine cryptocurrency, or achieve other attacker objectives, published to package registries where unsuspecting developers will incorporate them into their projects.
 
 A note on terminology: this section focuses on malicious packages—those created from the outset with harmful intent. This is distinct from **compromised packages**, which are legitimate packages that attackers take over through account hijacking, social engineering, or other means (such as the `ua-parser-js` and `event-stream` incidents described below). Both categories pose supply chain risks, but they differ in origin: malicious packages are born harmful, while compromised packages become harmful after being corrupted. The defenses against each overlap substantially, though compromised packages often benefit from the legitimate package's established trust and download base.
 
-!!! note "Malicious Packages at Scale"
-
-    Sonatype's 2026 report documented 454,600 malicious packages discovered in 2025, bringing the cumulative total to more than 1.23 million identified since 2019—with over 99% of open source malware found on npm.
-
-The scale of this threat has grown dramatically. [Sonatype's 2024 State of the Software Supply Chain report][sonatype-2024] documented 512,847 malicious packages discovered across major ecosystems in a single year—a 156% increase year-over-year—and [its 2026 report][sonatype-2026] counted another 454,600 discovered in 2025, bringing the cumulative total past 1.23 million packages across npm, PyPI, Maven Central, NuGet, and Hugging Face, with over 99% of open source malware concentrated on npm. The arms race between attackers publishing malicious packages and defenders attempting to detect and remove them has become a defining feature of modern package ecosystem security.
+The scale of this threat has grown dramatically. [Sonatype's 2024 State of the Software Supply Chain report][sonatype-2024] documented 512,847 malicious packages discovered across major ecosystems in a single year, a 156% increase year-over-year, and [its 2026 report][sonatype-2026] counted another 454,600 discovered in 2025, bringing the cumulative total past 1.23 million packages across npm, PyPI, Maven Central, NuGet, and Hugging Face, with over 99% of open source malware concentrated on npm. The arms race between attackers publishing malicious packages and defenders attempting to detect and remove them has become a defining feature of modern package ecosystem security.
 
 ## Motivations Behind Malicious Packages
 
@@ -26,25 +22,17 @@ Attackers publish malicious packages for diverse objectives, each influencing th
 
 **Cryptomining** hijacks computational resources for cryptocurrency mining. Unlike credential theft, cryptomining provides ongoing revenue without requiring the attacker to monetize stolen data. Mining packages often attempt persistence, continuing to run after initial installation. The `ua-parser-js` attack included a cryptominer alongside its credential harvesting payload.
 
-!!! danger "The XZ Utils Pattern"
+**Backdoor installation** provides attackers with persistent remote access to compromised systems. The XZ Utils backdoor ([CVE-2024-3094][cve-2024-3094], discovered March 29, 2024) exemplifies this sophistication: the attacker contributed legitimately for over two years, building trust until granted maintainer access, a patience-intensive approach that defeats technical controls because the attacker becomes an insider. The malicious code was hidden in test files and activated only in specific build configurations designed to provide SSH access while evading detection in security researcher environments. This level of sophistication suggests nation-state or well-funded criminal involvement and demonstrates why backdoors in packages are particularly dangerous: they can persist through updates and are difficult to detect through behavioral analysis that focuses on installation-time activity. For detection details, see Book 2, Section 19.1.
 
-    The XZ Utils backdoor exemplifies sophisticated supply chain pre-positioning: the attacker contributed legitimately for over two years, building trust until granted maintainer access—a patience-intensive approach that defeats technical controls because the attacker becomes an insider.
-
-**Backdoor installation** provides attackers with persistent remote access to compromised systems. The XZ Utils backdoor ([CVE-2024-3094][cve-2024-3094], discovered March 29, 2024) exemplifies this sophistication: the attacker contributed legitimately for over two years, building trust until granted maintainer access—a patience-intensive approach that defeats technical controls because the attacker becomes an insider. The malicious code was hidden in test files and activated only in specific build configurations designed to provide SSH access while evading detection in security researcher environments. This level of sophistication suggests nation-state or well-funded criminal involvement and demonstrates why backdoors in packages are particularly dangerous: they can persist through updates and are difficult to detect through behavioral analysis that focuses on installation-time activity. For detection details, see Book 2, Section 19.1.
-
-**Protestware** is a category of malicious package created for ideological rather than financial purposes. The `node-ipc` maintainer's modification (March 7-8, 2022) to target systems with Russian or Belarusian IP addresses demonstrated how maintainer access could be weaponized for political expression.[^node-ipc-protestware] While protestware may be seen as distinct from criminal malware, from a security perspective the distinction is irrelevant—unauthorized code execution causing harm is the outcome regardless of motivation.
+**Protestware** is a category of malicious package created for ideological rather than financial purposes. The `node-ipc` maintainer's modification (March 7-8, 2022) to target systems with Russian or Belarusian IP addresses demonstrated how maintainer access could be weaponized for political expression.[^node-ipc-protestware] While protestware may be seen as distinct from criminal malware, from a security perspective the distinction is irrelevant: unauthorized code execution causing harm is the outcome regardless of motivation.
 
 [^node-ipc-protestware]: Ax Sharma, "Popular npm package 'node-ipc' altered to wipe files on dev machines," BleepingComputer, March 8, 2022; GitHub Advisory GHSA-97m3-w2cp-4xx6.
 
-**Supply chain pre-positioning** involves planting dormant capabilities for later activation. Nation-state actors may publish or compromise packages not for immediate exploitation but to establish access for future operations. The patience demonstrated in the XZ Utils attack—over two years of trust-building before introducing malicious code—suggests sophisticated actors view package ecosystems as strategic targets worth long-term investment.
+**Supply chain pre-positioning** involves planting dormant capabilities for later activation. Nation-state actors may publish or compromise packages not for immediate exploitation but to establish access for future operations. The patience demonstrated in the XZ Utils attack, over two years of trust-building before introducing malicious code, suggests sophisticated actors view package ecosystems as strategic targets worth long-term investment.
 
 ## Technical Attack Mechanisms
 
 Malicious packages employ various techniques to execute code and achieve attacker objectives:
-
-!!! warning "Installation Scripts Execute Immediately"
-
-    Installation hooks execute before the developer has any opportunity to review package contents. A single `npm install malicious-package` command executes whatever code the attacker has placed in installation scripts, running with the installing user's privileges.
 
 **Installation script hooks** provide immediate code execution when a package is installed. Most package managers support scripts that run during installation:
 
@@ -103,7 +91,7 @@ The sophistication of malicious package techniques has increased as detection ca
 - Environment detection evading sandbox analysis
 - Supply chain attacks targeting package maintainers rather than packages directly
 
-Research by [Socket.dev][socket] found that malicious packages increasingly mimic legitimate package patterns—proper documentation, reasonable functionality, professional presentation—while hiding malicious code in peripheral files or rarely-executed code paths.
+Research by [Socket.dev][socket] found that malicious packages increasingly mimic legitimate package patterns (proper documentation, reasonable functionality, professional presentation) while hiding malicious code in peripheral files or rarely-executed code paths.
 
 ## Detection Methods and Tools
 
@@ -181,7 +169,7 @@ npm processes security reports and can place packages in "security hold" status,
 - Immutable artifacts (published content cannot be modified)
 - Security scanning though detection capabilities vary
 
-Detection effectiveness varies across registries. Larger registries with more resources (npm, PyPI) generally detect and remove malicious packages faster than smaller ecosystems. However, no registry achieves comprehensive detection—malicious packages regularly reach users before discovery. Malicious packages can persist for days or weeks before removal, accumulating significant download counts before detection.
+Detection effectiveness varies across registries. Larger registries with more resources (npm, PyPI) generally detect and remove malicious packages faster than smaller ecosystems. However, no registry achieves comprehensive detection: malicious packages regularly reach users before discovery. Malicious packages can persist for days or weeks before removal, accumulating significant download counts before detection.
 
 ## The Ongoing Arms Race
 
