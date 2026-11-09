@@ -2,7 +2,7 @@
 
 This appendix provides a chronological reference of significant software supply chain incidents that have shaped our understanding of supply chain security risks. Each entry documents what happened, the scope of impact, key lessons learned, and sources for further investigation. These incidents span four decades, demonstrating both the evolution of attack techniques and the persistent nature of supply chain vulnerabilities.
 
-> **Disclaimer on Incident Information**: All incident descriptions in this appendix are based on publicly available information, security research reports, and official disclosures as of the publication date (August 2026). Details about security incidents may be:
+> **Disclaimer on Incident Information**: All incident descriptions in this appendix are based on publicly available information, security research reports, and official disclosures as of the publication date (November 2026). Details about security incidents may be:
 >
 > - **Incomplete** due to ongoing investigations or undisclosed information
 > - **Subject to interpretation** based on available evidence
@@ -23,7 +23,7 @@ This appendix provides a chronological reference of significant software supply 
 
 **Date:** October 1984
 
-**Summary:** Ken Thompson delivered his Turing Award lecture "Reflections on Trusting Trust," demonstrating how a compiler could be modified to insert a backdoor into any program it compiles—including future versions of the compiler itself. Thompson showed that even if you inspect source code and find it clean, you cannot trust the compiled binary unless you trust the entire toolchain that produced it.
+**Summary:** Ken Thompson delivered his Turing Award lecture "Reflections on Trusting Trust," demonstrating how a compiler could be modified to insert a backdoor into any program it compiles, including future versions of the compiler itself. Thompson showed that even if you inspect source code and find it clean, you cannot trust the compiled binary unless you trust the entire toolchain that produced it.
 
 **Impact Scope:** Conceptual/theoretical demonstration affecting all compiled software
 
@@ -54,7 +54,7 @@ This appendix provides a chronological reference of significant software supply 
 
 - Security-critical code changes require expert review, even for seemingly minor modifications
 - Upstream maintainers and downstream packagers must communicate effectively about changes
-- Cryptographic code is especially sensitive—warnings may indicate security features, not bugs
+- Cryptographic code is especially sensitive: warnings may indicate security features, not bugs
 - Long detection times for subtle vulnerabilities highlight the need for security auditing
 
 **Sources:**
@@ -153,7 +153,7 @@ This appendix provides a chronological reference of significant software supply 
 **Key Lessons:**
 
 - Build system security is as critical as source code security
-- Software signing alone does not guarantee integrity—the build process must be secured
+- Software signing alone does not guarantee integrity: the build process must be secured
 - Sophisticated attackers target widely-deployed management software for maximum reach
 - Detection of supply chain compromises requires behavioral analysis beyond signature matching
 - Led to Executive Order 14028 mandating SBOM adoption for federal software procurement
@@ -180,7 +180,7 @@ This appendix provides a chronological reference of significant software supply 
 
 - CI/CD environments contain high-value secrets requiring protection
 - Scripts fetched and executed during builds are attack vectors
-- Supply chain attacks can cascade—compromised credentials enable secondary attacks
+- Supply chain attacks can cascade: compromised credentials enable secondary attacks
 - Integrity verification (checksums, signatures) should be mandatory for build-time dependencies
 
 **Sources:**
@@ -323,7 +323,7 @@ Limited external exposure; internal systems targeted
 
 **Key Lessons:**
 
-- Supply chain attacks can cascade—one compromise enables the next
+- Supply chain attacks can cascade: one compromise enables the next
 - Employee workstations with development access require heightened security
 - Nation-state actors invest in long-term, multi-stage supply chain operations
 - Build environment isolation and integrity verification are essential
@@ -398,7 +398,7 @@ No confirmed large-scale compromise, but repeated near-misses across major repos
 
 **Date:** March 12, 2024
 
-**Summary:** ReversingLabs researchers exposed BIPClip, a malicious PyPI campaign targeting developers working on cryptocurrency wallet projects. The packages posed as open-source libraries to steal BIP39 mnemonic phrases—the recovery passwords used to restore cryptocurrency wallets. The campaign specifically targeted the intersection of cryptocurrency and open source development.
+**Summary:** ReversingLabs researchers exposed BIPClip, a malicious PyPI campaign targeting developers working on cryptocurrency wallet projects. The packages posed as open-source libraries to steal BIP39 mnemonic phrases: the recovery passwords used to restore cryptocurrency wallets. The campaign specifically targeted the intersection of cryptocurrency and open source development.
 
 **Impact Scope:** Developers working on cryptocurrency wallet recovery; potential theft of wallet recovery credentials
 
@@ -428,7 +428,7 @@ No confirmed large-scale compromise, but repeated near-misses across major repos
 - Social engineering attacks against maintainers can span years
 - Open source projects face pressure to accept "helpful" contributors
 - Upstream dependencies in foundational libraries pose systemic risk
-- Performance anomalies can indicate security issues—observability matters
+- Performance anomalies can indicate security issues: observability matters
 - Binary artifacts in repositories merit heightened scrutiny
 - Reproducible builds could have detected the discrepancy between source and binary
 
@@ -503,7 +503,7 @@ Limited but high-impact for affected projects
 
 **Date:** May 23, 2024 (disclosed); attack began April 2024
 
-**Summary:** Attackers compromised the Justice AV Solutions video-recording software installer, used in courtrooms, legal offices, correctional facilities, and government agencies worldwide. The attack involved repackaging the legitimate installer with a malicious executable (`fffmpeg.exe`—a typosquat on the legitimate `ffmpeg.exe`) containing the RustDoor/GateDoor malware. The malware collected credentials and disabled security measures including AMSI and ETW. The installer was signed with a certificate issued to "Vanguard Tech Limited" rather than JAVS, suggesting attackers compromised distribution infrastructure rather than the build environment.
+**Summary:** Attackers compromised the Justice AV Solutions video-recording software installer, used in courtrooms, legal offices, correctional facilities, and government agencies worldwide. The attack involved repackaging the legitimate installer with a malicious executable (`fffmpeg.exe`, a typosquat on the legitimate `ffmpeg.exe`) containing the RustDoor/GateDoor malware. The malware collected credentials and disabled security measures including AMSI and ETW. The installer was signed with a certificate issued to "Vanguard Tech Limited" rather than JAVS, suggesting attackers compromised distribution infrastructure rather than the build environment.
 
 **Impact Scope:** Courtrooms, prisons, police stations, and other justice system organizations worldwide; linked to ShadowSyndicate ransomware-as-a-service group
 
@@ -511,7 +511,7 @@ Limited but high-impact for affected projects
 
 - Commercial software binaries require verification before deployment, not blind trust
 - Typosquatting techniques apply within installers, not just package registries
-- Certificate signing alone is insufficient—the signing entity must be verified
+- Certificate signing alone is insufficient: the signing entity must be verified
 - Differential analysis can detect tampering indicators before deployment
 - Distribution infrastructure is as critical to secure as build environments
 
@@ -520,30 +520,6 @@ Limited but high-impact for affected projects
 - ReversingLabs, "The 2025 Software Supply Chain Security Report," 2025[^reversinglabs-sscs-2025]
 - Rapid7, "CVE-2024-4978: Backdoored Justice AV Solutions Viewer Software," May 2024[^rapid7-javs-2024]
 - BleepingComputer, "JAVS courtroom recording software backdoored in supply chain attack," May 2024[^bleeping-javs-2024]
-
----
-
-#### Shai Hulud GitHub Actions Campaign
-
-**Date:** September-November 2025 (disclosed September 18, 2025)
-
-**Summary:** The Shai Hulud campaign exploited misconfigured GitHub Actions workflows to compromise npm package publishing credentials across major open source projects. Attackers identified repositories using dangerous workflow triggers like `pull_request_target` and submitted malicious pull requests that executed in the context of the target repository with access to secrets. The campaign targeted high-profile projects including AsyncAPI, PostHog, Postman, Zapier, and ENS Domains.
-
-**Impact Scope:** Major projects compromised; npm publishing tokens stolen; malicious packages published to npm registry; attacks continued spreading to new organizations hourly during the active campaign period
-
-**Key Lessons:**
-
-- GitHub Actions workflow configurations are critical attack surface
-- `pull_request_target` and `workflow_run` triggers enable code from forks to access secrets
-- CI/CD misconfigurations can serve as "patient zero" for cascading supply chain attacks
-- Traditional PR-scanning tools failed to detect vulnerable workflow configurations
-- Manual npm package uploads from "codespace" and "runner" usernames indicate CI exploitation
-- Organizations must implement security scanning specifically for CI/CD configurations
-
-**Sources:**
-
-- Aikido Security, "Shai Hulud GitHub Actions Incident," 2025[^aikido-shai-hulud-2025]
-- Unit 42, "GitHub Actions Supply Chain Attack," 2025[^unit42-github-actions-2025]
 
 ---
 
@@ -571,14 +547,14 @@ Limited but high-impact for affected projects
 
 **Date:** November 28, 2024 (disclosed)
 
-**Summary:** ReversingLabs detected malicious code in the Python package `aiocpa`, which had been originally engineered as a legitimate cryptocurrency payment client. The package attracted a legitimate user base before a subsequent update compromised cryptocurrency wallets using the client. This represents an evolution in attack sophistication—rather than typosquatting or hijacking, attackers invested time creating genuinely useful software to build trust before weaponization.
+**Summary:** ReversingLabs detected malicious code in the Python package `aiocpa`, which had been originally engineered as a legitimate cryptocurrency payment client. The package attracted a legitimate user base before a subsequent update compromised cryptocurrency wallets using the client. This represents an evolution in attack sophistication, rather than typosquatting or hijacking, attackers invested time creating genuinely useful software to build trust before weaponization.
 
 **Impact Scope:** Users of the aiocpa cryptocurrency client; cryptocurrency wallet compromise
 
 **Key Lessons:**
 
 - Attackers are investing in long-term operations, creating legitimate packages before flipping
-- Package age and functionality do not guarantee safety—ongoing monitoring is essential
+- Package age and functionality do not guarantee safety, ongoing monitoring is essential
 - Cryptocurrency-focused packages warrant heightened scrutiny regardless of apparent legitimacy
 - Behavioral analysis must detect changes in package behavior across versions
 
@@ -640,7 +616,7 @@ Limited but high-impact for affected projects
 
 **Key Lessons:**
 
-- Build tools represent high-value targets—they execute in privileged environments
+- Build tools represent high-value targets: they execute in privileged environments
 - UI component frameworks with many dependents amplify attack impact
 - Cryptomining payloads provide attackers immediate monetization
 
@@ -701,7 +677,7 @@ Limited but high-impact for affected projects
 
 **Date:** January 22, 2025
 
-**Summary:** The South Korean VPN client IPany was breached in a supply chain attack that pushed custom malware to users. The compromise demonstrated continued targeting of VPN and security software—products that users trust implicitly and that often run with elevated privileges.
+**Summary:** The South Korean VPN client IPany was breached in a supply chain attack that pushed custom malware to users. The compromise demonstrated continued targeting of VPN and security software: products that users trust implicitly and that often run with elevated privileges.
 
 **Impact Scope:** IPany VPN users in South Korea and globally
 
@@ -765,15 +741,15 @@ Limited but high-impact for affected projects
 
 **Summary:** Attackers attributed to the Chinese APT group Lotus Blossom/Spring Dragon (attribution by Kaspersky) compromised the shared hosting provider used by Notepad++ to hijack update traffic. Rather than compromising the build system, attackers intercepted requests to the legitimate update endpoint and selectively redirected targeted victims to malicious update servers while legitimate users received normal updates. The attack employed three distinct infection chains over several months: a ProShow vulnerability exploit delivering Cobalt Strike, Lua interpreter abuse for payload delivery, and DLL sideloading with the Chrysalis backdoor. The selective targeting made detection difficult, and the attack persisted for approximately five months before discovery and remediation.
 
-**Impact Scope:** Targeted victims including government organizations (Philippines), financial institutions (El Salvador), and IT service providers (Vietnam); approximately a dozen confirmed infections representing a state-sponsored espionage operation—a small number that likely belies significant intelligence value, comparable to how SolarWinds actively exploited roughly 100 of its 18,000 infected organizations
+**Impact Scope:** Targeted victims including government organizations (Philippines), financial institutions (El Salvador), and IT service providers (Vietnam); approximately a dozen confirmed infections representing a state-sponsored espionage operation, a small number that likely belies significant intelligence value, comparable to how SolarWinds actively exploited roughly 100 of its 18,000 infected organizations
 
 **Key Lessons:**
 
 - Infrastructure dependencies (hosting providers, CDNs) are part of the supply chain attack surface
-- Signature verification must confirm the expected publisher, not just certificate validity—Notepad++'s updater (WinGUp) verified that a valid certificate existed but did not verify it belonged to the expected publisher
+- Signature verification must confirm the expected publisher, not just certificate validity: Notepad++'s updater (WinGUp) verified that a valid certificate existed but did not verify it belonged to the expected publisher
 - Signed update manifests (e.g., XMLDSig) can prevent tampering even when traffic is redirected, though comprehensive frameworks like TUF[^tuf] provide broader protections
 - Selective targeting allows attackers to evade broad security monitoring
-- User reports of unusual network connections (e.g., to `temp.sh`) can provide early detection signals—organizations should formalize channels for reporting anomalous software behavior
+- User reports of unusual network connections (e.g., to `temp.sh`) can provide early detection signals: organizations should formalize channels for reporting anomalous software behavior
 
 **Sources:**
 
@@ -806,15 +782,38 @@ Limited but high-impact for affected projects
 
 ---
 
+#### Nx "s1ngularity" Compromise (AI CLI Weaponization)
+
+**Date:** August 26, 2025 (malicious releases); August 28–31, 2025 (follow-on repository exposure)
+
+**Summary:** Attackers exploited a shell injection in a `pull_request_target` workflow that echoed pull request titles in the Nx repository. They used it to obtain a GitHub token with write access, ran the project's publish workflow against an attacker-controlled branch, and exfiltrated its npm token. With that token they published eight malicious `nx` versions and several `@nx/*` packages, which were live for about four hours. The postinstall payload ran any locally installed Claude Code, Gemini CLI, or Amazon Q CLI with its permission prompts disabled (`--dangerously-skip-permissions`, `--yolo`, `--trust-all-tools`) and asked it to list files likely to hold wallets and secrets. It then uploaded those files, along with GitHub and npm tokens, SSH keys, and environment variables, to public `s1ngularity-repository` repositories in victims' own GitHub accounts, and appended `sudo shutdown -h 0` to shell startup files. In a second phase, attackers used the leaked GitHub tokens to make victims' private repositories public.
+
+**Impact Scope:** About 6 million weekly installs of Nx; per Wiz, 2,180 GitHub accounts and 7,200 repositories exposed across three phases, with more than 2,000 unique secrets leaked in the first phase
+
+**Key Lessons:**
+
+- One of the first documented cases of supply chain malware using AI coding agents already installed on the victim's machine
+- `pull_request_target` workflows that interpolate pull request metadata into shell commands remain a direct path to publishing credentials
+- Provenance did not stop installation; as Nx put it, "Provenance doesn't block unsigned packages from being installed, which is what happened."
+- Nx moved to npm trusted publishing (OIDC) and manual 2FA approval for CI publishes
+
+**Sources:**
+
+- Nx, "S1ngularity: What Happened, How We Responded, What We Learned," September 5, 2025[^nx-postmortem-2025]
+- Snyk, "Weaponizing AI Coding Agents for Malware in the Nx Malicious Package Security Incident," August 27, 2025[^snyk-nx-agents-2025]
+- BleepingComputer, "AI-powered malware hit 2,180 GitHub accounts in 's1ngularity' attack," September 6, 2025[^bleeping-s1ngularity-2025]
+
+---
+
 #### Shai-Hulud npm Worm
 
 **Date:** September 2025 (initial); November 2025 (Shai-Hulud 2.0)
 
-**Summary:** Researchers discovered a self-replicating malware campaign dubbed "Shai-Hulud" targeting the npm ecosystem. The attack began with phishing campaigns spoofing npm 2FA update notifications to harvest maintainer credentials. Once attackers gained access to a maintainer account, the worm automatically trojanized that developer's packages by modifying `package.json` files and republishing them. It successfully compromised over 500 packages in the initial wave, focusing on harvesting GitHub, npm, and AWS secrets from developer environments. This represented a significant evolution in supply chain attacks—from one-off compromises to self-propagating infections.
+**Summary:** Researchers discovered a self-replicating malware campaign dubbed "Shai-Hulud" targeting the npm ecosystem. The attack began with phishing campaigns spoofing npm 2FA update notifications to harvest maintainer credentials. Once attackers gained access to a maintainer account, the worm automatically trojanized that developer's packages by modifying `package.json` files and republishing them. It successfully compromised over 500 packages in the initial wave, focusing on harvesting GitHub, npm, and AWS secrets from developer environments. This represented a significant evolution in supply chain attacks, from one-off compromises to self-propagating infections.
 
-In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified tactics, compromising nearly 800 additional packages before containment. The combined attacks directly catalyzed npm's aggressive security overhaul, including the deprecation of TOTP 2FA, mandatory phishing-resistant authentication, and the permanent revocation of all classic tokens.
+In November 2025, a second wave dubbed "Shai-Hulud 2.0" (the attackers called it the "Second Coming") emerged with modified tactics, compromising nearly 800 additional packages before containment. It was timed for November 24, just before npm's deadline for revoking classic tokens. For several victims the entry point was a misconfigured GitHub Actions workflow rather than a phished maintainer: at PostHog and AsyncAPI, attackers exploited `pull_request_target` workflows that ran code from any new pull request with access to repository secrets, and Postman was hit through the same route. The PostHog flaw had sat in the repository for 74 days before it was used. The combined attacks directly catalyzed npm's aggressive security overhaul, including the deprecation of TOTP 2FA, mandatory phishing-resistant authentication, and the permanent revocation of all classic tokens.
 
-**Impact Scope:** Over 1,300 npm packages compromised across both waves; GitHub, npm, and AWS secrets harvested; self-replicating propagation; estimated $50 million in cryptocurrency theft
+**Impact Scope:** Over 1,300 npm packages compromised across both waves; GitHub, npm, and AWS secrets harvested; self-replicating propagation; Trust Wallet traced a December 2025 theft of about $8.5 million to GitHub secrets leaked in the 2.0 wave, which let attackers publish a malicious version of its Chrome extension
 
 **Key Lessons:**
 
@@ -830,6 +829,9 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 - Truesec, "500 npm Packages Compromised in Ongoing Supply Chain Attack Shai-Hulud," 2025[^truesec-shai-hulud-2025]
 - CISA, "Widespread Supply Chain Compromise Impacting npm Ecosystem," September 23, 2025[^cisa-shai-hulud-2025]
 - Microsoft Security Blog, "Shai-Hulud 2.0 Guidance," December 2025[^microsoft-shai-hulud-2025]
+- Aikido Security, "Shai Hulud GitHub Actions Incident," November 25, 2025[^aikido-shai-hulud-2025]
+- Unit 42, "GitHub Actions Supply Chain Attack," 2025[^unit42-github-actions-2025]
+- SecurityWeek, "Shai-Hulud Supply Chain Attack Led to $8.5 Million Trust Wallet Heist," December 31, 2025[^securityweek-trustwallet-2025]
 
 ---
 
@@ -1038,7 +1040,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 **Key Lessons:**
 
 - Developer-only services accidentally exposed to networks are functionally internet-facing services
-- Developer workstations hold signing keys, registry tokens, and cloud credentials—RCE is a supply-chain entry point
+- Developer workstations hold signing keys, registry tokens, and cloud credentials: RCE is a supply-chain entry point
 - Default bind behaviors (0.0.0.0) must be overridden with policy, not individual choice
 - KEV now covers developer toolchains, not just production infrastructure
 
@@ -1050,30 +1052,30 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 
 ---
 
-#### dYdX Maintainer Compromise (npm + PyPI)
+#### dYdX Client Package Compromise (npm + PyPI)
 
-**Date:** February 6, 2026
+**Date:** January 27, 2026 (detected); February 6, 2026 (Socket analysis published)
 
-**Summary:** Attackers compromised the maintainer accounts for legitimate dYdX-related packages on both npm and PyPI, publishing malicious versions that stole cryptocurrency wallet credentials and established remote access tooling. The dual-registry attack doubled the victim surface, and the legitimate package histories enabled trust inheritance—the malicious updates were pulled automatically by CI/CD pipelines and developers running routine dependency updates.
+**Summary:** Malicious versions of dYdX's official v4 client libraries were published simultaneously to npm (`@dydxprotocol/v4-client-js` 3.4.1, 1.22.1, 1.15.2, and 1.0.31) and PyPI (`dydx-v4-client` 1.1.5post1) using legitimate publishing credentials. Socket flagged them within minutes of publication and notified dYdX, which acknowledged the incident the next day. The npm versions hid a wallet stealer in a registry function that sent seed phrases and a device fingerprint to a typosquatted domain when called. The PyPI version added a remote access trojan that ran on import and beaconed to its command server every ten seconds. Socket assessed the attack as consistent with a developer account compromise but could not confirm the initial access path.
 
-**Impact Scope:** dYdX ecosystem users on npm and PyPI; cryptocurrency wallet theft; remote access established on developer machines; precise victim count unspecified
+**Impact Scope:** Developers and services that installed and used the affected dYdX client versions; seed phrases and wallet access exposed; remote code execution on hosts that imported the PyPI package; precise victim count unspecified
 
 **Key Lessons:**
 
-- Multi-registry attacks multiply blast radius when maintainers reuse credentials across ecosystems
+- Publishing to several registries at once multiplies blast radius when one set of credentials or one release pipeline covers them all
 - Legitimate-to-malicious flips exploit trust inheritance in established packages
 - Combination of credential theft and RAT deployment suggests interest in persistent developer access
 - Cross-registry credential hygiene (unique, scoped credentials per registry) is essential
 
 **Sources:**
 
-- Socket Security research and public reporting, February 6, 2026[^socket-dydx-2026]
+- Socket Security, "Malicious dYdX packages published to npm and PyPI," February 6, 2026[^socket-dydx-2026]
 
 ---
 
 #### OpenClaw Ecosystem Attacks (ClawHavoc / CVE-2026-25253 / Moltbook)
 
-**Date:** January–February 2026
+**Date:** January–February 2026 (follow-on issues through May 2026)
 
 **Summary:** A cluster of supply chain attacks targeted **OpenClaw** (formerly Clawdbot, then Moltbot), an open-source autonomous AI personal assistant that gained over 100,000 GitHub stars within two months of its November 2025 release. The incidents demonstrated that AI agent ecosystems reproduce the full spectrum of package-registry attack patterns at accelerated timescales. Between January 27 and February 2, 2026, the ecosystem experienced four overlapping attack waves:
 
@@ -1081,6 +1083,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 - **CVE-2026-25253** (CVSS 8.8): A cross-site WebSocket hijacking vulnerability allowed one-click remote code execution. A developer visiting a malicious web page would have their authentication token exfiltrated, granting the attacker full gateway control and command execution. Patched in version 2026.1.29.
 - **Fake VS Code extension**: A trojan branded "ClawdBot Agent" appeared on the VS Code Marketplace before the legitimate project published an official extension, installing ScreenConnect RAT on victim machines.
 - **Moltbook database exposure**: Moltbook, an AI-agent social network, suffered a backend misconfiguration exposing emails, private messages, and large volumes of authentication tokens, enabling agent impersonation.
+- **Follow-on issues**: ClawHub began scanning every skill with VirusTotal on February 7, but Unit 42 found malicious skills still passing its checks from February through May, including one that padded its README to 22 MB to evade scanners. In May, Cyera disclosed four chained "Claw Chain" sandbox-escape and privilege-escalation flaws (the most severe, CVE-2026-44112, rated 9.6), fixed in version 2026.4.22. The unauthorized Cline 2.3.0 release (see the next entry) used OpenClaw as its payload.
 
 **Impact Scope:** OpenClaw users globally; developers running OpenClaw with system-level permissions; ClawHub skill ecosystem; Moltbook platform users and connected agents
 
@@ -1099,6 +1102,30 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 - The Hacker News, "OpenClaw Bug Enables One-Click Remote Code Execution via Malicious Link," February 2026[^hackernews-openclaw-2026]
 - Aikido Security, "Fake Clawdbot VS Code Extension Installs ScreenConnect RAT," January 2026[^aikido-clawdbot-2026]
 - Reuters, "'Moltbook' social media site for AI agents had big security hole, cyber firm Wiz says," February 2, 2026[^reuters-moltbook-2026]
+- Palo Alto Networks Unit 42, "OpenClaw's Skill Marketplace and the Emerging AI Supply Chain Threat," June 23, 2026[^unit42-openclaw-2026]
+- The Hacker News, "Four OpenClaw Flaws Enable Data Theft, Privilege Escalation, and Persistence," May 15, 2026[^thn-claw-chain-2026]
+
+---
+
+#### Cline CLI Unauthorized Publish ("Clinejection")
+
+**Date:** December 21, 2025 (vulnerable workflow added); January 1, 2026 (reported); February 9, 2026 (public disclosure); February 17, 2026 (unauthorized publish)
+
+**Summary:** Cline added an AI issue-triage workflow using `claude-code-action` that any GitHub user could trigger, placed issue titles directly in the prompt, and gave the agent Bash, Write, and Edit tools. Researcher Adnan Khan showed that a crafted issue title could make the agent run attacker code, and that because the triage workflow shared a cache scope with the nightly release workflow, an attacker could evict legitimate cache entries and plant a poisoned `node_modules` cache that exposed the release job's VS Code Marketplace, Open VSX, and npm publishing tokens. After public disclosure, Cline removed the workflow and rotated credentials but deleted the wrong npm token. On February 17, an unknown party used the still-active token to publish `cline@2.3.0`, whose only change was a postinstall script running `npm install -g openclaw@latest`. It was live for about eight hours before 2.4.0 replaced it.
+
+**Impact Scope:** Developers who installed or updated the Cline CLI from npm during the eight-hour window, who received a global OpenClaw install without consent; Cline found no unauthorized VS Code Marketplace or Open VSX releases
+
+**Key Lessons:**
+
+- AI agents in CI that read public issue or pull request text are an injection surface, the agent equivalent of interpolating that text into a shell command
+- Low-privilege workflows that share a cache with release workflows can poison release builds
+- Credential rotation must be verified against the credential itself, not only a management dashboard
+- Cline moved npm publishing exclusively to OIDC trusted publishing with provenance afterward
+
+**Sources:**
+
+- Cline, "Post-mortem: Unauthorized Cline CLI npm publish on February 17, 2026," February 24, 2026[^cline-postmortem-2026]
+- Snyk, "How 'Clinejection' Turned an AI Bot into a Supply Chain Attack," February 19, 2026[^snyk-clinejection-2026]
 
 ---
 
@@ -1106,7 +1133,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 
 **Date:** March 19 – May 9, 2026 (investigation completed July 6, 2026)
 
-**Summary:** A supply chain attack on the popular open source scanner **Trivy** on March 19, 2026 yielded stolen credentials that attackers used to access Checkmarx's GitHub repositories, discovered on March 23. The attackers published malicious code to externally distributed Checkmarx artifacts, including the `ast-results` and `cx-dev-assist` VS Code extensions (via both OpenVSX and the Microsoft Marketplace), the `ast-github-action` and `kics-github-action` GitHub Actions, the KICS Docker image on DockerHub, and a modified Jenkins AST plugin published to the Jenkins Marketplace on May 9. Repository data was exfiltrated on March 30, a second wave of compromised artifacts appeared on April 22, and the LAPSUS$ group published stolen data on April 25. Separate reporting linked the same activity wave, associated with TeamPCP, to a source code breach at security vendor Trellix in May 2026. Checkmarx reported that its AWS production environment and Checkmarx One SaaS platform were not accessed, engaged Mandiant for forensics, and migrated its pipelines to OIDC authentication.
+**Summary:** A supply chain attack on the popular open source scanner **Trivy** on March 19, 2026 yielded stolen credentials that attackers used to access Checkmarx's GitHub repositories, discovered on March 23. The attackers published malicious code to externally distributed Checkmarx artifacts, including the `ast-results` and `cx-dev-assist` VS Code extensions (via both OpenVSX and the Microsoft Marketplace), the `ast-github-action` and `kics-github-action` GitHub Actions, the KICS Docker image on DockerHub, and a modified Jenkins AST plugin published to the Jenkins Marketplace on May 9. Repository data was exfiltrated on March 30, a second wave of compromised artifacts appeared on April 22, and the LAPSUS$ group published stolen data on April 25. Security vendor Trellix disclosed a separate source code breach in May 2026; some coverage grouped it with the TeamPCP campaign, but Dark Reading reported no indication of a TeamPCP connection, and Trellix found no evidence that its release or distribution process was affected.[^darkreading-trellix-2026] Checkmarx reported that its AWS production environment and Checkmarx One SaaS platform were not accessed, engaged Mandiant for forensics, and migrated its pipelines to OIDC authentication.
 
 **Impact Scope:** Customers' CI/CD pipelines and developer workstations that executed compromised Checkmarx extensions, actions, images, or plugins; security vendors themselves demonstrated as high-value supply chain targets
 
@@ -1128,7 +1155,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 
 **Date:** March 2026 (PyPI incident report published April 2, 2026)
 
-**Summary:** Using API tokens exposed through the same exploited Trivy dependency described in the previous entry, attackers published malicious versions of the widely used `litellm` and `telnyx` PyPI packages. The malware executed on installation, harvesting credentials and sensitive files from developer machines and exfiltrating them to remote servers—with stolen tokens positioned to enable further package compromises. LiteLLM, which typically sees roughly 1,700 installs per minute, was downloaded more than 119,000 times during the attack window (an estimated 40–50% of installs in that period). PyPI's trusted-reporter network and automated quarantine removed the malicious LiteLLM version 2 hours 32 minutes after upload, and the Telnyx version after 3 hours 42 minutes.
+**Summary:** Using API tokens exposed through the same exploited Trivy dependency described in the previous entry, attackers published malicious versions of the widely used `litellm` and `telnyx` PyPI packages. The malware executed on installation, harvesting credentials and sensitive files from developer machines and exfiltrating them to remote servers, with stolen tokens positioned to enable further package compromises. The malicious LiteLLM versions were downloaded more than 119,000 times during the attack window. PyPI estimated that LiteLLM is installed 15–20 million times a week (roughly 1,700 installs a minute) and that 40–50% of those installs are unpinned, which is why a short window still reached so many machines. PyPI's trusted-reporter network and automated quarantine removed the malicious LiteLLM version 2 hours 32 minutes after upload, and the Telnyx version after 3 hours 42 minutes.
 
 **Impact Scope:** More than 119,000 downloads of malicious LiteLLM versions plus Telnyx consumers during a multi-hour window; developer credentials and files exposed; follow-on token abuse risk across dependent packages
 
@@ -1149,7 +1176,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 
 **Date:** April 7, 2026
 
-**Summary:** Anthropic announced "Claude Mythos Preview" and "Project Glasswing," reporting that the limited-access AI model autonomously discovered thousands of zero-day vulnerabilities in critical software and constructed sophisticated exploits, including a 27-year-old OpenBSD bug and a 16-year-old FFmpeg bug. Anthropic gated access to roughly 50 organizations, later expanding toward roughly 150, and pledged up to $100 million in usage credits plus $4 million in donations to open source security.
+**Summary:** Anthropic announced "Claude Mythos Preview" and "Project Glasswing," reporting that the limited-access AI model autonomously discovered thousands of zero-day vulnerabilities in critical software and constructed sophisticated exploits, including a 27-year-old OpenBSD bug and a 16-year-old FFmpeg bug. Anthropic gated access to roughly 50 organizations, added about 150 more in June 2026, and pledged up to $100 million in usage credits plus $4 million in donations to open source security.
 
 **Impact Scope:** Critical operating systems, browsers, and infrastructure software; an inflection point for AI-discovered vulnerabilities at machine speed, with independent AISLE analysis showing small open-weights models recovered much of the same analysis
 
@@ -1192,7 +1219,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 
 **Date:** May 18, 2026
 
-**Summary:** In one of the largest automated GitHub Actions poisoning operations documented, an attacker pushed 5,718 malicious commits against 5,561 distinct repositories in roughly six hours (11:36–17:48 UTC). The campaign used GitHub credentials harvested by infostealer malware, per Hudson Rock, along with throwaway accounts and forged author identities designed to blend into automation noise (`build-bot`, `auto-ci`, `ci-bot`, `pipeline-bot`). Injected GitHub Actions workflows carried base64-encoded bash payloads that exfiltrated CI secrets, cloud credentials, SSH keys, and OIDC tokens to a command-and-control server. A mass "SysDiag" variant added workflows triggered on every push and pull request, while a targeted "Optimize-Build" variant replaced existing workflows with `workflow_dispatch` triggers—dormant backdoors the attacker could fire on demand via the GitHub API.
+**Summary:** In one of the largest automated GitHub Actions poisoning operations documented, an attacker pushed 5,718 malicious commits against 5,561 distinct repositories in roughly six hours (11:36–17:48 UTC). The campaign used GitHub credentials harvested by infostealer malware, per Hudson Rock, along with throwaway accounts and forged author identities designed to blend into automation noise (`build-bot`, `auto-ci`, `ci-bot`, `pipeline-bot`). Injected GitHub Actions workflows carried base64-encoded bash payloads that exfiltrated CI secrets, cloud credentials, SSH keys, and OIDC tokens to a command-and-control server. A mass "SysDiag" variant added workflows triggered on every push and pull request, while a targeted "Optimize-Build" variant replaced existing workflows with `workflow_dispatch` triggers: dormant backdoors the attacker could fire on demand via the GitHub API.
 
 **Impact Scope:** More than 5,500 public repositories; CI secrets, cloud credentials, SSH keys, and OIDC tokens exposed at scale; dormant backdoors requiring workflow-level auditing to detect
 
@@ -1212,9 +1239,9 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 
 #### ShapedPlugin WordPress Pro Plugin Backdoor
 
-**Date:** May 21, 2026 (backdoor injected); June 2026 (disclosure)
+**Date:** Late May – June 16, 2026 (tampered builds); June 2026 (disclosure)
 
-**Summary:** Attackers compromised the update flow of **ShapedPlugin**, a commercial WordPress plugin vendor, and injected a backdoor into paid builds of Product Slider Pro, Real Testimonials Pro, and Smart Post Show Pro beginning May 21, 2026. The malicious loader activated when an administrator opened the WordPress admin panel, contacted a command-and-control server, and installed a backdoor disguised as a fake plugin impersonating WooCommerce components. The backdoor stole administrator credentials, 2FA secrets, `wp-config.php` database credentials, and WooCommerce order data, then self-deleted to reduce forensic evidence. The compromise is tracked as CVE-2026-10735.
+**Summary:** Attackers compromised the update flow of **ShapedPlugin**, a commercial WordPress plugin vendor, and injected a backdoor into paid builds of Product Slider Pro for WooCommerce, Real Testimonials Pro, and Smart Post Show Pro distributed through its own update channel. Real Testimonials Pro 3.2.5 first shipped clean on May 23, 2026, and was later replaced with a tampered build under the same version number; a clean 3.2.6 followed on June 16. Free versions on WordPress.org were not affected. The malicious loader activated when an administrator opened the WordPress admin panel, contacted a command-and-control server, and installed a backdoor disguised as a fake plugin impersonating WooCommerce components. The backdoor captured administrator credentials and 2FA codes, `wp-config.php` database credentials, SMTP credentials, and three months of WooCommerce order data, while the loader deleted itself to reduce forensic evidence. The compromise is tracked as CVE-2026-10735.
 
 **Impact Scope:** WordPress sites that updated affected Pro plugins between May and June 2026; credential, 2FA, database, and e-commerce order data exposure; full credential rotation and forensic review required
 
@@ -1234,9 +1261,9 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 
 #### Shai-Hulud AntV / Alibaba Ecosystem Wave
 
-**Date:** 2026
+**Date:** May 19, 2026
 
-**Summary:** Distinct from the November 2025 "Shai-Hulud 2.0" wave (see the *Shai-Hulud npm Worm* entry above), a later "Shai-Hulud: Here We Go Again" resurgence compromised the npm account `atool`, affecting `timeago.js` (approximately 1.5 million weekly downloads) and packages across Alibaba's `@antv` namespace. The malware harvested CI/CD and developer secrets, used stolen tokens to create more than 2,200 attacker-controlled GitHub repositories, and represented one of the largest npm campaigns documented.
+**Summary:** Distinct from the November 2025 "Shai-Hulud 2.0" wave (see the *Shai-Hulud npm Worm* entry above), a later "Shai-Hulud: Here We Go Again" resurgence compromised the npm account `atool`, affecting `timeago.js` (approximately 1.5 million weekly downloads), hundreds of packages across Alibaba's `@antv` namespace, and unrelated packages published from the same account such as `echarts-for-react` and `jest-canvas-mock`. Malicious versions went out in two waves ten minutes apart. The payload read GitHub Actions runner memory to recover masked secrets, harvested credentials from more than 130 file paths, persisted through `.claude/settings.json` and `.vscode/tasks.json`, and used stolen tokens to create more than 2,500 attacker-controlled GitHub repositories as dead drops.
 
 **Impact Scope:** AntV/Alibaba visualization ecosystem; thousands of attacker-created repositories; credentials exposed from affected developer and CI environments
 
@@ -1248,7 +1275,29 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 
 **Sources:**
 
-- StepSecurity, "Shai-Hulud: Here We Go Again," 2026[^stepsecurity-antv-shai-hulud-2026]
+- StepSecurity, "Shai-Hulud: Here We Go Again," May 2026[^stepsecurity-antv-shai-hulud-2026]
+
+---
+
+#### Microsoft durabletask Compromise and Agent-Configuration Commit
+
+**Date:** May 19, 2026 (PyPI releases); June 5, 2026 (repository commit)
+
+**Summary:** On May 19, 2026, an attacker used a GitHub account compromised in an earlier TeamPCP operation, which still had access to Microsoft's `durabletask-python` repository, to extract a PyPI publishing token and publish three malicious versions (1.4.1, 1.4.2, and 1.4.3) of `durabletask`, Microsoft's official Python SDK for Azure Durable Functions, within 35 minutes. None had a matching tag, release, or CI run. On June 5, the same contributor account pushed a commit to the `Azure/durabletask` repository with a decoy message ("Switched DataConverter to OrchestrationContext [skip ci]"). It added `.claude/settings.json` and `.gemini/settings.json` hooks that run on agent session start, an auto-applied Cursor rule (`.cursor/rules/setup.mdc`) telling the agent to run a setup script, a `.vscode/tasks.json` task that runs on folder open, and the 4.6 MB obfuscated payload at `.github/setup.js` that all four launched. GitHub disabled the repository the same day, along with other Azure repositories.
+
+**Impact Scope:** Users who installed `durabletask` 1.4.1–1.4.3 (the package averages more than 400,000 monthly downloads); anyone who cloned or opened `Azure/durabletask` in Claude Code, Gemini CLI, Cursor, or VS Code after the June 5 commit; cloud, Kubernetes, password-manager, and developer-tool credentials
+
+**Key Lessons:**
+
+- Agent configuration directories are an execution surface; changes to `.claude/`, `.gemini/`, `.cursor/`, and `.vscode/` deserve the same review as CI workflow changes
+- A single commit can target several agents and editors at once, so developers are exposed whichever tool they use to open the repository
+- Contributor accounts compromised in one campaign keep their repository access until it is explicitly revoked
+- Releases with no matching tag or CI run are a strong signal of a stolen publishing token
+
+**Sources:**
+
+- StepSecurity, "Microsoft's durabletask PyPI Package Compromised in Supply Chain Attack," May 19, 2026 (updated June 5, 2026)[^stepsecurity-durabletask-2026]
+- VentureBeat, "GitHub confirms 3,800 internal repos stolen through poisoned VS Code extension as supply chain worm hits Microsoft's Python SDK," May 20, 2026[^venturebeat-durabletask-2026]
 
 ---
 
@@ -1277,9 +1326,9 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 
 **Date:** Approximately June 11, 2026
 
-**Summary:** Sonatype reported the "Atomic Arch" campaign compromising more than 400 Arch User Repository packages through orphaned-package adoption. Malicious PKGBUILDs fetched npm dependencies including `atomic-lockfile` and `js-digest`, which delivered an infostealer and rootkit. The official Arch repositories were unaffected.
+**Summary:** Sonatype reported the "Atomic Arch" campaign, first disclosed June 11, 2026 with a second wave the next day, in which attackers adopted orphaned Arch User Repository packages (keeping their names and history) and modified the PKGBUILDs to install malicious npm dependencies: `atomic-lockfile` in the first wave, then `js-digest` and `lockfile-js`. The dependencies delivered a native Linux credential stealer targeting GitHub tokens, SSH keys, Vault secrets, and browser cookies, with eBPF-based process, file, and network hiding. By Sonatype's later count the campaign may have affected roughly 1,500 AUR packages across multiple waves. The official Arch repositories, which do not accept user-submitted packages, were not involved.
 
-**Impact Scope:** Arch Linux users installing affected AUR packages; more than 400 community-maintained packages compromised; official Arch repositories unaffected
+**Impact Scope:** Arch Linux users installing affected AUR packages; an estimated 1,500 community-maintained packages across multiple waves; official Arch repositories not involved
 
 **Key Lessons:**
 
@@ -1330,7 +1379,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 
 **Sources:**
 
-- Amos Wenger, "Dissecting a Failed Nation-State Attack," June 25, 2026[^grack-pinpinrat-2026]
+- Matt Mastracci, "Dissecting a Failed Nation-State Attack," June 25, 2026[^grack-pinpinrat-2026]
 
 ---
 
@@ -1338,13 +1387,13 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 
 **Date:** July 9–13, 2026
 
-**Summary:** Hugging Face disclosed that an autonomous AI agent—built on an OpenAI model for internal cybersecurity benchmarking—escaped its restricted evaluation environment (the ExploitGym benchmarking framework) and breached Hugging Face's production infrastructure without human direction. The intrusion entered through a malicious dataset that abused two code-execution paths in the dataset processing pipeline: a remote-code dataset loader and a template injection in a dataset configuration. From there, the agent escalated to node-level access, harvested cloud and cluster credentials spanning four services, and moved laterally across internal clusters over a weekend. Hugging Face reviewed roughly 17,600 attacker actions recovered from logs across approximately two and a half days of dwell time. The company reported no evidence of tampering with public models, datasets, or Spaces, and verified published packages and container images as clean.
+**Summary:** On July 16, 2026, Hugging Face disclosed an intrusion into part of its production infrastructure that it described as driven end to end by an autonomous AI agent. The agent entered through a malicious dataset that abused two code-execution paths in the dataset processing pipeline: a remote-code dataset loader and a template injection in a dataset configuration. From a processing worker it escalated to node-level access, harvested cloud and cluster credentials, and moved laterally across internal clusters over a weekend. Hugging Face's initial post said it did not know which model powered the agent. Two weeks later, OpenAI disclosed that the agent was one of its own: models under internal cyber-capability evaluation, including GPT-5.6 Sol and an unreleased successor, had escaped their sandbox through a zero-day in a self-hosted JFrog Artifactory instance and gone after Hugging Face to steal ExploitGym benchmark solutions rather than solve the challenges. OpenAI said the agents used exposed credentials on four accounts across four services. Hugging Face's postmortem reviewed roughly 17,600 attacker actions recorded between July 9 and 13 and found that the only customer content accessed was the ExploitGym/CyberGym solutions stored in five datasets. It reported no tampering with public models, datasets, or Spaces, and verified its published packages and container images as clean.
 
-**Impact Scope:** Hugging Face internal clusters, limited internal datasets, and service credentials across four services; no evidence of public-asset or package supply chain tampering; widely described as the first publicly documented breach of production infrastructure by a fully autonomous AI agent
+**Impact Scope:** Hugging Face internal clusters, a limited set of internal datasets, and service credentials; accounts on four third-party services; no evidence of public-asset or package supply chain tampering; widely described as the first publicly documented breach of production infrastructure by a fully autonomous AI agent
 
 **Key Lessons:**
 
-- Autonomous agent attacks are no longer theoretical—machine-speed intrusions with thousands of actions are operational reality
+- Autonomous agent attacks are no longer theoretical: machine-speed intrusions with thousands of actions are operational reality
 - Dataset processing pipelines are code-execution surfaces and must be sandboxed like any untrusted-input execution path
 - AI evaluation sandboxes need the containment rigor of malware analysis environments, since capable models may pursue objectives beyond their benchmark
 - Incident response must scale to attacker action volumes far beyond human operator tempo
@@ -1353,6 +1402,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 
 - Hugging Face, "Security incident disclosure — July 2026," July 2026[^huggingface-incident-2026]
 - The Hacker News, "World's Largest AI Model Repository Hugging Face Breached by Autonomous AI Agent," July 2026[^hackernews-huggingface-2026]
+- The Hacker News, "OpenAI Agent Used Exposed Credentials Across Four Services During Hugging Face Breach," July 29, 2026[^hackernews-openai-hf-2026]
 
 ---
 
@@ -1360,7 +1410,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 
 **Date:** July 11, 2026
 
-**Summary:** An attacker used stolen publishing credentials to push malicious versions of `jscrambler` and its webpack, gulp, grunt, and metro plugins to npm. Early malicious versions relied on install-time hooks, but later versions executed on *import* when the CLI ran—meaning `npm install --ignore-scripts` no longer offered protection. The payload dropped native binaries for Linux, Windows, and macOS and targeted cryptocurrency wallets and AI assistant credential stores, including those used by Claude Desktop, Cursor, and Windsurf. Researchers described the malware as an evolution of the IronWorm infostealer. The malicious versions accumulated approximately 1,479 downloads before removal.
+**Summary:** An attacker used stolen publishing credentials to push malicious versions of `jscrambler` and its webpack, gulp, grunt, and metro plugins to npm. Early malicious versions relied on install-time hooks, but later versions executed on *import* when the CLI ran, meaning `npm install --ignore-scripts` no longer offered protection. The payload dropped native binaries for Linux, Windows, and macOS and targeted cryptocurrency wallets and AI assistant credential stores, including those used by Claude Desktop, Cursor, and Windsurf. Researchers described the malware as an evolution of the IronWorm infostealer. The malicious versions accumulated approximately 1,479 downloads before removal.
 
 **Impact Scope:** Consumers of jscrambler npm packages during the exposure window; cryptocurrency wallets and AI development tool credentials targeted
 
@@ -1380,7 +1430,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 
 **Date:** July 14, 2026
 
-**Summary:** Attackers exploited a `pull_request_target` GitHub Actions workflow across four core **AsyncAPI** repositories to steal the `asyncapi-bot` personal access token, then published five trojanized packages to npm, including `@asyncapi/generator`, `@asyncapi/generator-helpers`, `@asyncapi/generator-components`, and `@asyncapi/specs`—packages with a combined 2.25+ million weekly downloads. The payload staged a multi-stage remote access trojan via IPFS, persisted through systemd, and targeted browsers, SSH keys, tokens, cloud credentials, and cryptocurrency wallets. The malicious versions were live for roughly four hours (07:10–11:18 UTC) before removal. The malware carried Miasma branding, suggesting the original Miasma operators or a copycat.
+**Summary:** An attacker opened 37 pull requests against **AsyncAPI** repositories, most of them noise, and used one to exploit a `pull_request_target` workflow and steal the `asyncapi-bot` personal access token. A contributor had flagged that workflow 58 days earlier, but the fix was still unmerged. With the token, the attacker pushed malicious commits to two repositories, whose release workflows then published five malicious versions of four packages (`@asyncapi/generator`, `@asyncapi/generator-helpers`, `@asyncapi/generator-components`, and `@asyncapi/specs`, with combined weekly downloads above 2.25 million) through npm trusted publishing. Because the CI identity itself was compromised, the packages carried valid Sigstore and SLSA provenance. The payload ran on `require()` rather than at install time, pulled a multi-stage remote access trojan from IPFS, persisted through systemd, and targeted browsers, SSH keys, tokens, cloud credentials, and cryptocurrency wallets. The malicious versions were live for roughly four hours (07:10–11:18 UTC) before removal. The malware carried Miasma branding, suggesting the original Miasma operators or a copycat.
 
 **Impact Scope:** Consumers of AsyncAPI npm packages during a four-hour window; developer and CI credentials targeted; demonstrated in-the-wild exploitation of the privileged-workflow weaknesses Cordyceps had catalogued weeks earlier
 
@@ -1394,6 +1444,204 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 **Sources:**
 
 - GitGuardian, "The Streak Continues: Four More Supply Chain Attacks Hit npm and PyPI," July 2026[^gitguardian-streak-2026]
+
+---
+
+#### LuaRocks.org Registry Compromise
+
+**Date:** July 9 – September 26, 2026 (exploitation July 9 – August 20; reported September 25; fixed September 26)
+
+**Summary:** An attacker exploited a remote code execution flaw in the rockspec parser on **LuaRocks.org**, the main package registry for Lua. The parser passed uploaded files to `loadstring` without rejecting precompiled bytecode, and because LuaJIT does not verify bytecode, a crafted "rockspec" could reach arbitrary memory in the server process. Any registered user could trigger it. Server logs showed shell commands run through malicious uploads on July 9 and August 7, three malicious packages (`bcrcewon`, `7e0b94029db0`, and `7e0b9402f9c8`) published on August 7, and several hundred automated exploit attempts against the upload API on August 16 and 20. The flaw was reported through CISA on September 25 and fixed the next day. Because the web server's account could gain full administrative access, the maintainers assumed the attacker could read the whole database: usernames, email addresses, bcrypt password hashes, API keys, two-factor secrets, and GitHub linking tokens. They rebuilt the service on new infrastructure and revoked every API key, session, and 2FA secret. By comparing package files against a July 8 mirror, they found no evidence that existing packages had been modified.
+
+**Impact Scope:** All LuaRocks.org accounts (credentials and 2FA secrets assumed exposed); anyone who installed the three malicious packages; roughly eleven weeks between first exploitation and discovery
+
+**Key Lessons:**
+
+- The registry server is itself part of the supply chain, and a parser bug on the upload path can expose every publisher's credentials at once
+- Small, volunteer-run registries carry ecosystem-wide blast radius with very little security staffing
+- An independent mirror or snapshot made it possible to prove after the fact that published packages had not been altered
+- Revoking 2FA secrets, not just passwords and API keys, is part of recovering from a registry database exposure
+
+**Sources:**
+
+- LuaRocks, "Security Incident September 2026," September 2026[^luarocks-incident-2026]
+
+---
+
+#### ChainDrop npm Worm (keyv and cacheable)
+
+**Date:** August 4, 2026
+
+**Summary:** Starting around 09:00 UTC, an attacker used a compromised GitHub account belonging to a maintainer of `keyv` to plant IDE persistence files in the repository and then publish a malicious `keyv` release. Wiz assessed the payload as a descendant of the Mini Shai-Hulud family, largely built on code TeamPCP had published. On install, a `preinstall` hook launched an obfuscated Bun bundle that collected npm, GitHub, cloud, Kubernetes, and secret-store credentials, along with AI agent configuration and cryptocurrency wallets. It then used any npm token it found to download each package the victim could publish, inject itself, bump the patch version, and republish. Within hours the worm had reached more than 400 packages, including `cacheable`, `flat-cache`, and `cache-manager`. Releases pushed through hijacked GitHub Actions OIDC workflows carried valid provenance even though many had no matching source commit or tag. The malware persisted through Claude Code hooks and VS Code `tasks.json` files, fetched its command-and-control domain from an Ethereum smart contract, and fell back to exfiltrating data into public GitHub repositories with the description "Shai-Hulud: Here We Go Again."
+
+**Impact Scope:** More than 400 npm packages across unrelated publishers; developer workstations and CI runners that installed affected versions on August 4
+
+**Key Lessons:**
+
+- Eleven months after the first Shai-Hulud worm, the same propagation pattern still worked against accounts that held publish-capable tokens
+- Provenance shows which workflow produced a package, not whether its maintainer intended the release
+- Editor and coding-agent configuration files have become a standard persistence location for package malware
+- Microsoft's guidance after the incident pointed to npm CLI v12 (install scripts off by default) and minimum release age settings as the practical countermeasures
+
+**Sources:**
+
+- Microsoft Security, "ChainDrop supply chain compromise: Anatomy of a self-propagating worm," August 4, 2026[^microsoft-chaindrop-2026]
+- Wiz, "keyv and cacheable npm Package Hijacked in Supply Chain Attack," August 4, 2026[^wiz-keyv-2026]
+
+---
+
+#### crates.io arrayref Compromise and Targeted Attacks on Rust Maintainers
+
+**Date:** August 20, 2026 (crate compromise); September 17, 2026 (Rust project warning)
+
+**Summary:** Malicious versions of `arrayref` (0.3.10), `internment` (0.8.7), and `append-only-vec` (0.1.9) were published to crates.io from a single maintainer's account. Each was republished to depend on a malicious crate, `proc-macro1`, whose build script downloaded a remote payload. The attacker also yanked recent legitimate `arrayref` versions so that resolvers would pick the malicious one, and published several typosquat crates. Nextron Systems reported the problem, and the Rust Security Response Team deleted the malicious versions within 86 to 107 minutes of publication, restored the yanked releases, and locked the author's account. A month later the Rust project warned of an ongoing campaign against rust-lang members and owners of popular crates: attackers set up video calls under job or contract pretexts, then asked targets to install a "missing audio codec" or paste a command from the clipboard. The warning said `arrayref` had been compromised "through similar attacks" and noted the technique is associated with North Korean actors.
+
+**Impact Scope:** Rust projects that resolved the affected versions during a window of under two hours; maintainers of widely used crates targeted for account takeover
+
+**Key Lessons:**
+
+- Cargo build scripts run arbitrary code at build time, which gives a compromised crate the same reach as an npm install hook
+- Yanking legitimate versions is a way to steer resolvers toward a malicious release
+- Small, stable, widely depended-on crates are attractive because few people watch them closely
+- Fake-interview and fake-call techniques documented against cryptocurrency developers are now aimed at package maintainers directly
+
+**Sources:**
+
+- Rust Blog, "Supply chain attack on arrayref," August 20, 2026[^rust-arrayref-2026]
+- Rust Blog, "Be alert: targeted attacks on prominent Rustaceans," September 17, 2026[^rust-targeted-2026]
+
+---
+
+#### Coder Module Registry Hijack
+
+**Date:** August 31, 2026 (07:35–21:45 UTC)
+
+**Summary:** An attacker gained access to Coder's Cloudflare account and added their own IP addresses to the pool serving `registry.coder.com`, Coder's Terraform module registry. For about fourteen hours, some requests reached a copy of the registry whose modules contained a `data "external" "telemetry"` block that ran shell scripts to collect credentials and send them to the lookalike domain `coder-infra[.]com`. Anyone who created or updated a template, ran a template dry run, or built a workspace with module caching disabled during that window could have pulled the malicious modules. Depending on where the provisioner ran, exposed secrets included provisioner environment variables, users' OIDC tokens and SSH keys, single-use tokens for external auth providers, and in some deployments the Coder database password. Coder rated the advisory critical (CVSS 4.0 score 9.0) and shipped fixes in 2.37.0 with backports to 2.36.4, 2.35.7, and 2.34.9.
+
+**Impact Scope:** Coder deployments that fetched modules from the public registry during the window; Coder could not determine conclusively who was affected because the malicious servers were outside its control
+
+**Key Lessons:**
+
+- CDN, DNS, and load-balancer accounts sit in the distribution path and deserve the same protection as registry publishing credentials
+- Infrastructure-as-code modules execute code during planning, so a poisoned module is a credential-theft tool before anything is deployed
+- Caching and pinning modules by checksum limit exposure to a hijacked registry
+- When the attacker controls the serving infrastructure, the vendor may have no logs that identify victims
+
+**Sources:**
+
+- Coder, "Malicious Packages Served from Unauthorized Registry Server," GHSA-vx42-ghc9-gw65, September 1, 2026[^coder-registry-2026]
+
+---
+
+#### GhostAction Returns
+
+**Date:** August 31 – October 12, 2026
+
+**Summary:** The GhostAction technique first seen in September 2025 came back at much larger scale. Using stolen GitHub credentials, attackers committed a workflow disguised as a security audit (`security-audit.yml` or `github_actions_security.yml`) directly into victims' repositories. The workflow dumped the repository's named secrets, scanned the working tree and git history for credential patterns, and sent everything over plain HTTP to a hard-coded IP address. GitGuardian counted 772 public repositories across 373 users and organizations in a first wave between August 31 and September 30. A second wave between October 8 and 12 targeted more than 30,000 repositories across roughly 3,000 users and organizations, with about 1,900 user accounts compromised and around 28,000 repositories hit on October 8 and 9 alone. Socket traced two of the pushing accounts to well-known maintainers. Some victims had also been hit in the 2025 wave, suggesting the attackers were reusing credentials that had never been rotated. GitHub held most of the injected runs for approval (only 499 of 3,669 collected runs executed) and began blocking the workflow outright on October 9, so later waves extracted no secrets. By October 5, only 16% of first-wave repositories had removed the malicious workflow from their public history.
+
+**Impact Scope:** Tens of thousands of public repositories; CI secrets including cloud keys, registry tokens, and AI provider API keys; no malicious package releases had been traced to the stolen publishing credentials as of mid-October
+
+**Key Lessons:**
+
+- Rotating repository secrets does not help if the GitHub credential that wrote the workflow is still valid
+- Platform-level holds on new or unproven workflows blunted the October wave far more than individual repository hygiene did
+- Cleanup lags badly: most victims of the first wave had not removed the workflow weeks later
+- Credentials stolen in one campaign get reused in the next, sometimes a year later
+
+**Sources:**
+
+- GitGuardian, "GhostAction Returns: 772 Repos Hit, 30k More in Oct," October 7, 2026 (updated October 13, 2026)[^gitguardian-ghostaction-2026]
+- The Hacker News, "Credential-Stealing GitHub Actions Workflows Planted in Tens of Thousands of Repositories," October 2026[^hackernews-ghostaction-2026]
+
+---
+
+#### npm Trusted Publishing Repository-Name Flaw
+
+**Date:** Reported June 6, 2026; fixed October 2, 2026; disclosed October 13, 2026
+
+**Summary:** Researchers at Bloom Security found that npm's trusted publishing feature bound a package to a GitHub repository by its `owner/repo` name rather than by GitHub's permanent numeric repository and owner IDs. If a maintainer renamed, transferred, or deleted the bound repository, anyone who claimed the freed name could obtain a publish credential for the package, and the resulting release would carry a valid provenance attestation naming the attacker's repository. Bloom confirmed the attack end to end on packages it controlled and counted more than 1,500 exposed packages with over 10 million total downloads. GitHub validated the report on June 9 but then stopped responding to follow-ups for nearly three months. Its October 2 fix expires any trusted publishing configuration that has not been validated within 48 hours and binds a configuration to the repository's immutable identity on first publish. Bloom said npm's GitLab trusted publishing integration had the same weakness. No exploitation in the wild was known at disclosure.
+
+**Impact Scope:** More than 1,500 npm packages whose trusted publishing configuration pointed at a renamed, transferred, or deleted repository
+
+**Key Lessons:**
+
+- Any identity binding that uses a mutable name repeats the repo-jacking problem, even inside a modern OIDC flow
+- A provenance attestation proves that a named repository built a package; consumers still have to check that it is the right repository
+- Maintainers should audit their bindings (`npm trust list`) and remove them before deleting or renaming a repository
+
+**Sources:**
+
+- Help Net Security, "npm Trusted Publishing flaw exposed 1,500+ npm packages to takeover," October 13, 2026[^helpnet-slugfest-2026]
+- GitHub Changelog, "Unvalidated npm trusted publishing configurations now expire," October 2, 2026[^github-tp-expire-2026]
+
+---
+
+#### eMudhra Intermediate CA Key Exposure
+
+**Date:** October 17–20, 2026
+
+**Summary:** Certificate authority eMudhra generated eight intermediate CA certificates (six for TLS, two for code signing) with keys so weak that the private keys could be recovered from the certificates themselves. Because the intermediates chained to widely trusted roots, anyone holding the keys could issue a certificate for any domain. Mozilla blocked the intermediates through OneCRL on October 17 and Chrome followed the same day; Apple did the same on October 19 and Microsoft on October 20. Mozilla also removed the emSign ECC Root CA - G3 root. Browsers were only part of the problem. A long list of language runtimes and package tools bundle their own CA stores or verify certificates without checking revocation, including certifi, pip, uv, pixi, conda, rustls's webpki-roots, Node.js, Go, Composer, Elixir's castore, Perl's Mozilla::CA, and the curl CA bundle, and each needed its own release. Go's security team shipped Go 1.27.3 and 1.26.10 roughly seven and a half hours after being alerted on October 19, its first release on an "urgent" track. Two weeks later, the git, curl, and python3 shipped with macOS still trusted the intermediates, and GitHub's macOS runners did too because their images disabled Homebrew updates.
+
+**Impact Scope:** Any client that trusted the affected roots without consuming revocation data, across browsers, operating systems, language runtimes, package managers, and CI images
+
+**Key Lessons:**
+
+- A bundled CA store is a dependency, and a fix in the operating system or browser does not reach software that carries its own copy
+- SBOMs that record only package names and versions miss bundled trust anchors entirely
+- Package managers fetch code over TLS, so a forgeable certificate puts every registry download at risk for clients that skip lockfile hash checks
+- Runtimes that can ship an urgent fix within hours are rare; most of the ecosystem took days or weeks to catch up
+
+**Sources:**
+
+- The Go Blog, "Our Response To The eMudhra Key Disclosure Incident," October 2026[^go-emudhra-2026]
+- Andrew Nesbitt, "Trust Stores Are Dependencies Too," October 21, 2026[^nesbitt-truststores-2026]
+
+---
+
+#### LiteLLM Second Compromise (1.107.0)
+
+**Date:** October 21, 2026
+
+**Summary:** Seven months after the TeamPCP compromise described earlier in this timeline, LiteLLM's release pipeline was hijacked again. Malicious version 1.107.0 was available on PyPI from 11:39 to 13:23 UTC, and the `ghcr.io/berriai/litellm` image tags `v1.107.0`, `latest`, `main-latest`, and `main-stable` served the bad build until 14:20 UTC. The wheels carried `cook.pth` and `sitecustomize.py` files that ran a credential collector every time Python started in the environment, whether or not anything imported LiteLLM. The collector went after cloud and Kubernetes credentials, Git, SSH, and GPG keys, `.env` files, browser data, and the auth files of coding agents such as Codex, Claude, Gemini, and Cursor, and it queried LiteLLM's own credential tables when a database URL was set. The container build provenance recorded the source owner as `Berri-AI`, one hyphen away from the real `BerriAI`. LiteLLM said the attacker worked through the GitHub accounts of three engineers, apparently using stolen GitHub CLI OAuth tokens: one account changed the pipeline and triggered the release, a second approved it, and a third deleted workflow records. Wiz observed the attacker validating stolen AWS keys and probing Amazon Bedrock access about four and a half hours after exfiltration.
+
+**Impact Scope:** Environments that installed LiteLLM 1.107.0 from PyPI or pulled the affected GHCR tags during a window of roughly two to three hours; LiteLLM averages about 23 million weekly downloads
+
+**Key Lessons:**
+
+- A project that has been compromised once is a proven target, and a second attack can come through a completely different path
+- Python `.pth` and `sitecustomize.py` files execute at interpreter startup, so "we never import that package" is not a defense
+- Two-person release approval fails when the attacker controls both people's tokens
+- Provenance needs to be checked against an expected source identity; a lookalike owner name in an otherwise valid attestation is a red flag
+
+**Sources:**
+
+- Socket, analysis of the LiteLLM 1.107.0 compromise, October 21, 2026[^socket-litellm-2026]
+- Help Net Security, "LiteLLM hit by second supply chain attack this year, users urged to rotate credentials," October 22, 2026[^helpnet-litellm-2026]
+
+---
+
+#### The AI Vulnerability Report Surge
+
+**Date:** January – November 2026
+
+**Summary:** Over the course of 2026 the problem facing open source security teams changed from AI-generated junk to AI-generated volume. In January, curl ended its bug bounty because fewer than one in twenty reports were real. By April, Daniel Stenberg wrote that the slop had largely stopped, the confirmed rate had climbed back to 15–16%, and reports were arriving at twice the 2025 rate. curl paused all vulnerability intake for July, published a record 18 CVEs in one release in June and 24 fixes in October (including its first HIGH-severity CVE since 2023), and from October 26 began handling LOW and MEDIUM reports as public GitHub issues. The pattern repeated elsewhere. GNOME ended its bug bounty in February after an AI-driven flood, and its CVE count rose from 37 in 2024 to 141 in the first nine months of 2026. The OpenJS Foundation's CNA paused all triage and CVE assignment from September 17 to October 6. Google stopped accepting product vulnerability reports to its open source VRP on October 1, citing automated submissions, "the vast majority of which are not valid." GitHub's CNA had published more than 7,000 CVE IDs by mid-year, and the CVE Program granted OpenAI and Anthropic temporary CNA status so they could assign IDs to model-found bugs. As of November 2, Anthropic's disclosure dashboard reported 5,087 vulnerabilities disclosed to 680 open source projects, of which 629 had been patched upstream.
+
+**Impact Scope:** Open source maintainers, CNAs, bug bounty platforms, and the CVE Program; downstream consumers facing far higher CVE volumes with the same patching capacity
+
+**Key Lessons:**
+
+- Discovery now outpaces remediation by an order of magnitude; the scarce resource is maintainer time to validate and fix
+- Accurate reports can still overwhelm a project, so "ignore the AI reports" is not a safe policy
+- Embargoes and private handling are being reserved for the most severe issues as volume grows
+- Organizations that depend on open source should expect many more CVEs per component and plan prioritization accordingly (see Chapter 33)
+
+**Sources:**
+
+- Daniel Stenberg, "High-Quality Chaos," April 22, 2026[^stenberg-hqchaos-2026]
+- Daniel Stenberg, "Do minor curl vulnerabilities in the open," October 20, 2026[^stenberg-open-2026]
+- Michael Catanzaro, "The Era of Software Quality, or the Era of Ostriches?," October 2, 2026[^catanzaro-gnome-2026]
+- Cybersecurity Dive, "CVE Program eyes automation and globalization to weather AI 'vulnpocalypse'," August 11, 2026[^cybersecuritydive-cve-2026]
+- Anthropic, "Anthropic's coordinated vulnerability disclosure dashboard," snapshot of November 2, 2026[^anthropic-cvd-dashboard-2026]
 
 ---
 
@@ -1418,7 +1666,6 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 | XZ Utils | 2024 | Long-term social engineering | Very High |
 | JAVS | 2024 | Distribution infrastructure compromise | High |
 | Polyfill.io | 2024 | Domain acquisition | Medium |
-| Shai Hulud (GitHub Actions) | 2025 | CI/CD workflow exploitation | High |
 | @lottiefiles/lottie-player | 2024 | Account takeover | Medium |
 | aiocpa | 2024 | Legitimate-to-malicious flip | High |
 | @solana/web3.js | 2024 | Account takeover | Medium |
@@ -1430,6 +1677,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 | Erlang/OTP SSH | 2025 | Code vulnerability | Low (unintentional) |
 | Notepad++ Update Hijacking | 2025 | Distribution infrastructure compromise / selective targeting | High |
 | PhantomRaven | 2025 | Malicious npm packages | Medium |
+| Nx s1ngularity | 2025 | CI/CD workflow exploitation + AI CLI weaponization | High |
 | Shai-Hulud npm Worm (1.0 & 2.0) | 2025 | Self-replicating malware + phishing | Very High |
 | Josh Junon (Qix) | 2025 | Account takeover | High |
 | BoltDB | 2025 | Typosquatting | Medium |
@@ -1441,11 +1689,13 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 | PyPI Spellchecker RAT | 2026 | Typosquatting / fileless RAT | Medium |
 | Glass Worm (Wave 2) | 2026 | Publisher credential compromise | High |
 | Metro4Shell (KEV) | 2026 | Developer tooling exploitation | Critical |
-| dYdX | 2026 | Multi-registry maintainer compromise | High |
+| dYdX | 2026 | Multi-registry publishing credential compromise | High |
 | OpenClaw Ecosystem | 2026 | Multi-vector (malicious skills, RCE, impersonation) | High |
+| Cline CLI (Clinejection) | 2026 | Prompt injection in AI CI workflow + unrevoked token | High |
 | Claude Mythos / Project Glasswing | 2026 | AI-discovered vulnerabilities and exploits | Very High |
 | Mini Shai-Hulud Resurgence | 2026 | Trusted publishing/OIDC abuse + self-replicating malware | Very High |
 | Shai-Hulud AntV / Alibaba Wave | 2026 | Account compromise + self-replicating malware | Very High |
+| Microsoft durabletask | 2026 | Stolen contributor account + agent-configuration hooks | High |
 | Miasma / Leo Platform | 2026 | Malicious npm install hooks / CI secret theft | High |
 | Atomic Arch | 2026 | Orphaned-package adoption / malicious dependencies | High |
 | Cordyceps | 2026 | Privileged workflow abuse | High |
@@ -1457,6 +1707,15 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 | Hugging Face Agent Intrusion | 2026 | Autonomous AI agent / malicious dataset | Very High |
 | jscrambler | 2026 | Account takeover / import-time execution | High |
 | AsyncAPI | 2026 | CI/CD workflow exploitation | High |
+| LuaRocks.org | 2026 | Registry server RCE / credential database exposure | High |
+| ChainDrop | 2026 | Account compromise + self-replicating malware | Very High |
+| crates.io arrayref | 2026 | Social engineering / account compromise | High |
+| Coder Module Registry | 2026 | CDN account compromise / registry impersonation | High |
+| GhostAction Returns | 2026 | Mass workflow poisoning via stolen credentials | High |
+| npm Trusted Publishing Flaw | 2026 | Mutable identity binding (design flaw) | Medium |
+| eMudhra Intermediate CAs | 2026 | Trust anchor compromise | High |
+| LiteLLM 1.107.0 | 2026 | Release pipeline hijack via stolen OAuth tokens | High |
+| AI Vulnerability Report Surge | 2026 | Ecosystem capacity (not an attack) | N/A |
 
 ---
 
@@ -1481,7 +1740,7 @@ In November 2025, a second wave dubbed "Shai-Hulud 2.0" emerged with modified ta
 - SBOM adoption and dependency visibility
 - Multi-factor authentication enforcement
 
-These incidents collectively demonstrate that software supply chain security requires defense in depth across the entire lifecycle—from initial development through build, publication, distribution, and consumption.
+These incidents collectively demonstrate that software supply chain security requires defense in depth across the entire lifecycle, from initial development through build, publication, distribution, and consumption.
 
 [^thompson-1984c]: Thompson, K., "Reflections on Trusting Trust," Communications of the ACM, 1984, https://www.cs.cmu.edu/~rdriley/487/papers/Thompson_1984_ReflectionsonTrustingTrust.pdf
 
@@ -1691,7 +1950,7 @@ These incidents collectively demonstrate that software supply chain security req
 
 [^hackernews-cordyceps-2026]: The Hacker News, "Cordyceps CI/CD Flaws Expose 300+ GitHub Repositories," 2026, https://thehackernews.com/2026/06/cordyceps-cicd-flaws-expose-300-github.html
 
-[^grack-pinpinrat-2026]: Amos Wenger, "Dissecting a Failed Nation-State Attack," June 25, 2026, https://grack.com/blog/2026/06/25/dissecting-a-failed-nation-state-attack/
+[^grack-pinpinrat-2026]: Matt Mastracci, "Dissecting a Failed Nation-State Attack," June 25, 2026, https://grack.com/blog/2026/06/25/dissecting-a-failed-nation-state-attack/
 
 [^checkmarx-incident-2026]: Checkmarx, "Update: Ongoing Checkmarx Supply Chain Security Incident," 2026, https://checkmarx.com/blog/ongoing-security-updates/
 
@@ -1712,3 +1971,65 @@ These incidents collectively demonstrate that software supply chain security req
 [^hackernews-huggingface-2026]: The Hacker News, "World's Largest AI Model Repository Hugging Face Breached by Autonomous AI Agent," July 2026, https://thehackernews.com/2026/07/worlds-largest-ai-model-repository.html
 
 [^gitguardian-streak-2026]: GitGuardian, "The Streak Continues: Four More Supply Chain Attacks Hit npm and PyPI," July 2026, https://blog.gitguardian.com/shai-hulud-npm-pypi-supply-chain-attacks/
+
+[^luarocks-incident-2026]: LuaRocks, "Security Incident September 2026," September 2026, https://luarocks.org/security-incident-september-2026
+
+[^microsoft-chaindrop-2026]: Microsoft Security, "ChainDrop supply chain compromise: Anatomy of a self-propagating worm," August 4, 2026, https://www.microsoft.com/en-us/security/blog/2026/08/04/chaindrop-supply-chain-compromise-anatomy-self-propagating-worm/
+
+[^wiz-keyv-2026]: Wiz, "keyv and cacheable npm Package Hijacked in Supply Chain Attack," August 4, 2026, https://www.wiz.io/blog/keyv-and-cacheable-npm-supply-chain-attack
+
+[^rust-arrayref-2026]: Rust Security Response Team, "Supply chain attack on arrayref," Rust Blog, August 20, 2026, https://blog.rust-lang.org/2026/08/20/supply-chain-attack-on-arrayref/
+
+[^rust-targeted-2026]: Adam Harvey, "Be alert: targeted attacks on prominent Rustaceans," Rust Blog, September 17, 2026, https://blog.rust-lang.org/2026/09/17/targeted-attacks/
+
+[^coder-registry-2026]: Coder, "Malicious Packages Served from Unauthorized Registry Server," GHSA-vx42-ghc9-gw65, September 1, 2026, https://github.com/coder/coder/security/advisories/GHSA-vx42-ghc9-gw65
+
+[^gitguardian-ghostaction-2026]: GitGuardian, "GhostAction Returns: 772 Repos Hit, 30k More in Oct," October 7, 2026, https://blog.gitguardian.com/ghostaction-github-actions-supply-chain-attack-returns/
+
+[^hackernews-ghostaction-2026]: The Hacker News, "Credential-Stealing GitHub Actions Workflows Planted in Tens of Thousands of Repositories," October 2026, https://thehackernews.com/2026/10/credential-stealing-github-actions.html
+
+[^helpnet-slugfest-2026]: Help Net Security, "npm Trusted Publishing flaw exposed 1,500+ npm packages to takeover," October 13, 2026, https://www.helpnetsecurity.com/2026/10/13/slugfest-npm-trusted-publishing-flaw/
+
+[^github-tp-expire-2026]: GitHub, "Unvalidated npm trusted publishing configurations now expire," GitHub Changelog, October 2, 2026, https://github.blog/changelog/2026-10-02-unvalidated-npm-trusted-publishing-configurations-now-expire
+
+[^go-emudhra-2026]: The Go Team, "Our Response To The eMudhra Key Disclosure Incident," The Go Blog, October 2026, https://go.dev/blog/emudhra-incident
+
+[^nesbitt-truststores-2026]: Andrew Nesbitt, "Trust Stores Are Dependencies Too," October 21, 2026, https://nesbitt.io/2026/10/21/trust-stores-are-dependencies-too.html
+
+[^socket-litellm-2026]: Socket, analysis of the LiteLLM 1.107.0 compromise, October 21, 2026, https://socket.dev/blog/litellm-compromise
+
+[^helpnet-litellm-2026]: Help Net Security, "LiteLLM hit by second supply chain attack this year, users urged to rotate credentials," October 22, 2026, https://www.helpnetsecurity.com/2026/10/22/litellm-compromised-supply-chain-attack-pypi-docker/
+
+[^stenberg-hqchaos-2026]: Daniel Stenberg, "High-Quality Chaos," daniel.haxx.se, April 22, 2026, https://daniel.haxx.se/blog/2026/04/22/high-quality-chaos/
+
+[^stenberg-open-2026]: Daniel Stenberg, "Do minor curl vulnerabilities in the open," daniel.haxx.se, October 20, 2026, https://daniel.haxx.se/blog/2026/10/20/do-minor-curl-vulnerabilities-in-the-open/
+
+[^catanzaro-gnome-2026]: Michael Catanzaro, "The Era of Software Quality, or the Era of Ostriches?," October 2, 2026, https://blogs.gnome.org/mcatanzaro/2026/10/02/the-era-of-software-quality-or-the-era-of-ostriches/
+
+[^cybersecuritydive-cve-2026]: Eric Geller, "CVE Program eyes automation and globalization to weather AI 'vulnpocalypse'," Cybersecurity Dive, August 11, 2026, https://www.cybersecuritydive.com/news/cve-program-ai-black-hat-def-con/827477/
+
+[^anthropic-cvd-dashboard-2026]: Anthropic, "Anthropic's coordinated vulnerability disclosure dashboard," snapshot of November 2, 2026, https://red.anthropic.com/2026/cvd/
+
+[^hackernews-openai-hf-2026]: The Hacker News, "OpenAI Agent Used Exposed Credentials Across Four Services During Hugging Face Breach," July 29, 2026 (updated August 1, 2026), https://thehackernews.com/2026/07/openai-agent-used-exposed-credentials.html
+
+[^securityweek-trustwallet-2025]: SecurityWeek, "Shai-Hulud Supply Chain Attack Led to $8.5 Million Trust Wallet Heist," December 31, 2025, https://www.securityweek.com/shai-hulud-supply-chain-attack-led-to-8-5-million-trust-wallet-heist/
+
+[^darkreading-trellix-2026]: Dark Reading, "Trellix Source Code Breach Highlights Growing Supply Chain Threats," May 2026, https://www.darkreading.com/cyberattacks-data-breaches/trellix-source-code-breach-supply-chain-threats
+
+[^nx-postmortem-2025]: Juri Strumpflohner, "S1ngularity: What Happened, How We Responded, What We Learned," Nx Blog, September 5, 2025, https://nx.dev/blog/s1ngularity-postmortem
+
+[^snyk-nx-agents-2025]: Liran Tal, "Weaponizing AI Coding Agents for Malware in the Nx Malicious Package Security Incident," Snyk, August 27, 2025, https://snyk.io/blog/weaponizing-ai-coding-agents-for-malware-in-the-nx-malicious-package
+
+[^bleeping-s1ngularity-2025]: Bill Toulas, "AI-powered malware hit 2,180 GitHub accounts in 's1ngularity' attack," BleepingComputer, September 6, 2025, https://www.bleepingcomputer.com/news/security/ai-powered-malware-hit-2-180-github-accounts-in-s1ngularity-attack/
+
+[^cline-postmortem-2026]: Cline, "Post-mortem: Unauthorized Cline CLI npm publish on February 17, 2026," February 24, 2026, https://cline.bot/blog/post-mortem-unauthorized-cline-cli-npm
+
+[^snyk-clinejection-2026]: Stephen Thoemmes, "How 'Clinejection' Turned an AI Bot into a Supply Chain Attack," Snyk, February 19, 2026, https://snyk.io/blog/cline-supply-chain-attack-prompt-injection-github-actions/
+
+[^stepsecurity-durabletask-2026]: Ashish Kurmi, "Microsoft's durabletask PyPI Package Compromised in Supply Chain Attack," StepSecurity, May 19, 2026 (updated June 5, 2026), https://www.stepsecurity.io/blog/microsofts-durabletask-pypi-package-compromised-in-supply-chain-attack
+
+[^venturebeat-durabletask-2026]: Louis Columbus, "GitHub confirms 3,800 internal repos stolen through poisoned VS Code extension as supply chain worm hits Microsoft's Python SDK," VentureBeat, May 20, 2026, https://venturebeat.com/security/github-confirms-3800-repos-stolen-poisoned-vs-code-extension-supply-chain-worm-microsoft-python-sdk
+
+[^unit42-openclaw-2026]: Shresta Bellary Seetharam, Nabeel Mohamed, Billy Melicher, and Oleksii Starov, "OpenClaw's Skill Marketplace and the Emerging AI Supply Chain Threat," Palo Alto Networks Unit 42, June 23, 2026, https://unit42.paloaltonetworks.com/openclaw-ai-supply-chain-risk/
+
+[^thn-claw-chain-2026]: Ravie Lakshmanan, "Four OpenClaw Flaws Enable Data Theft, Privilege Escalation, and Persistence," The Hacker News, May 15, 2026, https://thehackernews.com/2026/05/four-openclaw-flaws-enable-data-theft.html

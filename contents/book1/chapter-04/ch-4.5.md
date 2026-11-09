@@ -10,7 +10,7 @@ icon: "lucide/refresh-cw"
 
     A threat model created once and never revisited quickly becomes obsolete, providing false confidence rather than genuine security insight. Dependencies update continuously. New packages are adopted. Vulnerabilities are discovered. The threat landscape shifts.
 
-Effective supply chain threat modeling must be **continuous**—integrated into development workflows, updated as systems change, and refined as understanding deepens. This section provides practical guidance for making threat modeling an ongoing practice rather than a one-time exercise.
+Effective supply chain threat modeling must be **continuous**: integrated into development workflows, updated as systems change, and refined as understanding deepens. This section provides practical guidance for making threat modeling an ongoing practice rather than a one-time exercise.
 
 ## Integrating Threat Modeling into Development Workflows
 
@@ -24,11 +24,11 @@ Threat modeling should occur at natural decision points in development workflows
 
 **Release milestones** provide opportunities for periodic review. Before major releases, validate that the threat model reflects current reality. Have new dependencies been added without review? Have previously identified risks been addressed? Release checklists should include threat model currency.
 
-**Incident response** generates threat model updates. When security incidents occur—whether affecting your organization directly or reported in the broader ecosystem—evaluate whether your threat model anticipated the attack pattern. Incidents reveal blind spots; updating models to address them prevents recurrence.
+**Incident response** generates threat model updates. When security incidents occur (whether affecting your organization directly or reported in the broader ecosystem), evaluate whether your threat model anticipated the attack pattern. Incidents reveal blind spots; updating models to address them prevents recurrence.
 
 ## Lightweight Threat Modeling for Routine Use
 
-Comprehensive threat modeling—constructing detailed attack trees, applying STRIDE to every component, producing extensive documentation—is valuable but resource-intensive. For routine decisions, **lightweight threat modeling** provides security benefit without excessive overhead.
+Comprehensive threat modeling (constructing detailed attack trees, applying STRIDE to every component, producing extensive documentation) is valuable but resource-intensive. For routine decisions, **lightweight threat modeling** provides security benefit without excessive overhead.
 
 Lightweight approaches include:
 
@@ -84,11 +84,11 @@ Threat models are documents that describe understanding at a point in time. As s
 
 ## Training Developers in Supply Chain Threat Thinking
 
-Threat modeling works best when distributed across the team rather than concentrated in a security group. Developers who understand supply chain threats make better decisions daily—about dependencies, about configurations, about trust assumptions—than developers who defer all security thinking to specialists.
+Threat modeling works best when distributed across the team rather than concentrated in a security group. Developers who understand supply chain threats make better decisions daily (about dependencies, about configurations, about trust assumptions) than developers who defer all security thinking to specialists.
 
 Effective training approaches include:
 
-**Scenario-based learning** teaches through realistic examples. Walk through actual supply chain incidents—event-stream, SolarWinds, XZ Utils—and discuss how threat modeling might have identified risks. Concrete examples are more memorable than abstract principles.
+**Scenario-based learning** teaches through realistic examples. Walk through actual supply chain incidents (event-stream, SolarWinds, XZ Utils) and discuss how threat modeling might have identified risks. Concrete examples are more memorable than abstract principles.
 
 **Hands-on exercises** build practical skills. Have developers threat model a familiar system, then compare results and discuss differences. Practice builds competence that training alone cannot provide.
 
@@ -134,7 +134,7 @@ For organizations beginning to integrate continuous threat modeling:
 
 4. **Document decisions, not just analyses.** Record what you decided and why. This documentation proves valuable when revisiting decisions and when onboarding new team members.
 
-5. **Learn from incidents.** When supply chain incidents occur—whether affecting your organization or reported publicly—review your threat model. Would it have anticipated this attack? Update models to address blind spots.
+5. **Learn from incidents.** When supply chain incidents occur, whether affecting your organization or reported publicly, review your threat model. Would it have anticipated this attack? Update models to address blind spots.
 
 6. **Train incrementally.** Start with awareness training for all developers, deeper training for security champions, and specialist training for security team members. Build capability progressively.
 

@@ -6,11 +6,11 @@ icon: "lucide/puzzle"
 
 # 9.2 Browser Extension Supply Chains
 
-Browser extensions operate with extraordinary access to users' online activities. An extension with appropriate permissions can read every webpage you visit, capture form data including passwords, modify page content, intercept network requests, and access browsing history. This access makes extensions powerful productivity tools—and potent attack vectors. When extension supply chains are compromised, attackers gain capabilities that rival sophisticated malware, distributed through trusted channels and automatically updated to millions of users.
+Browser extensions operate with extraordinary access to users' online activities. An extension with appropriate permissions can read every webpage you visit, capture form data including passwords, modify page content, intercept network requests, and access browsing history. This access makes extensions powerful productivity tools, and potent attack vectors. When extension supply chains are compromised, attackers gain capabilities that rival sophisticated malware, distributed through trusted channels and automatically updated to millions of users.
 
 !!! danger "Extraordinary Access"
 
-    A single permission like `<all_urls>` grants an extension access to content on **all websites**—including banking, email, and corporate applications. This access persists through ownership changes and updates.
+    A single permission like `<all_urls>` grants an extension access to content on **all websites**, including banking, email, and corporate applications. This access persists through ownership changes and updates.
 
 The browser extension ecosystem combines the dependency risks familiar from package managers with unique factors: extremely broad permissions, automatic updates, and direct access to users' most sensitive online activities.
 
@@ -56,7 +56,7 @@ Extensions may request minimal permissions initially, then expand permissions in
 
 **Implicit Trust:**
 
-Users rarely read permission requests carefully. A popular, well-reviewed extension is assumed to be safe. This trust persists through ownership changes and updates—exactly the trust that supply chain attacks exploit.
+Users rarely read permission requests carefully. A popular, well-reviewed extension is assumed to be safe. This trust persists through ownership changes and updates, exactly the trust that supply chain attacks exploit.
 
 ## Extension Acquisition and Account Hijacking
 
@@ -77,7 +77,7 @@ Once an account is compromised, attackers can push malicious updates to all inst
 
 Attackers purchase extensions from developers willing to sell. A popular extension with thousands of users has monetary value. Developers may sell for a few thousand dollars, not realizing (or not caring) that buyers intend malicious use.
 
-Purchased extensions are not compromised—they're legitimately transferred. Users receive no notification of ownership changes.
+Purchased extensions are not compromised: they're legitimately transferred. Users receive no notification of ownership changes.
 
 **Abandoned Extension Takeover:**
 
@@ -99,7 +99,7 @@ In June 2020, the original developer sold the extension to an unknown entity. Th
 - Loaded remote scripts from third-party servers
 - Included code capable of executing arbitrary JavaScript
 
-In February 2021, [Google removed the extension][great-suspender] from the Chrome Web Store and disabled it in users' browsers—a relatively rare action that signaled serious concern, with Google's warning stating bluntly that the extension contained malware.
+In February 2021, [Google removed the extension][great-suspender] from the Chrome Web Store and disabled it in users' browsers, a relatively rare action that signaled serious concern, with Google's warning stating bluntly that the extension contained malware.
 
 The delay between ownership change (June 2020) and removal (February 2021) meant malicious code operated in millions of browsers for months.
 
@@ -113,7 +113,7 @@ The official **MEGA.nz** Chrome extension was compromised through developer acco
 
 !!! warning "Speed of Compromise"
 
-    The MEGA.nz malicious version was available for only **4 hours**—yet 1.5 million users were exposed during any browsing in that period. Browser extensions auto-update silently.
+    The MEGA.nz malicious version was available for only **4 hours**, yet 1.5 million users were exposed during any browsing in that period. Browser extensions auto-update silently.
 
 The malicious version was available for [approximately 4 hours][mega-incident] before detection. MEGA.nz confirmed that an attacker had compromised their Chrome Web Store account and uploaded a malicious version of the extension.
 
@@ -135,7 +135,7 @@ The ad-blocking function continued normally, disguising the malicious additions.
 
 In July 2025, security researchers discovered that **Urban VPN Proxy** and seven related extensions were secretly capturing and selling AI conversations from over 8 million users across Chrome and Edge.[^urban-vpn]
 
-The extensions—marketed as privacy and security tools—operated a massive surveillance operation targeting eight AI platforms: ChatGPT, Claude, Gemini, Microsoft Copilot, Perplexity, DeepSeek, Grok, and Meta AI. The harvesting mechanism was sophisticated:
+The extensions, marketed as privacy and security tools, operated a massive surveillance operation targeting eight AI platforms: ChatGPT, Claude, Gemini, Microsoft Copilot, Perplexity, DeepSeek, Grok, and Meta AI. The harvesting mechanism was sophisticated:
 
 1. When users visited AI platforms, the extension injected scripts that intercepted `fetch()` and `XMLHttpRequest`
 2. All prompts, responses, timestamps, and conversation IDs were extracted before rendering
@@ -146,7 +146,7 @@ The extensions—marketed as privacy and security tools—operated a massive sur
 
     All affected extensions carried "Featured" badges from Google and Microsoft, suggesting they had passed human review. The badges failed to detect this malicious activity despite platform policies prohibiting data broker transfers.
 
-The harvesting functionality was hardcoded with no user toggle and operated regardless of VPN connection status. Users who installed before July 2025 received no updated consent prompts—the auto-update mechanism silently added harvesting capabilities.
+The harvesting functionality was hardcoded with no user toggle and operated regardless of VPN connection status. Users who installed before July 2025 received no updated consent prompts: the auto-update mechanism silently added harvesting capabilities.
 
 This incident demonstrates a concerning evolution: extensions that specifically target AI interactions as high-value data. Users sharing sensitive information, business strategies, or personal details with AI assistants had no indication their conversations were being captured and sold.
 
@@ -154,9 +154,9 @@ This incident demonstrates a concerning evolution: extensions that specifically 
 
 **Fake ClawdBot VS Code Extension (2026):**
 
-In January 2026, a VS Code extension branded "ClawdBot Agent" was discovered to be a trojan that installed ScreenConnect RAT on victim machines.[^aikido-clawdbot-ext] The extension appeared in the marketplace before the legitimate Clawdbot project—an open-source AI personal agent later renamed to Moltbot, then OpenClaw—had published any official extension. This is a form of **namesquatting**: attackers claim a project's name in a distribution channel before the project itself does.
+In January 2026, a VS Code extension branded "ClawdBot Agent" was discovered to be a trojan that installed ScreenConnect RAT on victim machines.[^aikido-clawdbot-ext] The extension appeared in the marketplace before the legitimate Clawdbot project (an open-source AI personal agent later renamed to Moltbot, then OpenClaw) had published any official extension. This is a form of **namesquatting**: attackers claim a project's name in a distribution channel before the project itself does.
 
-The attack exploited the brand confusion surrounding Clawdbot's rapid renames (Clawdbot → Moltbot → OpenClaw). Users searching for official tooling had no reliable way to distinguish the trojan from a legitimate extension. The case illustrates that extension marketplace impersonation is particularly effective when targeting viral, fast-moving projects where users do not know what "official" looks like yet. For the broader OpenClaw supply chain attack campaign—including malicious skills, a one-click RCE vulnerability, and an agent platform database exposure—see Section 10.3.
+The attack exploited the brand confusion surrounding Clawdbot's rapid renames (Clawdbot → Moltbot → OpenClaw). Users searching for official tooling had no reliable way to distinguish the trojan from a legitimate extension. The case illustrates that extension marketplace impersonation is particularly effective when targeting viral, fast-moving projects where users do not know what "official" looks like yet. For the broader OpenClaw supply chain attack campaign (including malicious skills, a one-click RCE vulnerability, and an agent platform database exposure) see Section 10.3.
 
 [^aikido-clawdbot-ext]: Aikido Security, "Fake Clawdbot VS Code Extension Installs ScreenConnect RAT," January 2026, https://www.aikido.dev/blog/fake-clawdbot-vscode-extension-malware
 
@@ -176,7 +176,7 @@ Google introduced **Manifest V3** as a major revision to the Chrome extension pl
 
 **Security Benefits:**
 
-The remote code restriction is particularly significant for supply chain security. Previous attacks often used minimal extension code that downloaded and executed payloads from remote servers—code that could change after review. Manifest V3 requires all executable code to be present during review.
+The remote code restriction is particularly significant for supply chain security. Previous attacks often used minimal extension code that downloaded and executed payloads from remote servers: code that could change after review. Manifest V3 requires all executable code to be present during review.
 
 **Limitations and Criticism:**
 
@@ -265,7 +265,7 @@ Enterprise management tools can enforce:
 
 ## IDE Extension Marketplaces: A Distinct Ecosystem
 
-While browser extensions target end users' browsing activity, **IDE extension marketplaces** represent a related but distinct supply chain ecosystem that targets *developers specifically* — and the consequences of compromise are correspondingly more severe for upstream software security.
+While browser extensions target end users' browsing activity, **IDE extension marketplaces** represent a related but distinct supply chain ecosystem that targets *developers specifically*, and the consequences of compromise are correspondingly more severe for upstream software security.
 
 The two major IDE extension distribution channels are:
 
@@ -283,7 +283,7 @@ The two major IDE extension distribution channels are:
 | **Update model** | Auto-update via browser | Auto-update via editor |
 | **Manifest version controls** | Chrome Manifest V3 restrictions | No equivalent restriction framework |
 
-The critical difference is **supply chain leverage**: a compromised browser extension steals passwords and browsing data from end users. A compromised IDE extension steals signing keys, registry tokens, SSH keys, and cloud credentials from developers — enabling the attacker to publish malicious packages, tamper with CI/CD pipelines, or access production infrastructure. A single compromised developer can become the vector for an upstream supply-chain attack affecting thousands of downstream users.
+The critical difference is **supply chain leverage**: a compromised browser extension steals passwords and browsing data from end users. A compromised IDE extension steals signing keys, registry tokens, SSH keys, and cloud credentials from developers: enabling the attacker to publish malicious packages, tamper with CI/CD pipelines, or access production infrastructure. A single compromised developer can become the vector for an upstream supply-chain attack affecting thousands of downstream users.
 
 **GlassWASM and the Open VSX Attack Pattern:**
 
@@ -313,10 +313,6 @@ The GlassWASM campaign demonstrated this risk concretely. In June 2026, Socket r
 5. **Use multiple browser profiles.** Isolate extensions that need broad permissions in dedicated profiles.
 
 **For Enterprises:**
-
-!!! tip "Most Effective Control"
-
-    Extension allowlisting—permitting only reviewed and approved extensions—is the single most effective control for enterprise browser security.
 
 1. **Implement extension allowlisting.** Permit only reviewed and approved extensions. This is the single most effective control.
 

@@ -6,7 +6,7 @@ This appendix provides quick-reference security guides for major programming lan
 
 ### JavaScript/npm Security Best Practices
 
-The JavaScript ecosystem, centered on npm (Node Package Manager), is the largest package ecosystem with over 2 million packages. Its size and the tendency toward many small dependencies create unique supply chain challenges.
+The JavaScript ecosystem, centered on npm (Node Package Manager), is the largest package ecosystem, with more than 4 million packages. Its size and the tendency toward many small dependencies create unique supply chain challenges.
 
 #### Lockfile and Pinning
 
@@ -30,7 +30,7 @@ npm update lodash
 
 - Use `npm ci` in CI/CD pipelines instead of `npm install`
 - Set `save-exact=true` in `.npmrc` to pin exact versions by default
-- Review lockfile changes in pull requests—large diffs may indicate supply chain attacks
+- Review lockfile changes in pull requests: large diffs may indicate supply chain attacks
 
 ```ini
 # .npmrc
@@ -110,7 +110,7 @@ npm token create --cidr=192.168.1.0/24
 - [ ] Dependencies reviewed before updating lockfile
 - [ ] `postinstall` scripts audited in dependencies
 
-**Documentation**: npm Security Best Practices[^npm-security]
+**Documentation**: npm Security Best Practices[^npm-security-appg]
 
 ---
 
@@ -374,7 +374,7 @@ mvn org.cyclonedx:cyclonedx-maven-plugin:makeAggregateBom
 mvn capslock:analyze
 ```
 
-**JCapsLock** performs capability analysis on Java dependencies, showing which packages can access files, network, or execute code. This helps detect unexpected behavior in dependencies—useful for identifying supply chain compromises that don't yet have CVEs.
+**JCapsLock** performs capability analysis on Java dependencies, showing which packages can access files, network, or execute code. This helps detect unexpected behavior in dependencies: useful for identifying supply chain compromises that don't yet have CVEs.
 
 #### Signing and Verification
 
@@ -497,7 +497,7 @@ capslock -packages=./...
 gosec -fmt=json -out=results.json ./...
 ```
 
-**Capslock** analyzes what your Go packages and dependencies can actually *do*—file access, network calls, process execution. This is particularly valuable for auditing dependencies, as unexpected capabilities (like a data parser with network access) may indicate supply chain compromise. For Go packages, results are also available on deps.dev without local installation.
+**Capslock** analyzes what your Go packages and dependencies can actually *do*: file access, network calls, process execution. This is particularly valuable for auditing dependencies, as unexpected capabilities (like a data parser with network access) may indicate supply chain compromise. For Go packages, results are also available on deps.dev without local installation.
 
 #### Signing and Verification
 
@@ -889,7 +889,7 @@ Use these condensed checklists for rapid security assessment across ecosystems.
 6. **Automate updates**: Use Dependabot, Renovate, or equivalent
 7. **Monitor advisories**: Subscribe to security notifications for critical dependencies
 
-[^npm-security]: npm, "Securing your code," https://docs.npmjs.com/packages-and-modules/securing-your-code
+[^npm-security-appg]: npm, "Securing your code," https://docs.npmjs.com/packages-and-modules/securing-your-code
 
 [^uv-docs]: Astral, "uv Documentation," https://docs.astral.sh/uv/
 

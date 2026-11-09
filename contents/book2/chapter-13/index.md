@@ -1,6 +1,6 @@
 # Chapter 13: Dependency Management Strategies
 
-Chapter 13 provides a comprehensive framework for managing software dependencies securely throughout their lifecycle. The chapter addresses the fundamental challenge that every dependency represents both a trust decision and an ongoing security commitment.
+Chapter 13 provides a framework for managing software dependencies securely throughout their lifecycle. The chapter addresses the fundamental challenge that every dependency represents both a trust decision and an ongoing security commitment.
 
 The chapter begins with dependency selection criteria, establishing a tiered evaluation process that assesses security, maintenance health, functionality fit, and licensing compatibility before adoption. Special attention is given to validating AI-suggested dependencies, which may be hallucinated or maliciously registered packages.
 

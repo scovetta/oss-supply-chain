@@ -1,6 +1,6 @@
 # Chapter 18: Securing Distribution and Deployment
 
-This chapter provides comprehensive guidance on securing the distribution layer of the software supply chain, covering package registries, container images, policy enforcement, and runtime verification.
+This chapter covers securing the distribution layer of the software supply chain, covering package registries, container images, policy enforcement, and runtime verification.
 
 The chapter begins by examining security features across major package registries (npm, PyPI, Maven Central, NuGet, RubyGems), including authentication models, multi-factor authentication enforcement, namespace protection, package signing with Sigstore, and trusted publishing through OIDC integration. These controls address account takeover risks that have enabled high-profile supply chain attacks.
 

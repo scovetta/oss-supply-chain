@@ -6,11 +6,11 @@ icon: "lucide/globe"
 
 # 9.4 Client-Side JavaScript and CDN Supply Chains
 
-The previous sections examined supply chains that operate during development and build—npm packages bundled into applications, mobile SDKs compiled into apps. But the web presents a distinct paradigm: JavaScript loaded directly into users' browsers at runtime from external servers. Every time a page loads, browsers fetch scripts from multiple origins, executing code that can access the page's DOM, user data, and in some cases, cryptographic keys or payment information.
+The previous sections examined supply chains that operate during development and build: npm packages bundled into applications, mobile SDKs compiled into apps. But the web presents a distinct paradigm: JavaScript loaded directly into users' browsers at runtime from external servers. Every time a page loads, browsers fetch scripts from multiple origins, executing code that can access the page's DOM, user data, and in some cases, cryptographic keys or payment information.
 
 !!! danger "Immediate Impact"
 
-    A compromised npm package requires update and deployment cycles before affecting users. A compromised runtime script affects users on the **next page load**—instantly, globally, without any action by site operators.
+    A compromised npm package requires update and deployment cycles before affecting users. A compromised runtime script affects users on the **next page load**, instantly, globally, without any action by site operators.
 
 This **client-side supply chain** operates in real-time, with trust established at the moment of execution rather than during development. A CDN compromise or malicious script injection affects users immediately, without any deployment by the site operator.
 
@@ -44,7 +44,7 @@ Loading scripts from external sources creates unique risks:
 
 **Dynamic Trust:**
 
-Build-time dependencies are fixed when you deploy. Runtime dependencies are trusted at every page load. If an external script changes between page loads, your site behavior changes—potentially maliciously.
+Build-time dependencies are fixed when you deploy. Runtime dependencies are trusted at every page load. If an external script changes between page loads, your site behavior changes, potentially maliciously.
 
 **No Review Opportunity:**
 
@@ -52,7 +52,7 @@ With npm packages, you can theoretically review code before bundling. With runti
 
 **Immediate Impact:**
 
-A compromised npm package requires update and deployment cycles before affecting users. A compromised runtime script affects users on the next page load—instantly, globally.
+A compromised npm package requires update and deployment cycles before affecting users. A compromised runtime script affects users on the next page load, instantly, globally.
 
 **Transitive Loading:**
 
@@ -162,7 +162,7 @@ In December 2023, a supply chain attack on Ledger's Connect Kit[^ledger-attack] 
 
 !!! example "Ledger Connect Kit Attack (2023)"
 
-    A phished npm account led to **$600,000+ stolen** in just **5 hours**. The malicious library injected transaction drainers into cryptocurrency applications—CDN caching extended the exposure window even after the fix.
+    A phished npm account led to **$600,000+ stolen** in just **5 hours**. The malicious library injected transaction drainers into cryptocurrency applications: CDN caching extended the exposure window even after the fix.
 
 **Background:**
 

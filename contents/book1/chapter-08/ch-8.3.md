@@ -6,7 +6,7 @@ icon: "lucide/message-circle"
 
 # 8.3 Social Engineering Targeting Maintainers
 
-Technical security controls—authentication, code signing, automated scanning—form important defenses against supply chain attacks. But attackers increasingly bypass these controls by targeting the humans who operate them. Open source maintainers, often working in isolation with limited resources, present attractive targets for **social engineering**: the manipulation of people into taking actions that benefit the attacker.
+Technical security controls (authentication, code signing, automated scanning) form important defenses against supply chain attacks. But attackers increasingly bypass these controls by targeting the humans who operate them. Open source maintainers, often working in isolation with limited resources, present attractive targets for **social engineering**: the manipulation of people into taking actions that benefit the attacker.
 
 [The XZ Utils backdoor][xz-backdoor] (Section 7.5) demonstrated this approach at its most sophisticated: a multi-year campaign combining fake identity construction, trust building through legitimate contributions, and coordinated pressure from sock puppet accounts. But social engineering against maintainers takes many forms, from crude phishing to elaborate relationship building. Understanding these tactics is essential for maintainers seeking to protect themselves and their projects.
 
@@ -81,7 +81,7 @@ The XZ Utils attack represents the most sophisticated social engineering campaig
 
 **Phase 1: Establishing the Persona (2021)**
 
-The "Jia Tan" identity (JiaT75 on GitHub) was created in early 2021, with [the first XZ Utils contribution submitted in February 2022][xz-timeline]. The early contributions were technically competent but unremarkable—exactly what a genuine new contributor might submit.
+The "Jia Tan" identity (JiaT75 on GitHub) was created in early 2021, with [the first XZ Utils contribution submitted in February 2022][xz-timeline]. The early contributions were technically competent but unremarkable, exactly what a genuine new contributor might submit.
 
 Key characteristics of the persona construction:
 
@@ -90,7 +90,7 @@ Key characteristics of the persona construction:
 - **Patience**: No rush to gain access or influence; contributions accumulated gradually
 - **Normal behavior**: No unusual patterns that would trigger suspicion
 
-The persona was designed to be forgettable—one more helpful contributor among many.
+The persona was designed to be forgettable: one more helpful contributor among many.
 
 **Phase 2: The Pressure Campaign (2022)**
 
@@ -104,13 +104,13 @@ Another account, "[Dennis Ens][xz-ens]," echoed similar frustrations:
 
 > "I am sorry about your mental health issues, but its important to be aware of your own limits. I get that this is a hobby project for all contributors, but the community desires more."
 
-These messages created coordinated pressure on the maintainer, framing Collin's reasonable pace as neglect and explicitly calling for new maintainers—precisely what Jia Tan would become.
+These messages created coordinated pressure on the maintainer, framing Collin's reasonable pace as neglect and explicitly calling for new maintainers, precisely what Jia Tan would become.
 
 [Collin's response][xz-response] revealed his vulnerability:
 
 > "I haven't lost interest but my ability to care has been limited mostly due to longterm mental health issues but also due to some other things... It's also good to keep in mind that this is an unpaid hobby project."
 
-This response—honest about his struggles—provided exactly the opening the attackers needed. Here was an exhausted maintainer explicitly acknowledging limited capacity, primed to accept help from a seemingly trustworthy contributor.
+This response, honest about his struggles, provided exactly the opening the attackers needed. Here was an exhausted maintainer explicitly acknowledging limited capacity, primed to accept help from a seemingly trustworthy contributor.
 
 **Phase 3: Gaining Maintainer Access (2022-2023)**
 
@@ -123,7 +123,7 @@ Over 2023, Jia Tan became increasingly central to the project:
 - Reviewing contributions from others
 - Effectively becoming the primary active maintainer
 
-Collin, dealing with health issues and grateful for the help, reduced his involvement. This was entirely reasonable behavior—exactly what any overwhelmed maintainer might do when a capable contributor stepped up.
+Collin, dealing with health issues and grateful for the help, reduced his involvement. This was entirely reasonable behavior, exactly what any overwhelmed maintainer might do when a capable contributor stepped up.
 
 **Phase 4: Inserting the Backdoor (2024)**
 
@@ -134,11 +134,11 @@ With maintainer access established and Collin's reduced involvement, Jia Tan ins
 - Careful targeting of specific build environments
 - Gradual introduction across multiple commits
 
-The attack was discovered by chance—a performance regression that attracted the attention of Andres Freund. Without that accident, the backdoor would likely have reached stable Linux distributions, affecting virtually every Linux server in the world.
+The attack was discovered by chance, a performance regression that attracted the attention of Andres Freund. Without that accident, the backdoor would likely have reached stable Linux distributions, affecting virtually every Linux server in the world.
 
 ## Sock Puppets and Manufactured Reputation
 
-The XZ Utils attack used **sock puppet accounts**—fake personas created to simulate community support or pressure. This technique is increasingly common against open source projects.
+The XZ Utils attack used **sock puppet accounts**: fake personas created to simulate community support or pressure. This technique is increasingly common against open source projects.
 
 **Coordinated Pressure:**
 
@@ -260,7 +260,7 @@ Keep records of why you granted or denied access, merged or rejected contributio
 
 **Consult Others:**
 
-For significant decisions—especially granting maintainer access—consult other trusted community members, other projects' maintainers, or security contacts. Isolation increases vulnerability.
+For significant decisions, especially granting maintainer access, consult other trusted community members, other projects' maintainers, or security contacts. Isolation increases vulnerability.
 
 **Trust Your Instincts:**
 
@@ -311,7 +311,7 @@ Critical projects should require multiple maintainers with independent identitie
 
 **Maintainer Onboarding Procedures:**
 
-Formal procedures for granting maintainer access—including waiting periods, identity verification, and multiple approvals—raise the bar for attackers.
+Formal procedures for granting maintainer access (including waiting periods, identity verification, and multiple approvals) raise the bar for attackers.
 
 **Community Health Monitoring:**
 

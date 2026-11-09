@@ -10,15 +10,6 @@ Understanding who attacks software supply chains (Section 3.1) is only half the 
 
 ## A Framework for Attack Surfaces
 
-!!! info "The SLSA Framework"
-
-    **Supply-chain Levels for Software Artifacts (SLSA)** identifies threats at each transition from source to deployment:
-    
-    1. **Source** → Threats to code as authored
-    2. **Build** → Threats during transformation to artifact
-    3. **Dependencies** → Threats from external components
-    4. **Deployment** → Threats during distribution and installation
-
 The **[Supply-chain Levels for Software Artifacts (SLSA)][slsa]** framework, developed by Google and now stewarded by the Open Source Security Foundation, provides a useful model for understanding supply chain attack surfaces. SLSA identifies the path from source code to deployed artifact and enumerates threats at each transition:
 
 1. **Source** → Threats to code as authored
@@ -26,11 +17,11 @@ The **[Supply-chain Levels for Software Artifacts (SLSA)][slsa]** framework, dev
 3. **Dependencies** → Threats from external components
 4. **Deployment** → Threats during distribution and installation
 
-We expand this model to include the human and environmental factors that SLSA's technical focus necessarily omits. The attack surface is not merely technical—it includes the people who write code, the systems they work on, and the trust relationships they navigate.
+We expand this model to include the human and environmental factors that SLSA's technical focus necessarily omits. The attack surface is not merely technical: it includes the people who write code, the systems they work on, and the trust relationships they navigate.
 
 ## Source Code Repositories
 
-Source code repositories—GitHub, GitLab, Bitbucket, self-hosted instances—serve as the starting point for most software supply chains. Compromising source creates downstream effects in every artifact built from that source.
+Source code repositories (GitHub, GitLab, Bitbucket, self-hosted instances) serve as the starting point for most software supply chains. Compromising source creates downstream effects in every artifact built from that source.
 
 **Account compromise** provides direct access to modify source code. The **Gentoo GitHub incident** (June 2018) saw attackers gain access to a Gentoo Linux organization administrator account and push malicious commits to the repository.[^gentoo-github] The attackers modified ebuilds (package build scripts) to download malicious payloads. Detection came quickly because the commits were visible, but the incident demonstrated how repository access translates to supply chain access.
 
@@ -38,30 +29,21 @@ Source code repositories—GitHub, GitLab, Bitbucket, self-hosted instances—se
 
 **Malicious commits** can be submitted through compromised accounts or, more subtly, through legitimate-appearing contributions. The **XZ Utils backdoor** entered the repository through commits from an attacker who had gained maintainer trust over two years of legitimate contributions. The SLSA framework addresses this through requirements for code review and verified provenance, but social engineering can subvert review processes (see §6.3 for full technical details and §19.1 for detection story).
 
-**Repository configuration weaknesses** enable attacks even without direct code access. Unprotected branches, missing code review requirements, or overly permissive access controls create opportunities. Exposed secrets in repository history remain a persistent problem—credentials committed accidentally and then "removed" often remain accessible through Git history.
+**Repository configuration weaknesses** enable attacks even without direct code access. Unprotected branches, missing code review requirements, or overly permissive access controls create opportunities. Exposed secrets in repository history remain a persistent problem: credentials committed accidentally and then "removed" often remain accessible through Git history.
 
-**Webhook and integration abuse** exploits the automation connected to repositories. CI/CD pipelines triggered by repository events inherit the permissions of those integrations. Attackers who can trigger builds—sometimes merely by opening a pull request—may be able to exfiltrate secrets or execute code in privileged environments.
+**Webhook and integration abuse** exploits the automation connected to repositories. CI/CD pipelines triggered by repository events inherit the permissions of those integrations. Attackers who can trigger builds, sometimes merely by opening a pull request, may be able to exfiltrate secrets or execute code in privileged environments.
 
 ## Developer Environments
 
-!!! danger "Developer Machines as Targets"
-
-    Developer environments are distributed, heterogeneous, and often poorly secured:
-    
-    - **IDE extensions** execute with developer privileges and access code
-    - **Local tools** (package managers, linters) run frequently with broad access
-    - **Credentials** (SSH keys, API tokens, cloud creds) become targets
-    - **Network position** (coffee shops, conferences) creates interception opportunities
-
 The machines where developers write code represent a distributed, heterogeneous, and often poorly secured attack surface. Compromising a developer's environment provides access to their credentials, their code, and potentially the systems they interact with.
 
-**IDE extensions and plugins** execute with the developer's privileges and access their code. Malicious or compromised extensions can exfiltrate source code, inject backdoors into projects, or steal credentials. The VS Code marketplace, IntelliJ plugin repository, and similar channels present supply chain risks themselves—a compromised popular extension could affect millions of developers.
+**IDE extensions and plugins** execute with the developer's privileges and access their code. Malicious or compromised extensions can exfiltrate source code, inject backdoors into projects, or steal credentials. The VS Code marketplace, IntelliJ plugin repository, and similar channels present supply chain risks themselves, a compromised popular extension could affect millions of developers.
 
 **Local development tools** present similar risks. Package managers, linters, formatters, and other tools run frequently with broad access. The **eslint-scope incident** (July 2018) demonstrated how development tool compromise enables credential theft: a compromised npm package harvested npm tokens from developers who installed it, enabling further supply chain attacks.[^eslint-scope]
 
 [^eslint-scope]: npm, "Details about the event-stream incident and eslint-scope security issue," npm Blog, July 2018; Kompotkot, "Malicious packages in npm," Medium, July 12, 2018.
 
-**Credential exposure** on developer machines provides keys to further access. SSH keys, API tokens, cloud credentials, and package registry tokens stored on local systems become targets. Developers often have elevated access to systems that production code never touches—making their machines valuable targets disproportionate to their visible role.
+**Credential exposure** on developer machines provides keys to further access. SSH keys, API tokens, cloud credentials, and package registry tokens stored on local systems become targets. Developers often have elevated access to systems that production code never touches, making their machines valuable targets disproportionate to their visible role.
 
 **Network position** matters because developers often operate on networks with different security properties than production environments. Coffee shop WiFi, home networks, and conference venues create interception opportunities that enterprise networks mitigate.
 
@@ -69,25 +51,25 @@ The machines where developers write code represent a distributed, heterogeneous,
 
 Build systems transform source code into deployable artifacts. This transformation process is a critical control point: whoever controls the build can modify what users receive regardless of what the source code says.
 
-**Build infrastructure compromise** was the vector for the **SolarWinds attack** (§7.2). Attackers modified the build process to inject malicious code into compiled artifacts while the source code repository remained clean—demonstrating why source code review alone cannot guarantee binary integrity.
+**Build infrastructure compromise** was the vector for the **SolarWinds attack** (§7.2). Attackers modified the build process to inject malicious code into compiled artifacts while the source code repository remained clean, demonstrating why source code review alone cannot guarantee binary integrity.
 
-**CI/CD pipeline manipulation** exploits the automation that has replaced manual builds. The **Codecov breach** (January 2021) compromised a bash script used in CI pipelines to upload coverage data.[^codecov-breach] The modified script exfiltrated environment variables from builds—including credentials and secrets used by downstream systems. The attack demonstrates both the criticality of build infrastructure and CI/CD environments' access to sensitive credentials. See §19.1 for the detection case study.
+**CI/CD pipeline manipulation** exploits the automation that has replaced manual builds. The **Codecov breach** (January 2021) compromised a bash script used in CI pipelines to upload coverage data.[^codecov-breach] The modified script exfiltrated environment variables from builds, including credentials and secrets used by downstream systems. The attack demonstrates both the criticality of build infrastructure and CI/CD environments' access to sensitive credentials. See §19.1 for the detection case study.
 
 [^codecov-breach]: Codecov, "Bash Uploader Security Update," Codecov Blog, April 2021, https://about.codecov.io/security-update/; CISA, "Remediate Codecov Supply-Chain Compromise," April 2021.
 
 **Build script modification** can occur through the repository itself, since build configurations (`Makefile`, `build.gradle`, `package.json` scripts) typically live alongside source code. An attacker who can modify build scripts can introduce arbitrary behavior without touching application code. The scripts that run during `npm install`, `pip install`, or Maven builds execute with full user privileges.
 
-**Compiler and toolchain attacks** represent Thompson's "Trusting Trust" scenario made practical. While actual compiler backdoors remain rare, build toolchains include many components—preprocessors, linkers, optimization passes—that could be subverted. Container build environments inherit whatever tools are in base images, extending trust transitively.
+**Compiler and toolchain attacks** represent Thompson's "Trusting Trust" scenario made practical. While actual compiler backdoors remain rare, build toolchains include many components (preprocessors, linkers, optimization passes) that could be subverted. Container build environments inherit whatever tools are in base images, extending trust transitively.
 
 ## Package Registries
 
-Package registries—npm, PyPI, Maven Central, and the ecosystems surveyed in Section 2.4—serve as distribution bottlenecks where compromises have maximum leverage. A malicious package in a popular registry can reach millions of systems.
+Package registries (npm, PyPI, Maven Central, and the ecosystems surveyed in Section 2.4) serve as distribution bottlenecks where compromises have maximum leverage. A malicious package in a popular registry can reach millions of systems.
 
 **Account takeover** enables publishing malicious versions of legitimate packages. The **ua-parser-js attack** (October 2021) demonstrates this vector: attackers compromised the maintainer's npm account and published malicious versions of a highly-popular package (7 million weekly downloads).[^ua-parser-js] Registry security features like 2FA adoption directly affect this attack surface. See §6.4 for the full case study and §19.1 for detection through automated scanning.
 
 [^ua-parser-js]: Ax Sharma, "Popular npm package ua-parser-js poisoned with cryptominer, password stealer," BleepingComputer, October 22, 2021; GitHub Advisory GHSA-pjwm-rvh2-c87w.
 
-**Typosquatting** exploits human error in package names. Attackers register packages with names similar to popular packages—`coffe-script` for `coffee-script`, `cross-env.js` for `cross-env`—hoping developers will make typos. [Sonatype's 2026 report][sonatype-2026] documented 454,600 malicious packages discovered in major ecosystems in 2025 alone—part of a cumulative total exceeding 1.23 million—many using typosquatting techniques.
+**Typosquatting** exploits human error in package names. Attackers register packages with names similar to popular packages (`coffe-script` for `coffee-script`, `cross-env.js` for `cross-env`) hoping developers will make typos. [Sonatype's 2026 report][sonatype-2026] documented 454,600 malicious packages discovered in major ecosystems in 2025 alone, part of a cumulative total exceeding 1.23 million, many using typosquatting techniques.
 
 **Dependency confusion** exploits namespace collisions between public and private registries. If an organization uses internal packages named `company-utils`, an attacker can publish `company-utils` to public npm. Misconfigured package managers may prefer the public version, pulling attacker-controlled code into builds. Alex Birsan's 2021 research demonstrated successful dependency confusion attacks against Apple, Microsoft, and dozens of other companies.[^birsan-dependency-confusion]
 
@@ -101,7 +83,7 @@ Between build completion and production execution lies deployment infrastructure
 
 **Container registry compromise** provides access to the images deployed across organizations. Docker Hub has experienced credential breaches; private registries may have weaker security. The **Codecov attack** originated in a flaw in Codecov's Docker image creation process, showing how weaknesses in container build workflows can expose credentials used later in delivery and deployment.
 
-**Artifact repository manipulation** affects organizations using repository managers like Nexus, Artifactory, or cloud equivalents. These systems cache and proxy external packages while hosting internal artifacts—combining external supply chain risk with internal infrastructure criticality.
+**Artifact repository manipulation** affects organizations using repository managers like Nexus, Artifactory, or cloud equivalents. These systems cache and proxy external packages while hosting internal artifacts, combining external supply chain risk with internal infrastructure criticality.
 
 **CDN and distribution network attacks** can modify content in transit at scale. The **Polyfill.io incident** (June 2024) demonstrated how CDN compromise affects supply chains: after new owners acquired the popular polyfill.io domain, they began serving malicious JavaScript to sites that included the CDN-hosted script. Over 100,000 websites were affected because they referenced a URL they did not control.
 
@@ -117,7 +99,7 @@ Software updates present a unique attack surface because they leverage existing 
 
 [^asus-shadowhammer]: Kim Zetter, "The Hunt for the Missing Data from the World's Biggest Hack," Wired, October 23, 2019; Kaspersky, "Operation ShadowHammer: a high-profile supply chain attack," Kaspersky Securelist, March 2019.
 
-**Hosting infrastructure compromise** represents a different model for attacking update mechanisms. In 2025, attackers compromised the shared hosting provider used by Notepad++ to intercept update requests and selectively redirect targeted victims to malicious servers — while legitimate users received normal updates.[^kaspersky-notepadpp] Unlike ShadowHammer, where all users received the same backdoored binary and targeting was implemented in the payload, the Notepad++ attack served entirely different binaries to different users based on network-level targeting. The attack persisted for several months, in part because most users never encountered malicious content. See Section 7.9 for the full case study.
+**Hosting infrastructure compromise** represents a different model for attacking update mechanisms. In 2025, attackers compromised the shared hosting provider used by Notepad++ to intercept update requests and selectively redirect targeted victims to malicious servers, while legitimate users received normal updates.[^kaspersky-notepadpp] Unlike ShadowHammer, where all users received the same backdoored binary and targeting was implemented in the payload, the Notepad++ attack served entirely different binaries to different users based on network-level targeting. The attack persisted for several months, in part because most users never encountered malicious content. See Section 7.9 for the full case study.
 
 [^kaspersky-notepadpp]: Kaspersky Securelist, "A Supply Chain Attack on Notepad++," February 2, 2026, https://securelist.com/notepad-supply-chain-attack/118708/
 
@@ -145,7 +127,7 @@ Technical attack surfaces are only part of the picture. Human trust relationship
 
 The newest category of attack surface involves AI coding assistants that have become intermediaries between developers and the packages they choose.
 
-**Hallucinated packages** occur when AI assistants suggest packages that do not exist. Attackers can monitor AI suggestions, identify commonly hallucinated package names, and register those names with malicious implementations. [Research by Vulcan Cyber][vulcan-hallucination] found that AI assistants repeatedly suggested specific non-existent packages—creating predictable opportunities for attackers.
+**Hallucinated packages** occur when AI assistants suggest packages that do not exist. Attackers can monitor AI suggestions, identify commonly hallucinated package names, and register those names with malicious implementations. [Research by Vulcan Cyber][vulcan-hallucination] found that AI assistants repeatedly suggested specific non-existent packages, creating predictable opportunities for attackers.
 
 **Training data poisoning** could influence AI suggestions toward malicious packages. If attackers can inject examples into AI training data that associate certain contexts with certain dependencies, the AI may recommend those dependencies to future users.
 

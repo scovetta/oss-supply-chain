@@ -1,6 +1,6 @@
 # Chapter 21: Building a Supply Chain Security Program
 
-This chapter provides a comprehensive guide to establishing and maturing an organizational supply chain security program. It addresses the fundamental challenge that supply chain security spans organizational boundaries, requiring coordination across security, engineering, legal, compliance, and executive leadership teams.
+This chapter is a practical guide to establishing and maturing an organizational supply chain security program. It addresses the fundamental challenge that supply chain security spans organizational boundaries, requiring coordination across security, engineering, legal, compliance, and executive leadership teams.
 
 The chapter begins by examining organizational ownership models, comparing centralized, federated, and hybrid approaches. It emphasizes the importance of clear accountability through RACI charts and the role of Open Source Program Offices (OSPOs) in coordinating open source engagement. Executive sponsorship is identified as critical for securing resources and resolving cross-functional conflicts.
 

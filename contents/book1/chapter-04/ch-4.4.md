@@ -80,12 +80,6 @@ GOAL: Execute malicious code in target's production environment
     Cost: High | Likelihood: Low | Detection: Medium
 ```
 
-!!! tip "Key Insights from Attack Tree Analysis"
-
-    - **Lowest-cost paths**: Credential compromise (phishing, credential stuffing) and secrets leakage from build systems—attractive to resource-constrained attackers
-    - **Highest-likelihood paths**: Transitive dependencies receive less scrutiny and their maintainers may be more susceptible to social engineering
-    - **XZ Utils pattern**: Expensive in time but high success and very low detection probability—viable for nation-state actors
-
 **Analysis of this tree** reveals several insights:
 
 The lowest-cost paths involve credential compromise (phishing, credential stuffing) and secrets leakage from build systems. These paths require minimal investment and have reasonable success probability, making them attractive to resource-constrained attackers.
@@ -98,7 +92,7 @@ Dependency confusion provides a medium-cost path with reasonable likelihood, par
 
 ## Example: Data Exfiltration Through Build Systems
 
-A different attacker goal—stealing source code and secrets through build infrastructure—produces a different tree:
+A different attacker goal, stealing source code and secrets through build infrastructure, produces a different tree:
 
 ```
 GOAL: Exfiltrate secrets and source code from target's CI/CD
@@ -146,7 +140,7 @@ GOAL: Exfiltrate secrets and source code from target's CI/CD
 
 **Analysis of this tree** highlights that:
 
-The Codecov attack pattern (third-party integration compromise) appears as a medium-cost, medium-likelihood path with low detection probability—explaining why this attack vector has been successful in practice.
+The Codecov attack pattern (third-party integration compromise) appears as a medium-cost, medium-likelihood path with low detection probability, explaining why this attack vector has been successful in practice.
 
 The attack requires successful completion of multiple AND conditions: gaining execution, accessing secrets, and exfiltrating without detection. This creates multiple defensive opportunities; blocking any stage prevents the attack from succeeding.
 
@@ -214,7 +208,7 @@ For AND nodes, overall likelihood is the product of child likelihoods; overall c
 
 Attack trees identify where defenses provide the greatest leverage:
 
-**Convergence points** are nodes through which multiple attack paths pass. In the production compromise tree, "gain execution in build environment" is a convergence point—many attack paths require it. Securing build environment execution provides leverage against multiple threats.
+**Convergence points** are nodes through which multiple attack paths pass. In the production compromise tree, "gain execution in build environment" is a convergence point: many attack paths require it. Securing build environment execution provides leverage against multiple threats.
 
 **Low-cost, high-likelihood nodes** represent attractive paths that defenders should address first. If credential stuffing against maintainer accounts is low-cost with medium likelihood, enforcing MFA across the ecosystem provides high-impact defense.
 
@@ -243,7 +237,7 @@ Several tools can support attack tree development or related threat modeling wor
 
 **Text-based representations** using indentation (as in this section's examples) are simple to create and version-control, making them practical for teams that want to maintain trees alongside code.
 
-For most organizations, we recommend starting with simple tools—text files or general-purpose diagrams—and adopting specialized tools only if quantitative analysis or complex tree management becomes necessary. The value of attack trees lies in the thinking process they structure, not in the sophistication of the tools used to draw them.
+For most organizations, we recommend starting with simple tools, text files or general-purpose diagrams, and adopting specialized tools only if quantitative analysis or complex tree management becomes necessary. The value of attack trees lies in the thinking process they structure, not in the sophistication of the tools used to draw them.
 
 Attack trees connect directly to the red teaming approaches discussed in Book 2, Chapter 15. The trees you construct during threat modeling become roadmaps for offensive testing, validating whether the attack paths you identified are actually viable and whether the defenses you implemented actually work.
 ![Attack tree: compromising production via dependencies](img/ch-4-attack-tree.svg)

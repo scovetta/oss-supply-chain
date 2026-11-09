@@ -14,7 +14,7 @@ Detailed case studies illustrate attack patterns: the event-stream compromise sh
 
 Advanced techniques including star-jacking, contribution fraud, manifest confusion, and lockfile injection show how attackers manufacture credibility and exploit ecosystem mechanics. Multi-stage attacks like XZ Utils demonstrate nation-state-level patience in compromising critical infrastructure.
 
-Finally, the chapter introduces slopsquatting, a novel threat where attackers register package names that AI coding assistants hallucinate. As developers increasingly rely on AI recommendations, this attack vector scales with AI adoption, requiring new verification practices to prevent installing attacker-controlled packages.
+Finally, the chapter introduces slopsquatting, in which attackers register package names that AI coding assistants hallucinate, and follows AI's effect on the other side of the ecosystem: the vulnerability reports maintainers receive. That story moved fast. Fake "slop" reports drove curl, GNOME, and others to end their bug bounties in early 2026, and by mid-year the problem had become a flood of mostly accurate AI-assisted reports that small security teams could not keep up with.
 
 ## Sections
 

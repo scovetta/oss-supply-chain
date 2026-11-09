@@ -8,17 +8,13 @@ icon: "lucide/shuffle"
 
 In February 2021, security researcher Alex Birsan published research that would reshape enterprise understanding of software supply chain risk. By exploiting a simple logic flaw in how package managers resolve dependencies, Birsan gained code execution on internal systems at Apple, Microsoft, PayPal, Shopify, Netflix, Tesla, Uber, and dozens of other major companies. His attacks required no authentication, no exploitation of traditional vulnerabilities, and in most cases, no insider knowledge beyond publicly leaked internal package names. The technique, which Birsan called **dependency confusion**, revealed that the boundary between public and private package ecosystems was far more porous than most organizations realized.
 
-!!! danger "$130,000+ in Bug Bounties"
-
-    By exploiting dependency confusion, researcher Alex Birsan gained code execution on internal systems at Apple, Microsoft, PayPal, Netflix, Tesla, Uber, and dozens more—requiring no authentication, no traditional vulnerabilities, and in most cases, no insider knowledge beyond publicly leaked internal package names.
-
 ## The Public/Private Package Conflict
 
-Modern enterprises use packages from two sources: **public registries** (npm, PyPI, Maven Central) containing open source software, and **private registries** containing proprietary internal packages. This dual-source model is nearly universal—organizations download public dependencies while also maintaining internal libraries shared across teams.
+Modern enterprises use packages from two sources: **public registries** (npm, PyPI, Maven Central) containing open source software, and **private registries** containing proprietary internal packages. This dual-source model is nearly universal: organizations download public dependencies while also maintaining internal libraries shared across teams.
 
 The dependency confusion attack exploits what happens when both sources contain a package with the same name. If a developer requests `company-internal-utils`, where should the package manager look? The public registry? The private registry? Both?
 
-Different package managers answer this question differently, and none of the default behaviors fully anticipated the security implications. Many package managers, when configured to use both public and private sources, would prefer the package with the higher version number—regardless of which source provided it. An attacker who knew the name of an internal package could register that name on a public registry with an extremely high version number, and the victim's build system would fetch the attacker's malicious package instead of the legitimate internal one.
+Different package managers answer this question differently, and none of the default behaviors fully anticipated the security implications. Many package managers, when configured to use both public and private sources, would prefer the package with the higher version number: regardless of which source provided it. An attacker who knew the name of an internal package could register that name on a public registry with an extremely high version number, and the victim's build system would fetch the attacker's malicious package instead of the legitimate internal one.
 
 This is dependency confusion: substituting a public package for a private one by exploiting package resolution logic.
 
@@ -101,7 +97,7 @@ The common vulnerability pattern across ecosystems:
 2. Build requests an internal package by name
 3. Package manager finds versions in both sources (internal registry and attacker-controlled public package)
 4. Package manager selects the higher version number
-5. Attacker's package—with version 999.0.0—wins
+5. Attacker's package, with version 999.0.0, wins
 
 The version number mechanism is key. Attackers cannot generally predict exact version numbers of internal packages, but they can publish extremely high version numbers that exceed any plausible internal version.
 
@@ -111,7 +107,7 @@ Each package ecosystem presented distinct vulnerability characteristics:
 
 **npm/Node.js**: Organizations using unscoped package names for internal packages were vulnerable. npm's scope feature (`@company/package-name`) provides protection when properly used because scopes are controlled by verified organizations. However, many organizations had legacy internal packages without scopes, or used `--registry` configurations that did not fully isolate sources.
 
-**Python/PyPI**: The pip `--extra-index-url` behavior was particularly problematic. This flag is commonly used in documentation and CI configurations to add private package sources, but it does not disable PyPI—it adds a source while keeping PyPI active. The `--index-url` flag replaces PyPI; if both private and public packages are needed, organizations should use a controlled proxy or constrained configuration rather than assuming pip will prioritize the private index.
+**Python/PyPI**: The pip `--extra-index-url` behavior was particularly problematic. This flag is commonly used in documentation and CI configurations to add private package sources, but it does not disable PyPI: it adds a source while keeping PyPI active. The `--index-url` flag replaces PyPI; if both private and public packages are needed, organizations should use a controlled proxy or constrained configuration rather than assuming pip will prioritize the private index.
 
 Birsan found that many organizations had misconfigured pip, thinking `--extra-index-url` created isolation when it did not.
 
@@ -133,15 +129,11 @@ Birsan's research revealed multiple paths through which internal package names l
 
 **Job postings and public profiles**: Technical job descriptions and LinkedIn profiles mentioned internal frameworks and libraries.
 
-Once attackers know an internal package name exists, they can attempt the attack. The attack does not require knowing version numbers, implementation details, or having any internal access—only the name.
+Once attackers know an internal package name exists, they can attempt the attack. The attack does not require knowing version numbers, implementation details, or having any internal access: only the name.
 
 ## Remediation Strategies
 
 Organizations can protect against dependency confusion through several complementary approaches:
-
-!!! tip "Primary Defense: Use Scoped Packages"
-
-    npm scopes (`@company/package-name`), Python namespace packages, and similar mechanisms bind package names to verified organizational identities. Attackers cannot register packages under your scope/namespace. This is the most robust protection.
 
 **Use scoped or namespaced packages**: npm scopes (`@company/package-name`), Python namespace packages, and similar mechanisms bind package names to verified organizational identities. Attackers cannot register packages under your scope/namespace. This is the most robust protection.
 
@@ -184,13 +176,13 @@ Following Birsan's publication, package ecosystems implemented various mitigatio
 
 [**GitHub Advisory Database**][github-advisory] added guidance on dependency confusion remediation.
 
-Despite these improvements, the core vulnerability—ambiguity in package resolution across multiple sources—remains a configuration challenge rather than a solved problem. Organizations must actively implement protections; default configurations often remain vulnerable.
+Despite these improvements, the core vulnerability (ambiguity in package resolution across multiple sources) remains a configuration challenge rather than a solved problem. Organizations must actively implement protections; default configurations often remain vulnerable.
 
 ## Ongoing Relevance
 
 Dependency confusion remains an active attack vector. Security firms regularly discover malicious packages exploiting the technique. Organizations that have not implemented specific mitigations continue to be exposed.
 
-The attack's effectiveness derives from exploiting legitimate functionality rather than bugs. Package managers are working as designed—the problem is that design did not anticipate adversarial use of public registries to target private package names.
+The attack's effectiveness derives from exploiting legitimate functionality rather than bugs. Package managers are working as designed: the problem is that design did not anticipate adversarial use of public registries to target private package names.
 
 We recommend treating dependency confusion mitigation as a required security control for any organization using private packages:
 
@@ -204,7 +196,7 @@ We recommend treating dependency confusion mitigation as a required security con
 
 5. **Educate development teams**: Ensure developers understand the risk and follow secure configuration practices.
 
-The dependency confusion attack demonstrated that supply chain security extends beyond malicious packages intentionally installed—it includes the mechanics of how package managers select which package to install in the first place. Organizations must control not just what packages they approve, but how their build systems resolve package names to specific sources.
+The dependency confusion attack demonstrated that supply chain security extends beyond malicious packages intentionally installed: it includes the mechanics of how package managers select which package to install in the first place. Organizations must control not just what packages they approve, but how their build systems resolve package names to specific sources.
 
 [^birsan-research]: Alex Birsan, "Dependency Confusion: How I Hacked Into Apple, Microsoft and Dozens of Other Companies," Medium, February 2021, https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610
 

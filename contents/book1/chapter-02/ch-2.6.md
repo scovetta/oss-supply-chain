@@ -10,19 +10,15 @@ The previous sections have documented a paradox: open source software creates tr
 
 ## The Free-Rider Problem and Public Goods
 
-!!! info "Open Source as a Public Good"
-
-    Open source is **non-excludable** (anyone can use it) and **non-rivalrous** (your use doesn't diminish mine). This makes it a *public good*—like national defense or clean air—systematically underproduced by markets due to the **free-rider problem**: when people can benefit without paying, rational actors choose not to pay.
-
 Economists classify goods along two dimensions: whether they are **excludable** (can people be prevented from using them?) and whether they are **rivalrous** (does one person's use diminish what's available to others?). Open source software is both non-excludable—anyone can download and use it—and non-rivalrous—your use of a library doesn't prevent my use of it. This makes open source software a **public good**, the same economic category as national defense, clean air, or public parks.
 
 Public goods are systematically underproduced by markets because of the **free-rider problem**. When people can benefit from a resource without paying for it, rational economic actors choose not to pay. If your company can use an open source library without contributing money or code, why would you contribute? Your competitors who don't contribute get the same software at lower cost, gaining an advantage.
 
 This dynamic explains why millions of companies use open source while vanishingly few contribute to its maintenance. According to [Tidelift's surveys][tidelift-2024], the median maintainer of even widely-used packages receives effectively zero corporate sponsorship. The [2024 Harvard Business School study on open source value][harvard-oss-value] estimated that while demand-side value reaches $8.8 trillion, supply-side investment is orders of magnitude smaller. The gap between value extracted and value reinvested represents the free-rider problem operating at global scale.
 
-The puzzle, as ecosystem researcher Andrew Nesbitt observes, is that [open source violates nearly every prediction standard market theory makes][nesbitt-invisible-hand]—public goods should be underproduced, yet npm hosts over five million packages; rising demand should raise prices or attract more suppliers, yet single maintainers carry libraries with millions of weekly downloads and over half of tracked packages have exactly one maintainer. Nesbitt's conclusion matters for policy: open source persists as overlapping gift economies and reputation systems rather than markets, which is why purely market-styled fixes—bounties, tokenized rewards—often misdiagnose the problem they claim to solve. We return to this tension in the funding models discussion below and in Book 3, Chapter 30.
+The puzzle, as ecosystem researcher Andrew Nesbitt observes, is that [open source violates nearly every prediction standard market theory makes][nesbitt-invisible-hand]: public goods should be underproduced, yet npm hosts over five million packages; rising demand should raise prices or attract more suppliers, yet single maintainers carry libraries with millions of weekly downloads and over half of tracked packages have exactly one maintainer. Nesbitt's conclusion matters for policy: open source persists as overlapping gift economies and reputation systems rather than markets, which is why purely market-styled fixes (bounties, tokenized rewards) often misdiagnose the problem they claim to solve. We return to this tension in the funding models discussion below and in Book 3, Chapter 30.
 
-The situation parallels what Garrett Hardin famously called the **Tragedy of the Commons** in his [1968 Science article][hardin-1968]. Each individual actor—whether a developer adding a dependency or a company shipping products—makes locally rational decisions that collectively deplete a shared resource. No single company's decision to not contribute is decisive, but the aggregate effect is chronic underinvestment in infrastructure everyone depends on.
+The situation parallels what Garrett Hardin famously called the **Tragedy of the Commons** in his [1968 Science article][hardin-1968]. Each individual actor (whether a developer adding a dependency or a company shipping products) makes locally rational decisions that collectively deplete a shared resource. No single company's decision to not contribute is decisive, but the aggregate effect is chronic underinvestment in infrastructure everyone depends on.
 
 ## Business Models Around Open Source
 
@@ -30,7 +26,7 @@ Despite the free-rider problem, substantial economic activity has developed arou
 
 **Support and services** was the original open source business model, exemplified by Red Hat's approach to Linux. The software is free; customers pay for enterprise support, integration, certification, and security response. Red Hat's acquisition by IBM for $34 billion in 2019 demonstrated this model's viability at scale. However, support-based models work best for complex infrastructure software; a utility library with straightforward usage generates little support revenue.
 
-**Open core** provides a free open source base with proprietary extensions sold commercially. GitLab, Elastic, and MongoDB have pursued variations of this model. The open source project attracts users and contributors, while premium features generate revenue. Tension can arise when companies decide which features belong in which tier—placing security features in paid tiers, for instance, creates problematic incentives.
+**Open core** provides a free open source base with proprietary extensions sold commercially. GitLab, Elastic, and MongoDB have pursued variations of this model. The open source project attracts users and contributors, while premium features generate revenue. Tension can arise when companies decide which features belong in which tier: placing security features in paid tiers, for instance, creates problematic incentives.
 
 **Software as a Service (SaaS)** builds hosted offerings on open source foundations. WordPress.com hosts the open source WordPress; various companies offer managed Kubernetes, PostgreSQL, or Redis services. This model monetizes operational expertise rather than code, but has generated controversy when cloud providers offer managed services based on projects they don't fund, extracting value from maintainers' work without reciprocating.
 
@@ -48,7 +44,7 @@ Companies with mature OSPOs include Google, Microsoft, Meta, Amazon, Netflix, Co
 
 OSPOs can drive meaningful contribution. Google employs maintainers of critical projects (Python, Linux kernel, Kubernetes). Microsoft contributes extensively to projects in its ecosystem and has released significant code as open source. Meta maintains React, Jest, and numerous other widely-used projects.
 
-However, even substantial corporate contribution fails to address the long-tail problem. Large companies contribute to projects they depend on most visibly or where they derive strategic benefit. The thousands of smaller packages in their dependency trees—including security-critical libraries—receive no attention. An OSPO might fund Python core development while ignoring the hundreds of PyPI packages the company's applications actually import.
+However, even substantial corporate contribution fails to address the long-tail problem. Large companies contribute to projects they depend on most visibly or where they derive strategic benefit. The thousands of smaller packages in their dependency trees, including security-critical libraries, receive no attention. An OSPO might fund Python core development while ignoring the hundreds of PyPI packages the company's applications actually import.
 
 Some companies have addressed this through targeted programs. The FOSS Contributor Fund, pioneered by Indeed and adopted by other companies, allocates budget for employees to direct toward open source projects they depend on. Salesforce, Sentry, and others have similar programs. These initiatives demonstrate growing recognition that dependency security requires dependency support, but participation remains limited to a small fraction of companies benefiting from open source.
 
@@ -60,7 +56,7 @@ A variety of mechanisms have emerged to channel funding to maintainers, with var
 
 **Open Collective** provides fiscal hosting for open source projects, handling legal entity requirements and financial administration. Projects like webpack, Babel, and Vue.js have raised significant funds through Open Collective, but success correlates with project visibility rather than project criticality.
 
-**Tidelift** takes a different approach, connecting enterprise subscribers to a curated set of packages whose maintainers commit to security and maintenance standards. Maintainers receive income in exchange for vulnerability response, secure release practices, and documentation. The model addresses the incentive alignment problem—companies pay for security assurances, maintainers are compensated for providing them—but reaches only a small subset of the ecosystem.
+**Tidelift** takes a different approach, connecting enterprise subscribers to a curated set of packages whose maintainers commit to security and maintenance standards. Maintainers receive income in exchange for vulnerability response, secure release practices, and documentation. The model addresses the incentive alignment problem (companies pay for security assurances, maintainers are compensated for providing them) but reaches only a small subset of the ecosystem.
 
 **Foundation funding** from organizations like the Linux Foundation, Apache Software Foundation, and Python Software Foundation supports critical infrastructure projects. The **Sovereign Tech Fund**, backed by the German government, directly funds open source infrastructure maintenance, representing an emerging model of public investment in digital public goods.
 
@@ -68,25 +64,11 @@ A variety of mechanisms have emerged to channel funding to maintainers, with var
 
 Despite these mechanisms, the overall picture remains one of chronic underfunding.
 
-!!! quote "Filippo Valsorda, Cryptographer and Maintainer"
-
-    "Open Source software runs the Internet, and by extension the economy. This is an undisputed fact about reality... And yet, the role of Open Source maintainer has failed to mature from a hobby into a proper profession."
-
-As Filippo Valsorda, a cryptographer and open source maintainer, [wrote in his influential essay "Professional Maintainers"][valsorda-essay]:
+As Filippo Valsorda, a cryptographer and open source maintainer, [wrote in his December 2021 essay "Professional maintainers: a wake-up call"][valsorda-essay]:
 
 > "Open Source software runs the Internet, and by extension the economy. This is an undisputed fact about reality... And yet, the role of Open Source maintainer has failed to mature from a hobby into a proper profession."
 
 ## Why Security Is Particularly Hard to Fund
-
-!!! warning "Why Security Goes Unfunded"
-
-    Security work faces unique funding barriers:
-    
-    - **Invisible when it works**: No obvious benefit vs. neglected packages
-    - **Competes with features**: Features attract users; security rarely does
-    - **Requires specialized skills**: Scarce, expensive, poorly matched to volunteer economics
-    - **Creates liability concerns**: Disclosure may expose maintainers to criticism/risk
-    - **Communal benefits, individual costs**: The free-rider problem is especially acute
 
 Security work faces additional funding challenges beyond general maintenance. Several dynamics make security the least likely aspect of open source to receive investment.
 
@@ -106,7 +88,7 @@ The result is that security work is precisely the maintenance activity least lik
 
 The framing of open source as "free" obscures substantial costs that organizations bear whether or not they recognize them.
 
-**Vulnerability exposure**: Organizations using unsupported packages bear remediation costs when vulnerabilities are discovered. These costs—emergency patching, incident response, breach impacts—dwarf what contribution to maintenance would have cost.
+**Vulnerability exposure**: Organizations using unsupported packages bear remediation costs when vulnerabilities are discovered. These costs (emergency patching, incident response, breach impacts) dwarf what contribution to maintenance would have cost.
 
 **Technical debt**: Unmaintained dependencies accumulate incompatibilities and require increasing effort to update. Organizations eventually face the choice of expensive migration or permanent vulnerability.
 
@@ -114,7 +96,7 @@ The framing of open source as "free" obscures substantial costs that organizatio
 
 **Security program overhead**: Organizations build elaborate programs to monitor dependencies, scan for vulnerabilities, and manage updates—overhead that could be reduced if dependencies were well-maintained in the first place.
 
-These hidden costs often exceed what funding maintenance would require, but they are diffused across time and organizations while maintenance costs are concentrated on maintainers. The economic structure privatizes benefits while socializing costs—exactly the dynamic that public goods theory predicts.
+These hidden costs often exceed what funding maintenance would require, but they are diffused across time and organizations while maintenance costs are concentrated on maintainers. The economic structure privatizes benefits while socializing costs, exactly the dynamic that public goods theory predicts.
 
 Book 3, Chapter 30 explores potential solutions to these economic challenges in greater depth, examining models from government funding to insurance markets to collective action frameworks. For now, the essential insight is that supply chain security cannot be solved through technical measures alone. The economic structures that underfund maintenance generally underfund security specifically, and changing those structures requires engaging with incentives, not just tools.
 

@@ -1,6 +1,6 @@
 # Chapter 15: Red Team and Adversarial Testing
 
-This chapter provides comprehensive guidance on proactively testing software supply chain security through penetration testing, red teaming, tabletop exercises, and adversarial thinking. Unlike traditional application security testing, supply chain security assessment requires targeting build systems, CI/CD pipelines, artifact repositories, and dependency management infrastructure.
+This chapter covers proactively testing software supply chain security through penetration testing, red teaming, tabletop exercises, and adversarial thinking. Unlike traditional application security testing, supply chain security assessment requires targeting build systems, CI/CD pipelines, artifact repositories, and dependency management infrastructure.
 
 The chapter begins with supply chain penetration testing, which differs fundamentally from conventional pen tests by focusing on development infrastructure rather than deployed applications. Key considerations include scoping build systems and registries, testing for dependency confusion vulnerabilities, scanning for exposed secrets, and establishing strict safety rules to prevent unintended downstream impact.
 

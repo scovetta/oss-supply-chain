@@ -6,7 +6,7 @@ icon: "lucide/list-checks"
 
 # 4.2 Threat Modeling Methodologies Applied
 
-Threat modeling methodologies provide structured approaches for identifying what can go wrong. They transform the open-ended question "what threats exist?" into systematic analysis that teams can execute consistently. However, these methodologies were developed primarily for applications and systems under organizational control. Applying them to supply chains requires understanding both the methodology's core approach and how supply chain contexts change what you're looking for. This section demonstrates how established methodologies—STRIDE, PASTA, attack trees, and LINDDUN—can be adapted for supply chain threat modeling.
+Threat modeling methodologies provide structured approaches for identifying what can go wrong. They transform the open-ended question "what threats exist?" into systematic analysis that teams can execute consistently. However, these methodologies were developed primarily for applications and systems under organizational control. Applying them to supply chains requires understanding both the methodology's core approach and how supply chain contexts change what you're looking for. This section demonstrates how established methodologies (STRIDE, PASTA, attack trees, and LINDDUN) can be adapted for supply chain threat modeling.
 
 !!! note "Methodologies Are Thinking Tools"
 
@@ -74,7 +74,7 @@ Mitigations include secret scanning in CI/CD pipelines, secret management system
 
 - **Dependency removal**: A maintainer removing packages (as in left-pad) or an attacker convincing a registry to remove packages can break dependent applications.
 
-- **Build resource exhaustion**: Malicious packages can consume excessive build resources—CPU, memory, network—degrading or preventing legitimate builds.
+- **Build resource exhaustion**: Malicious packages can consume excessive build resources (CPU, memory, network) degrading or preventing legitimate builds.
 
 - **Update storms**: Coordinated publication of many package updates could overwhelm organization's update review processes or automated systems.
 
@@ -104,7 +104,7 @@ PASTA's structured approach is particularly valuable for supply chain analysis b
 
 **Stage 1: Define Objectives** begins with business requirements and security goals. For supply chain threat modeling, objectives might include maintaining software integrity, protecting customer data, ensuring build availability, or meeting regulatory requirements. These objectives shape which supply chain threats matter most.
 
-**Stage 2: Define Technical Scope** identifies what systems and components are included. For supply chains, this includes dependency graphs, build infrastructure, distribution channels, and deployment pipelines—the scope considerations discussed in Section 4.1.
+**Stage 2: Define Technical Scope** identifies what systems and components are included. For supply chains, this includes dependency graphs, build infrastructure, distribution channels, and deployment pipelines: the scope considerations discussed in Section 4.1.
 
 **Stage 3: Application Decomposition** breaks down the system into components and data flows. For supply chains, this produces dependency trees, build pipeline diagrams, and data flow maps showing how code moves from source to production.
 
@@ -246,7 +246,7 @@ This mapping creates bridges between threat modeling and detection engineering, 
 
 No single methodology covers all supply chain threat modeling needs. Selection depends on context:
 
-**Use STRIDE** when you need comprehensive threat enumeration across a system. STRIDE's categories provide broad coverage and are well-understood by security practitioners. Apply STRIDE to each component in your supply chain diagram—dependencies, build systems, registries, deployment pipelines—to generate a thorough threat inventory.
+**Use STRIDE** when you need comprehensive threat enumeration across a system. STRIDE's categories provide broad coverage and are well-understood by security practitioners. Apply STRIDE to each component in your supply chain diagram (dependencies, build systems, registries, deployment pipelines) to generate a thorough threat inventory.
 
 **Use PASTA** when you need to connect threats to business objectives and communicate with non-technical stakeholders. PASTA's structured progression from business context through attack simulation produces findings that translate to business risk language.
 
@@ -263,7 +263,7 @@ No single methodology covers all supply chain threat modeling needs. Selection d
 
 The specific combination matters less than applying structured thinking consistently. Organizations should select methodologies their teams can execute effectively and adapt them to supply chain contexts rather than treating methodology compliance as the goal.
 
-Whatever methodology you select, remember that the output is a living analysis, not a compliance artifact. Supply chains change continuously as dependencies update and new threats emerge. Threat models require regular review and revision to remain relevant—a topic we address in Section 4.5.
+Whatever methodology you select, remember that the output is a living analysis, not a compliance artifact. Supply chains change continuously as dependencies update and new threats emerge. Threat models require regular review and revision to remain relevant, a topic we address in Section 4.5.
 
 [pasta-book]: https://www.wiley.com/en-us/Risk+Centric+Threat+Modeling:+Process+for+Attack+Simulation+and+Threat+Analysis-p-9780470500965
 [linddun]: https://linddun.org/

@@ -12,13 +12,9 @@ This attack represents a fundamental shift in supply chain threats. Traditional 
 
 ## Definition and Origin
 
-!!! info "Slopsquatting Defined"
+The term **slopsquatting** combines "slop", internet slang for low-quality AI-generated content, with "squatting," the practice of claiming valuable names for malicious purposes. Seth Larson, the Python Software Foundation's Security Developer-in-Residence, coined the name, and Andrew Nesbitt, creator of Ecosyste.ms, [popularized it in an April 2025 Mastodon post][nesbitt-slopsquatting] that credited Larson for it, defining it as:
 
-    "Slopsquatting—when an LLM hallucinates a non-existent package name, and a bad actor registers it maliciously. The AI brother of typosquatting." — Andrew Nesbitt
-
-The term **slopsquatting** combines "slop"—internet slang for low-quality AI-generated content—with "squatting," the practice of claiming valuable names for malicious purposes. The term emerged from a conversation between Seth Larson, the Python Software Foundation's Security Developer-in-Residence, and Andrew Nesbitt, creator of Ecosyste.ms. [Nesbitt popularized the term on Mastodon in April 2025][nesbitt-slopsquatting], defining it as:
-
-> "Slopsquatting—when an LLM hallucinates a non-existent package name, and a bad actor registers it maliciously. The AI brother of typosquatting."
+> "Slopsquatting -- when an LLM hallucinates a non-existent package name, and a bad actor registers it maliciously. The AI brother of typosquatting."
 
 The attack leverages a well-documented phenomenon: large language models (LLMs) generate plausible-sounding but non-existent package names when asked to solve programming problems. If attackers can predict which non-existent names AI models will recommend, they can register those names with malicious packages and wait for victims to install them.
 
@@ -36,7 +32,7 @@ For example, when asked to write code for a specific task, an AI might suggest:
 from flask_security_utils import generate_token
 ```
 
-If `flask-security-utils` does not exist on PyPI, this is a hallucination. The name is plausible—it sounds like something that might exist—but the AI has invented it based on patterns rather than referencing an actual package.
+If `flask-security-utils` does not exist on PyPI, this is a hallucination. The name is plausible, it sounds like something that might exist, but the AI has invented it based on patterns rather than referencing an actual package.
 
 Several factors contribute to hallucination:
 
@@ -73,7 +69,7 @@ The Spracklen study found that hallucinated package names showed a bimodal distr
 3. They register these names on public registries
 4. When other developers ask similar questions and receive the same hallucinated recommendations, they install the attacker's packages
 
-This repeatability exists because hallucinations are not truly random—they result from deterministic patterns in model behavior. The same training data biases that cause one developer to receive a hallucinated recommendation will cause other developers with similar prompts to receive the same recommendation.
+This repeatability exists because hallucinations are not truly random: they result from deterministic patterns in model behavior. The same training data biases that cause one developer to receive a hallucinated recommendation will cause other developers with similar prompts to receive the same recommendation.
 
 [Socket.dev research][socket-slopsquatting] highlighted this pattern, identifying specific hallucinated package names that appeared consistently across repeated model runs. Some hallucinated names are therefore more valuable to attackers because they can be elicited predictably.
 
@@ -109,7 +105,7 @@ While slopsquatting shares surface similarities with typosquatting, the underlyi
 
 Typosquatting exploits the gap between what a developer intends to type and what they actually type. Slopsquatting exploits the gap between what developers need and what AI systems recommend.
 
-The distinction matters for defense. Typosquatting detection focuses on edit distance from known legitimate packages. Slopsquatting involves names that are not close to any existing package—they are novel inventions by the AI. Traditional typosquatting detection will not catch them.
+The distinction matters for defense. Typosquatting detection focuses on edit distance from known legitimate packages. Slopsquatting involves names that are not close to any existing package: they are novel inventions by the AI. Traditional typosquatting detection will not catch them.
 
 ## Vibe Coding and Reduced Verification
 
@@ -117,7 +113,7 @@ The distinction matters for defense. Typosquatting detection focuses on edit dis
 
     The convenience that makes AI assistants valuable can also reduce the friction that previously served as a security check. Treat AI-recommended packages as suggestions that still require independent verification.
 
-The slopsquatting risk is amplified by changing developer practices around AI-generated code. The phenomenon of **"vibe coding"**—accepting AI-generated code with minimal review because it "vibes" correctly—reduces the verification that might catch non-existent packages.
+The slopsquatting risk is amplified by changing developer practices around AI-generated code. The phenomenon of **"vibe coding"** (accepting AI-generated code with minimal review because it "vibes" correctly) reduces the verification that might catch non-existent packages.
 
 In traditional development, a developer would:
 
@@ -182,7 +178,7 @@ Package registries face challenges defending against slopsquatting:
 - Registration of potentially millions of names
 - Policy decisions about name reservation without packages
 
-**Reactive removal is the current approach**: Registries currently respond to slopsquatting as they do to other malicious packages—removing them when reported and applying behavioral analysis to detect suspicious publications.
+**Reactive removal is the current approach**: Registries currently respond to slopsquatting as they do to other malicious packages, removing them when reported and applying behavioral analysis to detect suspicious publications.
 
 **Potential future defenses:**
 
@@ -191,7 +187,7 @@ Package registries face challenges defending against slopsquatting:
 - **Namespace policies**: Encouraging use of organizational namespaces that AI systems are less likely to hallucinate
 - **Collaboration with AI providers**: Sharing intelligence about hallucinated names so AI models can be updated to avoid recommending them
 
-Some registries have begun implementing enhanced scrutiny for newly-registered packages that receive immediate downloads—a pattern consistent with slopsquatting attacks where the attacker promotes their malicious package immediately after registration.
+Some registries have begun implementing enhanced scrutiny for newly-registered packages that receive immediate downloads, a pattern consistent with slopsquatting attacks where the attacker promotes their malicious package immediately after registration.
 
 ## Recommendations
 
@@ -209,166 +205,120 @@ Slopsquatting represents a novel threat category that will grow as AI coding ass
 
 6. **Consider AI model selection.** Different AI models have different hallucination rates. Models with better grounding in package registries may reduce (though not eliminate) hallucination risk.
 
-## AI-Generated Slop Reports: Drowning Maintainers in Fake Vulnerabilities
+## AI-Generated Vulnerability Reports: From Slop to Flood
 
-While slopsquatting targets developers consuming AI-generated package recommendations, a parallel threat targets the other side of the ecosystem: open source maintainers receiving security vulnerability reports. **AI-generated slop reports**—invalid vulnerability reports created by AI that describe non-existent security issues—are overwhelming bug bounty programs and maintainer security workflows.
+While slopsquatting targets developers consuming AI-generated package recommendations, a parallel problem hits the other side of the ecosystem: the open source maintainers who receive security vulnerability reports. In 2024 and 2025 that problem was **AI slop reports**, invalid reports generated by language models that describe security issues that do not exist. By 2026 it had turned into something harder to deal with: a flood of AI-assisted reports that are mostly *correct*, arriving faster than small security teams can process them. Both phases matter for supply chain security, because the vulnerability reporting channel is how upstream bugs get fixed before downstream users are exposed.
 
-This problem has escalated dramatically since 2024, with some projects reporting that the majority of their security submissions are now AI-generated slop. The consequences extend beyond wasted time: if maintainers cannot distinguish legitimate vulnerabilities from AI-generated noise, critical security issues may be overlooked, and the entire bug bounty model that has effectively identified vulnerabilities for years may collapse.
+### The Slop Phase (2024–2025)
 
-**The Scale of the Problem:**
+Daniel Stenberg,[^stenberg] creator and lead maintainer of curl,[^curl] became the most visible critic of AI-generated reports. In July 2025 he wrote that about 20% of all submissions to curl's bug bounty that year were AI slop, and that only about 5% of 2025 submissions had turned out to be genuine vulnerabilities.[^stenberg-ai-slop] Each bogus report still had to be handled properly. Stenberg estimated that every report engaged three or four members of curl's seven-person security team, "perhaps for 30 minutes, sometimes up to an hour or three. Each."
 
-Daniel Stenberg,[^stenberg] creator and maintainer of curl,[^curl] one of the world's most widely deployed software components with an estimated 6+ billion installations, has been particularly vocal about the impact of AI slop on security reporting. In 2025, Stenberg reported that:[^stenberg-ai-slop]
+[^stenberg-ai-slop]: Daniel Stenberg, "Death by a Thousand Slops," daniel.haxx.se, July 14, 2025, https://daniel.haxx.se/blog/2025/07/14/death-by-a-thousand-slops/
 
-- Approximately **20% of all security submissions** to curl's bug bounty program were AI-generated slop
-- Only around **5% of submissions in 2025** turned out to be genuine vulnerabilities—a dramatic decline from previous years when legitimate vulnerability rates were much higher
-- The time spent triaging AI-generated fake reports effectively constitutes a **denial-of-service attack** on maintainer time
+Bug bounty platforms saw the same trend. In July 2025, HackerOne's Michiel Prins told TechCrunch the platform had seen a rise in false positives, "vulnerabilities that appear real but are generated by LLMs and lack real-world impact," while Bugcrowd founder Casey Ellis reported an overall increase of about 500 submissions per week and said AI use was widespread but had not yet produced a major spike in slop on that platform.[^techcrunch-slop]
 
-[^stenberg-ai-slop]: Daniel Stenberg, "Death by a Thousand Slops," daniel.haxx.se, July 2025, https://daniel.haxx.se/blog/2025/07/14/death-by-a-thousand-slops/
+[^techcrunch-slop]: Lorenzo Franceschi-Bicchierai, "AI slop and fake reports are exhausting some security bug bounties," TechCrunch, July 24, 2025, https://techcrunch.com/2025/07/24/ai-slop-and-fake-reports-are-exhausting-some-security-bug-bounties
 
-HackerOne,[^hackerone] one of the largest bug bounty platforms, noted they've seen a rise in false positives—vulnerabilities that appear real but are generated by LLMs and lack real-world impact.[^bugbounty-ai] Bugcrowd[^bugcrowd] reported an overall increase of 500 submissions per week, though they indicate AI is widely used in most submissions and hasn't yet caused a significant spike in low-quality slop reports specifically (though this may reflect their triage effectiveness rather than the volume of slop submitted).
+Slop reports were hard to dismiss quickly because they looked plausible. They tended to share a few traits:
 
-[^bugbounty-ai]: HackerOne and Bugcrowd platform observations regarding AI-generated security submissions, 2024-2025.
+- Polished formatting and correct security vocabulary (CWE identifiers, CVSS vectors, OWASP categories)
+- References to functions, files, or code paths that do not exist in the project
+- Reproduction steps that cannot reproduce anything, and patches that do not apply to the real code
+- Occasionally, fabricated or misapplied CVE identifiers
 
-**Characteristics of AI Slop Reports:**
+HackerOne report #3125832 to curl in 2025 is a typical example. It described an exploit in curl's HTTP/3 handling that relied on functions not present in the codebase, with a suggested patch that did not correspond to the actual code.[^curl-slop-report] It took the curl team real effort to confirm that the report described nothing.
 
-AI-generated vulnerability reports are particularly insidious because they **appear legitimate at first glance**. Typical characteristics include:
+The incentives were straightforward. Bounties paid for findings, generating a plausible report required no security skill, and submitting dozens of them cost almost nothing. Stenberg called banning offenders "a rather toothless threat."
 
-1. **Professional-looking writeups**: Well-formatted markdown or HTML with proper headers, sections, and technical terminology
-2. **Technical jargon**: Correct use of security terminology (CVE, CWE, CVSS scores, OWASP categories)
-3. **Plausible vulnerability descriptions**: The AI generates scenarios that sound like real vulnerabilities
-4. **Non-existent functions**: References to functions or code paths that don't exist in the project
-5. **Unverifiable patch suggestions**: Suggested fixes that appear technical but don't address real issues
-6. **Irreproducible vulnerabilities**: Step-by-step reproduction instructions that cannot actually reproduce the claimed issue
-7. **Fabricated CVE references**: Sometimes includes made-up CVE identifiers or misapplied existing CVEs
+### Bug Bounties Pull Back (Late 2025 – 2026)
 
-**Example: Curl Slop Report:**
+Paid bounties were the first casualty. Stenberg announced the end of the curl bug bounty on January 26, 2026, effective January 31. Over its lifetime the program had confirmed 87 vulnerabilities and paid out more than $100,000, but the confirmed rate had fallen from somewhere above 15% in earlier years to below 5% in 2025. Removing the money was meant to "remove the incentives for submitting made up lies."[^curl-bounty-end] GNOME's bug bounty, funded by Germany's Sovereign Tech Agency and run on YesWeHack, paid €183,900 for 71 vulnerabilities before it accepted its last report on February 23, 2026, after its coordinator was overwhelmed by AI-generated submissions.[^catanzaro-gnome] HackerOne paused new submissions to the Internet Bug Bounty, which had funded rewards for many open source projects, on March 27, 2026, citing a growing imbalance between discovery and maintainers' ability to remediate, and Node.js suspended its own bounty after losing that funding.[^ibb-pause] On October 1, 2026, Google stopped accepting product vulnerability reports to its Open Source Software VRP, citing "a significant rise in automated submissions, the vast majority of which are not valid," and promised an update in early 2027.[^google-ossvrp-pause]
 
-In 2025, the curl project received an AI-fabricated vulnerability report via HackerOne (report #3125832).[^curl-slop-report] The report was flagged as AI-generated slop because it:
+[^curl-bounty-end]: Daniel Stenberg, "The end of the curl bug-bounty," daniel.haxx.se, January 26, 2026, https://daniel.haxx.se/blog/2026/01/26/the-end-of-the-curl-bug-bounty/
 
-- Cited nonexistent functions not present in curl's codebase
-- Included unverified patch suggestions that didn't correspond to actual code
-- Described vulnerabilities that couldn't be reproduced following the provided steps
-- Used security terminology correctly but applied it to scenarios that didn't exist
+[^catanzaro-gnome]: Michael Catanzaro, "The Era of Software Quality, or the Era of Ostriches?," October 2, 2026, https://blogs.gnome.org/mcatanzaro/2026/10/02/the-era-of-software-quality-or-the-era-of-ostriches/
 
-Stenberg and the curl team spent significant time investigating before determining the report was invalid—time that could have been spent fixing real vulnerabilities.
+[^ibb-pause]: CSO Online, "Internet Bug Bounty program hits pause on payouts," April 2026, https://www.csoonline.com/article/4154216/internet-bug-bounty-program-hits-pause-on-payouts-2.html
 
-**Why This Is Happening:**
+[^google-ossvrp-pause]: Help Net Security, "AI slop submissions force Google to freeze its open-source bug bounty," October 5, 2026, https://www.helpnetsecurity.com/2026/10/05/google-ai-generated-vulnerability-reports-pause/
 
-Several factors drive the creation of AI slop reports:
+### The Flood Phase (2026)
 
-1. **Bug bounty financial incentives**: Attackers hope AI-generated reports will earn bounties without doing real vulnerability research
-2. **Low barrier to entry**: Generating a plausible-looking report requires no actual security expertise, just access to an AI model
-3. **Volume strategy**: Submitters can generate dozens of reports quickly, hoping some will slip through triage
-4. **Reputation gaming**: On some platforms, even rejected reports contribute to user reputation metrics
-5. **Lack of consequences**: Many platforms don't effectively ban or penalize slop submitters
+Ending the bounty did not reduce curl's workload. After a brief move to GitHub's private reporting, curl returned to HackerOne in March 2026 without paying rewards. In April, Stenberg reported that "the slop situation is not a problem anymore." Report frequency was roughly double the 2025 rate, and the share of confirmed vulnerabilities was back to about 15–16%, at or above the pre-AI level of 2024.[^stenberg-hqchaos] By late May the rate was four to five times higher than in 2024, and Stenberg described spending almost all of his working days on HackerOne.[^stenberg-pressure] In October he summed up the change: "Since spring 2026 the slop reports are practically gone," yet every one of the hundreds of reports received in recent months "had AI involved to some extent." He refused to call them slop, "because the reports are typically accurate and correct, even if much too wordy."[^stenberg-ignore]
 
-**Impact on Open Source Security:**
+[^stenberg-hqchaos]: Daniel Stenberg, "High-Quality Chaos," daniel.haxx.se, April 22, 2026, https://daniel.haxx.se/blog/2026/04/22/high-quality-chaos/
 
-The flood of AI slop reports creates several serious problems:
+[^stenberg-pressure]: Daniel Stenberg, "The pressure," daniel.haxx.se, May 26, 2026, https://daniel.haxx.se/blog/2026/05/26/the-pressure/
 
-**Time drain on maintainers:**
+[^stenberg-ignore]: Daniel Stenberg, "“ignore the slop”," daniel.haxx.se, October 22, 2026, https://daniel.haxx.se/blog/2026/10/22/ignore-the-slop/
 
-- Each report must be triaged, investigated, and validated before rejection
-- Maintainers often spend 30-60 minutes per slop report determining it's fake
-- Time spent on slop is time not spent fixing real vulnerabilities or developing features
-- For volunteer maintainers, this represents an unsustainable burden
+The numbers in curl's releases show what accurate volume looks like. curl 8.21.0 in June 2026 published 18 vulnerabilities, a project record for a single release. curl 8.23.0 in October fixed 24, including a HIGH-severity HTTP/2 use-after-free, only the third HIGH-rated curl CVE since 2021.[^curl-8-21][^curl-8-23] Much of the volume came from AI-assisted auditing. Aisle, which pairs AI tooling with human validation, was credited with 35 published curl CVEs over roughly a year, more than any other group or individual had ever found in the project.[^curl-aisle]
 
-**Erosion of bug bounty effectiveness:**
+[^curl-8-21]: Daniel Stenberg, "curl 8.21.0," daniel.haxx.se, June 24, 2026, https://daniel.haxx.se/blog/2026/06/24/curl-8-21-0/
 
-- Legitimate security researchers may abandon bug bounty platforms frustrated by competition with AI slop
-- Organizations might withdraw from bug bounty programs overwhelmed by invalid submissions
-- The signal-to-noise ratio deteriorates, making it harder to identify real vulnerabilities
-- Platform trust declines as both researchers and projects question the value
+[^curl-8-23]: Daniel Stenberg, "curl 8.23.0," daniel.haxx.se, October 14, 2026, https://daniel.haxx.se/blog/2026/10/14/curl-8-23-0/
 
-**Risk of missed vulnerabilities:**
+[^curl-aisle]: Daniel Stenberg, "A curl audit by Aisle," daniel.haxx.se, October 14, 2026, https://daniel.haxx.se/blog/2026/10/14/a-curl-audit-by-aisle/
 
-- Maintainers experiencing triage fatigue may become less thorough in their reviews
-- Real vulnerabilities buried in slop reports may be dismissed or delayed
-- The diminishing returns on time spent reviewing reports may lead maintainers to abandon formal security reporting channels
+curl was not unusual. GNOME's CVE count went from 37 in 2024 to 97 in 2025 and 141 in the first nine months of 2026, and WebKitGTK reached 305 CVEs in 2026, most of them from AI analysis of the Skia and ANGLE code it bundles.[^catanzaro-gnome] The PHP security team reported publishing 15 CVEs and closing 106 other reports as invalid, duplicate, or not reproducible between July 1 and mid-October 2026.[^php-reports] Pillow's maintainers received 82 reports totaling more than 226,000 words in a single day.[^pillow-reports] The OpenJS Foundation's CNA paused all triage and CVE assignment from September 17 to October 6, 2026, explaining that "AI has lowered the barrier to generating security reports, but not the cost of handling them."[^openjs-cna-break]
 
-**Unearned rewards:**
+[^php-reports]: Alexandre Daubois, "How the PHP Security Team Handles Your Reports," The PHP Foundation, October 14, 2026, https://thephp.foundation/blog/2026/10/14/how-the-php-security-team-handles-your-reports/
 
-- Some AI slop reports slip through initial triage and receive bounty payments
-- This incentivizes more slop generation and demoralizes legitimate researchers
+[^pillow-reports]: Python Pillow, "Update security policy" (pull request #10018), September 2026, https://github.com/python-pillow/Pillow/pull/10018
 
-**Platform and Project Responses:**
+[^openjs-cna-break]: OpenJS Foundation CNA, "The OpenJS Foundation CNA is taking a coordinated break," September 11, 2026, https://openjsf.org/blog/the-openjs-foundation-cna-is-taking-a-coordinated-break
 
-Several approaches are emerging to combat AI slop reports:
+### How Projects Are Adapting
 
-**Curl's approach:**
+Projects have responded by changing their processes rather than trying to filter AI out.
 
-Daniel Stenberg and the curl project implemented strict new requirements in 2025:
+**Pausing intake.** curl stopped accepting vulnerability reports for the entire month of July 2026, the "summer of bliss." Stenberg later called it "possibly our best project decision in a long while"; only one report arrived through a side channel, and no emergency CVE was needed.[^curl-bliss]
 
-1. **Mandatory AI disclosure**: Every HackerOne report must disclose whether AI was used to generate any part of the submission
-2. **Proof-first requirements**: Reports receive immediate skeptical responses demanding proof the vulnerability is genuine before the curl team invests time in verification
-3. **Aggressive follow-up questions**: Suspected slop reports receive a barrage of technical questions that AI-generated responses struggle to answer coherently
-4. **Quick rejection**: Reports that cannot provide concrete proof are rejected rapidly rather than investigated exhaustively
+**Handling minor issues in public.** From October 26, 2026, curl asks reporters to file anything it would rate LOW or MEDIUM as a public GitHub issue. Only HIGH and CRITICAL reports stay private on HackerOne. Stenberg's reasoning was that over 90% of submissions in recent years were assessed below HIGH, that open discussion lets more people check fixes, and that AI-assisted researchers already pick apart fixes as soon as CVEs are announced. The project accepted the tradeoff of a longer public exposure window for issues that, in Stenberg's words, "are not terrible."[^curl-open] Anil Madhavapeddy made a related observation about OCaml's `cohttp`: probes for a path traversal pattern appeared in his logs within minutes of a public fix, and an agent given only a rough description produced a working exploit in under a minute. For open source, he argued, the embargo window has effectively closed.[^rumour-exploit]
 
-**HackerOne's Hai Triage:**
+[^curl-bliss]: Daniel Stenberg, "What the bliss taught us," daniel.haxx.se, August 3, 2026, https://daniel.haxx.se/blog/2026/08/03/what-the-bliss-taught-us/
 
-In response to the slop crisis, HackerOne launched Hai Triage,[^hai-triage] a triaging system combining human expertise with AI assistance to:
+[^curl-open]: Daniel Stenberg, "Do minor curl vulnerabilities in the open," daniel.haxx.se, October 20, 2026, https://daniel.haxx.se/blog/2026/10/20/do-minor-curl-vulnerabilities-in-the-open/
 
-- Flag duplicates more efficiently
-- Identify patterns consistent with AI generation
-- Prioritize legitimate threats
-- Cut through noise before reports reach project maintainers
+[^rumour-exploit]: Anil Madhavapeddy, "Rumour is the exploit," August 2026, https://anil.recoil.org/notes/rumour-is-the-exploit
 
-The system uses "AI security agents" but critically keeps humans in the verification loop to avoid creating an AI-vs-AI escalation.
+**Asking for better reports instead of no AI.** curl, PHP, and Pillow all accept AI-assisted reports if the bug is real. PHP's rule is that "AI-written reports are accepted if the issue reproduces on a PHP build."[^php-reports] Pillow asks reporters to verify LLM findings, deduplicate batches, and check the project's threat model first.[^pillow-reports] Stenberg's guidance asks for a short, human-written first paragraph explaining the problem, a standalone reproducer, a proposed patch where possible, and a reporter who stays available for follow-up.[^curl-excellent] GNOME's Michael Catanzaro went further, urging GNOME maintainers not to ban AI-generated reports: "There is zero hope of maintaining quality software in 2026 without AI vulnerability scanning."[^catanzaro-gnome]
 
-**Best practices emerging across platforms:**
+[^curl-excellent]: Daniel Stenberg, "Do excellent vulnerability reports," daniel.haxx.se, June 29, 2026, https://daniel.haxx.se/blog/2026/06/29/do-excellent-vulnerability-reports/
 
-1. **Require proof-of-concept code**: Demand working exploit code or detailed reproduction steps before serious review
-2. **Video or screenshot evidence**: Require visual proof that the vulnerability can be reproduced
-3. **Technical interview questions**: Ask follow-up questions that require real understanding, not AI pattern matching
-4. **Rapid preliminary triage**: Quickly filter obvious slop before deep investigation
-5. **Reputation systems**: Track submitter history and weight reports accordingly
-6. **AI detection tools**: Some platforms are developing classifiers to identify AI-generated content
-7. **Economic disincentives**: Penalize or ban users who submit multiple slop reports
+**Rate limits and structure.** In October 2026 GitHub added per-user daily rate limits, a repository-level trusted-reporter allowlist, and structured report forms (configured through `.github/VULNERABILITY_REPORT.yml`) to private vulnerability reporting.[^gh-pvr-limits] Tools such as Scrutineer, which Andrew Nesbitt built for Alpha-Omega, take the opposite approach on the reporter side: every model finding passes through verification and a human review gate before anything reaches a maintainer.[^scrutineer]
 
-**Recommendations:**
+[^gh-pvr-limits]: Andrew Nesbitt, "This Week in Package Management: 3 October 2026," https://nesbitt.io/2026/10/03/this-week-in-package-management.html
+
+[^scrutineer]: Andrew Nesbitt, "Scrutineer: scanning open source without flooding maintainers," June 25, 2026, https://nesbitt.io/2026/06/25/scrutineer.html
+
+Chapter 33 covers the broader consequences of AI-driven discovery, including the coalitions and clearinghouses formed in 2026 to absorb it.
+
+### Recommendations
 
 **For maintainers:**
 
-1. **Implement AI disclosure requirements.** Ask reporters to disclose AI usage upfront. This doesn't prevent slop but provides context for review.
+1. **Publish a threat model and a severity policy.** Most invalid or low-value AI reports describe behavior the project already considers out of scope. Writing that down lets you close them by reference.
+2. **Decide what you will handle privately.** curl's split (public for LOW and MEDIUM, private for HIGH and CRITICAL) is one workable model. Embargoes protect little when a public fix can be reverse-engineered in minutes.
+3. **Require reproducers, not AI disclosure alone.** Disclosure is useful context, but a standalone reproducer is what separates a real bug from a fabricated one.
+4. **Use platform controls.** Rate limits, trusted-reporter lists, and structured forms reduce the cost of each report.
+5. **Plan for breaks.** A scheduled pause, announced in advance with an emergency channel for actively exploited issues, is better than burning out mid-year.
 
-2. **Demand proof before investigation.** Don't invest time investigating claims until the reporter provides concrete evidence the vulnerability exists.
+**For security researchers and AI tool operators:**
 
-3. **Develop triage heuristics.** Create a quick checklist to spot likely slop (references nonexistent code, vague reproduction, overly formal writing, etc.).
+1. **Verify before you file.** Run the reproducer yourself. Check the project's threat model and existing issues for duplicates.
+2. **Write for one human reader.** Lead with a short explanation in your own words, then the reproducer, then the patch. Long, bullet-heavy reports cost the maintainer time you could have saved.
+3. **Bring a fix.** A proposed patch, even an imperfect one, moves the work from "find" to "fix," which is where projects are short of capacity.
+4. **Coordinate batches.** If a tool finds dozens of issues in one project, talk to the maintainers about pacing before sending them.
 
-4. **Set response expectations.** Clearly state in SECURITY.md that reports will be triaged and invalid reports will be rejected without extensive feedback.
+**For platforms and funders:**
 
-5. **Use platforms with anti-slop measures.** Consider which bug bounty platforms are actively combating slop when choosing where to run your program.
+1. **Measure verified fixes, not findings.** A program that rewards report volume will get volume.
+2. **Fund remediation alongside discovery.** The bottleneck in 2026 was not finding bugs.
 
-**For security researchers:**
+### The Broader Implications
 
-1. **Distinguish yourself from slop.** Provide concrete proof, working PoC code, clear reproduction steps. Make it obvious your report required real work.
-
-2. **Don't use AI to generate reports.** Even if you found a real vulnerability, AI-generated writeups will be treated with suspicion and may be rejected.
-
-3. **Build reputation over time.** Consistent quality submissions establish trust that helps legitimate reports get proper attention.
-
-4. **Advocate for platform improvements.** Report slop you observe to platforms to help them improve detection and discourage abuse.
-
-**For bug bounty platforms:**
-
-1. **Invest in slop detection.** Develop AI-assisted and human-verified triage to filter slop before it reaches maintainers.
-
-2. **Penalize slop submitters.** Ban or restrict users who repeatedly submit AI-generated fake reports.
-
-3. **Reward quality over quantity.** Adjust reputation and reward systems to discourage volume-based strategies.
-
-4. **Transparency with maintainers.** Share data on slop rates and detection effectiveness so maintainers can make informed decisions.
-
-**The Broader Implications:**
-
-AI slop reports represent a microcosm of broader challenges with AI-generated content:
-
-- **Tragedy of the commons**: Free AI tools enable abuse that degrades shared resources (maintainer time, bug bounty trust)
-- **Detection arms race**: As platforms improve slop detection, slop generators will use more sophisticated AI and techniques
-- **Trust erosion**: Legitimate uses of AI (like helping researchers write clear reports in non-native languages) become suspect
-- **Human bottlenecks**: The solution requires human verification, but human time is the scarce resource being attacked
-
-The vulnerability reporting process has been one of open source security's success stories. AI slop threatens to undermine this critical channel for identifying and fixing security issues. Protecting the security reporting ecosystem requires coordinated action from platforms, researchers, maintainers, and AI providers to ensure that the signal of genuine vulnerabilities isn't drowned in the noise of AI-generated slop.
+The slop problem looked like a filtering problem: separate the fake reports from the real ones. The 2026 flood showed that the deeper issue is capacity. Projects like curl and GNOME are now receiving more valid reports than their volunteer security teams can process, and "ignore the AI reports" is not a safe answer when most of them are right. As Stenberg put it, "we really cannot ignore vulnerability reports."[^stenberg-ignore] For organizations that depend on open source, this means more CVEs per component, more frequent security releases, and more pressure on the patching processes covered in Book 2.
 
 The emergence of slopsquatting and AI slop reports illustrates how new technologies create new attack surfaces. AI coding assistants and AI-powered content generation provide genuine productivity benefits, but they also introduce trust relationships and noise pollution that attackers can exploit. Responsible AI adoption requires acknowledging these risks and implementing appropriate controls. Chapter 10 explores AI-assisted development security in greater depth, including additional considerations beyond slopsquatting.
 
@@ -379,13 +329,7 @@ The emergence of slopsquatting and AI slop reports illustrates how new technolog
 
 [^curl]: curl, https://curl.se/
 
-[^hackerone]: HackerOne, https://www.hackerone.com/
-
-[^bugcrowd]: Bugcrowd, https://www.bugcrowd.com/
-
 [^curl-slop-report]: HackerOne, "Report #3125832," 2025, https://hackerone.com/reports/3125832
-
-[^hai-triage]: HackerOne, "Hai Triage," https://www.hackerone.com/platform/hai
 
 [socket]: https://socket.dev/
 [snyk]: https://snyk.io/
