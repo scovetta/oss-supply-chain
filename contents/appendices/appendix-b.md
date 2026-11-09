@@ -75,6 +75,9 @@ NIST Special Publication 800-218 providing a core set of secure development prac
 **CISA Software Bill of Materials (SBOM) Resources**[^cisa-sbom]
 Official U.S. government guidance on SBOM implementation, including minimum element requirements and sharing practices.
 
+**Alpha-Omega Annual Reports** (Annual)[^ao-reports-appb]
+Grant-by-grant accounts of what funded security work in open source ecosystems produced, with lessons on security staffing, audits, and package registry investment.
+
 **Linux Foundation Census Reports**[^lf-research]
 Research identifying the most critical open source packages, informing where security investments should be prioritized.
 
@@ -95,6 +98,9 @@ Analysis based on audits of commercial codebases, revealing open source usage pa
 
 **Open Source Security Foundation (OpenSSF)**[^openssf]
 The primary cross-industry initiative for improving open source security. Hosts working groups on vulnerability disclosure, supply chain integrity, security tooling, and education. Essential for anyone working in this space.
+
+**Alpha-Omega**[^alpha-omega-appb]
+A Linux Foundation directed fund, associated with OpenSSF, that pays for security staff, audits, and registry hardening in critical open source ecosystems, and since 2026 funds Security Engineers in Residence inside those ecosystems. Its blog and its published tools and guides, such as the Scrutineer scanner and the *Maintainer's Guide to GitHub Security Advisories*, are practical references for maintainers.
 
 **Coalition for Secure AI (CoSAI)**[^cosai]
 OASIS Open Project launched in 2024 to coordinate industry guidance for secure AI systems. Its workstreams cover AI software supply chain security, defender readiness, AI security risk governance, and secure design patterns for agentic systems.
@@ -416,9 +422,13 @@ Commercial vulnerability intelligence with broader coverage than NVD alone.
 
 [^lf-research]: Linux Foundation, "Research," https://www.linuxfoundation.org/research
 
+[^ao-reports-appb]: Alpha-Omega, "Reports," https://alpha-omega.dev/resources/reports/
+
 [^synopsys-ossra]: Synopsys, "Open Source Security and Risk Analysis (OSSRA) Report," https://www.synopsys.com/software-integrity/resources/analyst-reports/open-source-security-risk-analysis.html
 
 [^openssf]: Open Source Security Foundation, "OpenSSF," https://openssf.org
+
+[^alpha-omega-appb]: Alpha-Omega, https://alpha-omega.dev
 
 [^cosai]: Coalition for Secure AI, https://www.coalitionforsecureai.org/
 
