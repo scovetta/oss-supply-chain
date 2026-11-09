@@ -16,7 +16,7 @@ A practical guide to understanding, protecting, and governing the open source so
 | Understanding the Software Supply Chain | Protecting the Software Supply Chain | Governing the Software Supply Chain |
 |:-:|:-:|:-:|
 | [![Book 1 Cover - Understanding the Software Supply Chain](../book1/cover-front.png)](book1) | [![Book 2 - Protecting the Software Supply Chain](../book2/cover-front.png)](book2) | [![Book 3 - Governing the Software Supply Chain](../book3/cover-front-640.png)](book3) |
-| [ [Read Online](book1) ]<br/>[ [Download PDF](https://github.com/scovetta/oss-supply-chain/releases/download/v2026.08.02/book-1-understanding-the-software-supply-chain.pdf) ] | [ [Read Online](book2) ]<br/>[ [Download PDF](https://github.com/scovetta/oss-supply-chain/releases/download/v2026.08.02/book-2-protecting-the-software-supply-chain.pdf) ] | [ [Read Online](book3) ]<br/>[ [Download PDF](https://github.com/scovetta/oss-supply-chain/releases/download/v2026.08.02/book-3-governing-the-software-supply-chain.pdf) ]|
+| [ [Read Online](book1) ]<br/>[ [Download PDF](https://github.com/scovetta/oss-supply-chain/releases/download/v2026.11.09/book-1-understanding-the-software-supply-chain.pdf) ] | [ [Read Online](book2) ]<br/>[ [Download PDF](https://github.com/scovetta/oss-supply-chain/releases/download/v2026.11.09/book-2-protecting-the-software-supply-chain.pdf) ] | [ [Read Online](book3) ]<br/>[ [Download PDF](https://github.com/scovetta/oss-supply-chain/releases/download/v2026.11.09/book-3-governing-the-software-supply-chain.pdf) ]|
 
 </div>
 
@@ -43,7 +43,7 @@ How software is actually built today, who maintains it, and how attackers exploi
 
 [Start Reading Book 1](book1/)
 
-[Download PDF](https://github.com/scovetta/oss-supply-chain/releases/download/v2026.08.02/book-1-understanding-the-software-supply-chain.pdf)
+[Download PDF](https://github.com/scovetta/oss-supply-chain/releases/download/v2026.11.09/book-1-understanding-the-software-supply-chain.pdf)
 
 ---
 
@@ -59,7 +59,7 @@ Defenses across the development lifecycle, from choosing a dependency to running
 
 [Start Reading Book 2](book2/)
 
-[Download PDF](https://github.com/scovetta/oss-supply-chain/releases/download/v2026.08.02/book-2-protecting-the-software-supply-chain.pdf)
+[Download PDF](https://github.com/scovetta/oss-supply-chain/releases/download/v2026.11.09/book-2-protecting-the-software-supply-chain.pdf)
 
 ---
 
@@ -75,7 +75,7 @@ The people, money, and rules behind supply chain security: training, maintainers
 
 [Start Reading Book 3](book3/)
 
-[Download PDF](https://github.com/scovetta/oss-supply-chain/releases/download/v2026.08.02/book-3-governing-the-software-supply-chain.pdf)
+[Download PDF](https://github.com/scovetta/oss-supply-chain/releases/download/v2026.11.09/book-3-governing-the-software-supply-chain.pdf)
 
 ---
 
